@@ -87,7 +87,8 @@ def storeScreen_redrawAll(app, canvas):
 #start screen mode
 ###############################################
 def startScreen_keyPressed(app, event):
-    pass
+    if event.key == 'y':
+        print('change')
 
 def startScreen_mouseReleased(app, event):
     # start button
