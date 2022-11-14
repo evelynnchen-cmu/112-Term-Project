@@ -10,7 +10,6 @@ from inventory import *
 from helpers import *
 
 import time
-print("hi")
 
 ###############################################
 #shop screen mode
