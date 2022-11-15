@@ -9,8 +9,6 @@ from store import *
 from inventory import *
 from helpers import *
 
-import time
-
 ###############################################
 #shop screen mode
 ###############################################
@@ -29,9 +27,7 @@ def shopScreen_redrawAll(app, canvas):
     app.shop.drawBckg(app, canvas)
     
 def shopScreen_timerFired(app):
-    print(app.customer.order)
-    app.customer.waitTime -= 1
-    print(app.customer.waitTime)
+    timerFired(app)
     
 ###############################################
 #kitchen screen mode
@@ -49,6 +45,9 @@ def kitchenScreen_mouseReleased(app, event):
 
 def kitchenScreen_redrawAll(app, canvas):
     app.kitchen.drawBckg(app, canvas)
+    
+def kitchenScreen_timerFired(app):
+    timerFired(app)
 
 ###############################################
 #evaluation screen mode
@@ -63,6 +62,9 @@ def evaluationScreen_mouseReleased(app, event):
 
 def evaluationScreen_redrawAll(app, canvas):
     app.evaluation.drawBckg(app, canvas)
+    
+def evaluationScreen_timerFired(app):
+    timerFired(app)
 
 ###############################################
 #store screen mode
@@ -83,18 +85,19 @@ def storeScreen_redrawAll(app, canvas):
     app.store.drawInventory(app, canvas)
     app.store.drawOptions(app, canvas)
 
+def storeScreen_timerFired(app):
+    timerFired(app)
+
 ###############################################
 #start screen mode
 ###############################################
 def startScreen_keyPressed(app, event):
-    if event.key == 'y':
-        print('change')
+    pass
 
 def startScreen_mouseReleased(app, event):
     # start button
     if isValidClick(event.x, event.y, app.startBtnDms):
         app.mode = 'shopScreen'
-        app.gameStartTime = time.time()
         app.player.playGame(app)
 
 def startScreen_redrawAll(app, canvas):
@@ -104,10 +107,33 @@ def startScreen_redrawAll(app, canvas):
 #main app
 ###############################################
 
+def playGame(app):
+    pass
+    
+
+def timerFired(app):
+    # print(app.customer.order)
+
+    app.customer1.waitTime += 1
+    # print(app.customer.waitTime)
+    
+
 def appStarted(app): 
     app.startBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)
     app.mode = 'startScreen'
     app.timerDelay = 1000
+    
+    app.day1 = Day(app)
+    app.day2 = Day(app)
+    app.day3 = Day(app)
+    app.day4 = Day(app)
+    app.day5 = Day(app)
+    app.day6 = Day(app)
+    app.day7 = Day(app)
+    
+    app.days = [app.day1, app.day2, app.day3, app.day4, app.day5, app.day6, app.day7]
+    app.currentDay = 0
+    
     app.player = Player(app)
     app.shop = Shop(app)
     app.kitchen = Kitchen(app)
@@ -116,6 +142,6 @@ def appStarted(app):
     app.inventory = Inventory(app)
     
     #will not act be here
-    app.customer = Customer(app)
+    app.customer1 = Customer(app)
 
 runApp(width=1000, height=600)

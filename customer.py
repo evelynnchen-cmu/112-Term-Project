@@ -19,3 +19,8 @@ class Customer():
         randomInt = random.randint(0, len(app.inventory.milkOPTIONS)-1)
         self.order.append(app.inventory.milkOPTIONS[randomInt])
         
+    def drawCustomer(self, app, canvas):
+        cx, cy = 200, 400
+        r = 10
+        canvas.create_oval(cx-r, cy-r, cx+r, cy+r)
+        

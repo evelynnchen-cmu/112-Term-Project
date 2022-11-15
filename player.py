@@ -4,5 +4,6 @@ class Player():
         self.currentDay = 1
         
     def playGame(self, app):
-        app.day = Day(self.currentDay)
+        pass
+        #app.day = Day(self.currentDay)
         
