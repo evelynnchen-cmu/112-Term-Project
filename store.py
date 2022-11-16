@@ -1,4 +1,4 @@
-from helpers import *
+from classes import *
 ###################################
 #view
 ###################################
@@ -12,7 +12,7 @@ def storeScreen_redrawAll(app, canvas):
     canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, 
                                                 fill='black', width=3)
     #day
-    canvas.create_text(50, 30, text=f'Day: {app.currentDay}', font='Arial 25 bold')
+    canvas.create_text(50, 30, text=f'Day: {app.currentDayIndex}', font='Arial 25 bold')
     #money
     canvas.create_text(250, 30, text=f'Money: ${app.money}', font='Arial 25 bold')
     
@@ -128,5 +128,10 @@ def storeScreen_mouseReleased(app, event):
     if isValidClick(event.x, event.y, (375, 325, 500, 425)):
         app.suppliesInventory["seals"] += 20
         app.money -= 20
+        
+def storeScreen_timerFired(app):
+    checkIfGameOver(app)
+    checkIfDayOver(app)
+    
     
         

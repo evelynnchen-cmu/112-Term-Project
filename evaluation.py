@@ -1,4 +1,4 @@
-from helpers import *
+from classes import *
 
 ###################################
 #view
@@ -29,3 +29,9 @@ def evaluationScreen_mouseReleased(app, event):
     # done button
     if isValidClick(event.x, event.y, app.eval_doneBtnDms):
         app.mode = 'shopScreen'
+        
+def evaluationScreen_timerFired(app):
+    checkIfGameOver(app)
+    checkIfDayOver(app)
+    
+    

@@ -1,23 +1,27 @@
 from cmu_112_graphics import *
 from classes import *
 from start import *
+from dayOver import *
+from gameOver import *
 from shop import *
 from kitchen import *
 from evaluation import *
 from store import *
-from helpers import *
 
 ###################################
 #controller
 ###################################
+
 def appStarted(app): 
     
     app.mode = 'startScreen'
     app.timerDelay = 1000
     app.money = 0
+    app.difficulty = 'easy'
     
     #initiailize days
-    app.currentDay = 1
+    app.currentDay = Day(app.difficulty)
+    app.currentDayIndex = 1
     
     #drink stuff
     app.curCustDrink = dict()
@@ -40,7 +44,7 @@ def appStarted(app):
     app.toppingsInventory = {"tapioca": 20, "aloe_jelly": 20, "red_bean":20, "pudding": 20}
     app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20}
         
-        #never change
+    #never change
     app.teaOPTIONS = ['black', 'green', 'oolong']
     app.toppingsOPTIONS = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding']
     app.sugarOPTIONS = ['100%_sugar', '75%_sugar', '50%_sugar', '25%_sugar', '0%_sugar']
@@ -60,6 +64,10 @@ def appStarted(app):
     app.eval_doneBtnDms = (800, 525, 950, 575)
     
     app.store_doneBtnDms = (800, 525, 950, 575)
+    
+    app.dayOver_nextDayBtnDms = (800, 525, 950, 575)
+    
+    app.gameOver_restartBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)
     
     #images
     app.tipsJar = app.loadImage('./assets/tips_jar.png')

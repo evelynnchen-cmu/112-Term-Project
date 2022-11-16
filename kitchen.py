@@ -1,4 +1,4 @@
-from helpers import *
+from classes import *
 
 ###################################
 #view
@@ -22,4 +22,9 @@ def kitchenScreen_mouseReleased(app, event):
     # eval button
     elif isValidClick(event.x, event.y, app.kitchen_evalBtnDms):
         app.mode = 'evaluationScreen'
+        
+def kitchenScreen_timerFired(app):
+    checkIfGameOver(app)
+    checkIfDayOver(app)
+    
         
