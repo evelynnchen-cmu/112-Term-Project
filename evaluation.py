@@ -1,10 +1,10 @@
 from helpers import *
 
-
+###################################
 #view
+###################################
 def evaluationScreen_redrawAll(app, canvas):
     tipsJarLarge = scaleImage(app, app.tipsJar, (200, 200))
-    canvas.create_text(app.width/2, app.height/2, text="evaluation screen")
         
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
@@ -21,8 +21,10 @@ def evaluationScreen_redrawAll(app, canvas):
     #drink
         
     drawButton(canvas, app.eval_doneBtnDms, 'Done')
-    
+
+###################################    
 #controller
+###################################
 def evaluationScreen_mouseReleased(app, event):
     # done button
     if isValidClick(event.x, event.y, app.eval_doneBtnDms):

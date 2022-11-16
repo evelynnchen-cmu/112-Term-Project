@@ -1,8 +1,9 @@
 from helpers import *
 
+###################################
 #view
+###################################
 def kitchenScreen_redrawAll(app, canvas):
-    canvas.create_text(app.width/2, app.height/2, text="kitchen screen")
         
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
@@ -11,7 +12,9 @@ def kitchenScreen_redrawAll(app, canvas):
     drawButton(canvas, app.kitchen_storeBtnDms, 'Store')
     drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
     
+###################################
 #controller
+###################################
 def kitchenScreen_mouseReleased(app, event):
     # store button
     if isValidClick(event.x, event.y, app.kitchen_storeBtnDms):

@@ -2,8 +2,11 @@
 import random
 
 class Day():
-    def __init__(self, app):
-        pass
+    def __init__(self, neededAccuracy):
+        self.dayTime = 120
+        self.neededAccuracy = neededAccuracy
+        
+        
 
 class Customer():
     def __init__(self, app):

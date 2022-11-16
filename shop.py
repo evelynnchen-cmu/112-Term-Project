@@ -1,12 +1,12 @@
 from helpers import *
 
+###################################
 #view
+###################################
 def shopScreen_redrawAll(app, canvas):
     
     #put in main these below
     tipsJarSmall = scaleImage(app, app.tipsJar, (100, 100))
-        
-    canvas.create_text(app.width/2, app.height/2, text="shop screen")
         
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
@@ -36,8 +36,10 @@ def shopScreen_redrawAll(app, canvas):
     drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
     drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
     drawButton(canvas, app.shop_storeBtnDms, 'Store')
-    
+
+###################################    
 #controller
+###################################
 def shopScreen_mouseReleased(app, event):
     # kitchen button
     if isValidClick(event.x, event.y, app.shop_kitchenBtnDms):
