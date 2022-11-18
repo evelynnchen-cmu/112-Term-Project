@@ -12,11 +12,12 @@ def storeScreen_redrawAll(app, canvas):
     canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, 
                                                 fill='black', width=3)
     #day
-    canvas.create_text(50, 30, text=f'Day: {app.currentDayIndex}', font='Arial 25 bold')
+    drawDayProgBar(app, canvas)
     #money
-    canvas.create_text(250, 30, text=f'Money: ${app.money}', font='Arial 25 bold')
+    canvas.create_text(600, 30, text=f'Money: ${app.money}', font='Arial 25 bold')
     
     drawButton(canvas, app.eval_doneBtnDms, 'Done')
+    
     
     #!items
     #toppings

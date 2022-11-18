@@ -29,8 +29,8 @@ def gameOverScreen_mouseReleased(app, event):
         app.teaInventory = {"black_tea": 20, "green_tea": 20, "oolong_tea": 20}
         app.toppingsInventory = {"tapioca": 20, "aloe_jelly": 20, "red_bean":20, "pudding": 20}
         app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20}
-        
-        app.currentDay = Day(app.difficulty)
-        #reset current day
-        app.currentDayIndex = 1
+
+        app.currentDay = Day(app.dayLength, app.difficulty)
+        #reset day count
+        app.dayIndex = 1
         app.mode = 'shopScreen'

@@ -20,8 +20,9 @@ def appStarted(app):
     app.difficulty = 'easy'
     
     #initiailize days
-    app.currentDay = Day(app.difficulty)
-    app.currentDayIndex = 1
+    app.dayLength = 120 #should be 120
+    app.currentDay = Day(app.dayLength, app.difficulty)
+    app.dayIndex = 1
     
     #drink stuff
     app.curCustDrink = dict()

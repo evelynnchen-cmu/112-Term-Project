@@ -1,10 +1,12 @@
-#classes
 from cmu_112_graphics import *
 import random
 
+###################################
+#classes
+###################################
 class Day():
-    def __init__(self, neededAccuracy):
-        self.dayTime = 5 #should be 120
+    def __init__(self, dayLength, neededAccuracy):
+        self.dayTime = dayLength
         self.neededAccuracy = neededAccuracy
         print(self.neededAccuracy)
         
@@ -22,10 +24,10 @@ class Customer():
         self.order.append(random.randomchoice(app.iceOPTIONS))
         self.order.append(random.randomchoice(app.milkOPTIONS))
 
+###################################
 #functions
+###################################
 def checkIfDayOver(app):
-    # if app.currentDayIndex > 7:
-    #     app.mode = 'gameOverScreen'
     if app.currentDay.dayTime == 0:
         app.mode = 'dayOverScreen'
     else:
@@ -34,17 +36,26 @@ def checkIfDayOver(app):
 
 def checkIfGameOver(app):
     #check lose condition too
-    if app.currentDayIndex > 7:
+    if app.dayIndex > 7:
         app.mode = 'gameOverScreen'
 
 def startNewDay(app):
     if app.money < 0:
         app.difficulty = 'baby'
-    app.currentDay = Day(app.difficulty)
-    app.currentDayIndex += 1
-   
-#helpers
+    app.currentDay = Day(app.dayLength, app.difficulty)
+    app.dayIndex += 1
+    
+def drawDayProgBar(app, canvas):
+    
+    canvas.create_rectangle(15, 10, 502, 50, width=3)
+    daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
+    canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
+    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
+    
 
+###################################   
+#helpers
+###################################
 def drawButton(canvas, dimensionTuple, buttonName):
     x0, y0, x1, y1 = dimensionTuple
     buttonWidth = abs(x0-x1)
