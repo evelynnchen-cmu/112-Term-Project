@@ -11,8 +11,8 @@ def evaluationScreen_redrawAll(app, canvas):
                                                 fill='black', width=3)
         
     #counter
-    canvas.create_line(0, 500, 750, 500, fill='black', width=3)
-    canvas.create_rectangle(0, 500, 750, 600, fill='bisque2')
+    canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
+    canvas.create_rectangle(0, app.height*(5/6), app.width*(3/4), app.height, fill='bisque2')
         
     #tips jar
     canvas.create_image(600, 400, 

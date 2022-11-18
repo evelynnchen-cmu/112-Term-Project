@@ -7,7 +7,8 @@ from shop import *
 from kitchen import *
 from evaluation import *
 from store import *
-
+#?code structure inspired by Vania Halim's term project:
+#? https://github.com/vaniahalim/15112-TP
 ###################################
 #controller
 ###################################
@@ -15,9 +16,10 @@ from store import *
 def appStarted(app): 
     
     app.mode = 'startScreen'
-    app.timerDelay = 1000
+    app.timerDelay = 1
     app.money = 0
     app.difficulty = 'easy'
+    app.msCounter = 0
     
     #initiailize days
     app.dayLength = 120 #should be 120
@@ -55,12 +57,28 @@ def appStarted(app):
     #buttons
     app.start_startBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)
     
-    app.shop_takeOrderBtnDms = (25, 412.5, 175, 462.5)
+    
+    app.shop_takeOrderBtnDms = (app.width*(1/40), app.height*(.6875), 
+        app.width*(.175), app.height*(.77))
+    # app.shop_takeOrderBtnDms = (app.width*(1/40), app.height*(2/3) + app.height*(1/48), 
+    #     app.width*(1/10) + app.width*(3/40), app.height*(2/3) + app.height*(1/12) + app.height*(1/48))
     app.shop_kitchenBtnDms = (575, 525, 725, 575)
     app.shop_storeBtnDms = (25, 525, 175, 575)
     
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
+  
+    
+    #ice
+    app.kitchen_100iceBtnDms = (25, 50, 110, 100)
+    app.kitchen_75iceBtnDms = (125, 50, 210, 100)
+    app.kitchen_50iceBtnDms = (25, 110, 110, 160)
+    app.kitchen_25iceBtnDms = (125, 110, 210, 160)
+    
+    #milk
+    app.kitchen_wholeMilkBtnDms = (550, 50, 612.5, 100)
+    app.kitchen_2pMilkBtnDms = (650, 50, 712.5, 100)
+    app.kitchen_skimMilkBtnDms = (600, 115, 662.5, 165)
     
     app.eval_doneBtnDms = (800, 525, 950, 575)
     
@@ -71,11 +89,17 @@ def appStarted(app):
     app.gameOver_restartBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)
     
     #images
+    #?taken from https://www.freepik.com/premium-vector/tip-jar-semi-flat-color-vector-
+    #?object_21941243.htm#page=2&query=tip%20jar&position=11&from_view=keyword
     app.tipsJar = app.loadImage('./assets/tips_jar.png')
+    #?taken from https://www.kungfutea.com/our-toppings
     app.tapioca = app.loadImage('./assets/tapioca.png')
     app.aloeJelly = app.loadImage('./assets/aloe_jelly.png')
     app.redBean = app.loadImage('./assets/red_bean.png')
     app.pudding = app.loadImage('./assets/pudding.png')
+    #?drawn by myself on OneNote with reference to 
+    #?https://www.redbubble.com/es/i/pegatina/Jim-s-Green-Tea-Pot-to-Pam-Kettle-imagen-con-
+    #? t%C3%ADtulo-La-oficina-de-zdoehling/35745797.EJUG5
     app.greenTea = app.loadImage('./assets/green_tea.png')
     app.blackTea = app.loadImage('./assets/black_tea.png')
     app.oolongTea = app.loadImage('./assets/oolong_tea.png')

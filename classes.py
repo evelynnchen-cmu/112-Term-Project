@@ -28,11 +28,15 @@ class Customer():
 #functions
 ###################################
 def checkIfDayOver(app):
+    app.msCounter += app.timerDelay
     if app.currentDay.dayTime == 0:
+        app.msCounter = 0
         app.mode = 'dayOverScreen'
     else:
-        app.currentDay.dayTime -= 1
-        print(app.currentDay.dayTime)
+        if app.msCounter % 1000 == 0:
+            app.currentDay.dayTime -= 1
+            app.msCounter = 0
+            print(app.currentDay.dayTime)
 
 def checkIfGameOver(app):
     #check lose condition too

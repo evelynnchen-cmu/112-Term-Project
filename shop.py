@@ -21,8 +21,8 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_text(600, 30, text=f'Money: ${app.money}', font='Arial 25 bold')
         
     #counter
-    canvas.create_line(0, 400, 750, 400, fill='black', width=3)
-    canvas.create_rectangle(0, 400, 750, 600, fill='bisque2')
+    canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
+    canvas.create_rectangle(0, app.height*(2/3), app.width*(3/4), app.height, fill='bisque2')
         
     #cash register
     canvas.create_rectangle(25, 325, 125, 385, fill='black')
