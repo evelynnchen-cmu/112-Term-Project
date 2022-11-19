@@ -14,11 +14,15 @@ def kitchenScreen_redrawAll(app, canvas):
     #cup
     canvas.create_line(250, 200, 250, 500, width=3)
     canvas.create_line(500, 200, 500, 500, width=3)
+    canvas.create_line(250, 500, 500, 500, width=3)
+    canvas.create_line(250, 200, 500, 200, width=3)
+    
+    #!to make 3D maybe later
     #adapted from hw9 https://www.cs.cmu.edu/~112/notes/hw9.html
-    canvas.create_arc(250, 525, 500, 475, width=3, style='arc', extent=-180)
-    r=50
-    canvas.create_oval(app.width*.375-r*2.5, app.height*(1/3)-r*.5, 
-                            app.width*.375+r*2.5, app.height*(1/3)+r*.5, width=3)
+    # canvas.create_arc(250, 525, 500, 475, width=3, style='arc', extent=-180)
+    # r=50
+    # canvas.create_oval(app.width*.375-r*2.5, app.height*(1/3)-r*.5, 
+    #                         app.width*.375+r*2.5, app.height*(1/3)+r*.5, width=3)
     
     #pour button
     if app.curIngName != 'None':
@@ -85,73 +89,24 @@ def drawDrink(app, canvas):
     y1 = 500
     
     for ing in app.madeDrinkList:
+        
+        #fill bottom arc
+        # if ing == app.madeDrinkList[0]:
+            
+        
         color = getIngColor(app, ing)
-        pressLen = app.madeDrinkDict[ing]*25
-        #!problem
+        pressLen = app.madeDrinkDict[ing]*15
+        y1 = y0
         if ing == app.madeDrinkList[-1]:
             if app.isPressed:
-                y1 = y0
-                y0 -= (time.time() - app.startPress)*10
+                #?learned about time module from 
+                #?https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
+                y0 -= (time.time() - app.startPress)*15
                 canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-            # else:
-            #     canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-        #!end of problem
-        y1 = y0
+        
         y0 -= pressLen
         canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
         
-        # color = getIngColor(app, ing)
-        # pressLen = app.madeDrinkDict[ing]*25
-        # if ing == app.madeDrinkList[-1]:
-        #     if app.isPressed:
-        #         y0 -= (time.time() - app.startPress)*10
-        #         canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-        #     else:
-        #         canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-        # y1 = y0
-        # y0 -= pressLen
-        # canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-    
-    # oldY0, oldY1 = 500, 500
-    # for ing in app.madeDrinkList:
-    #     # print(app.madeDrinkList)
-    #     # print(app.madeDrinkDict)
-    #     color = getIngColor(app, ing)
-    #     pressLen = app.madeDrinkDict[ing]*25
-    #     y1 = oldY1
-        
-    #     if ing == app.madeDrinkList[-1]:
-            
-    #         if app.isPressed:
-    #             y0 = oldY0
-    #             y0 -= (time.time() - app.startPress)*10
-    #             # y0 = oldY0 - (time.time() - app.startPress)*10
-    #             oldY0 =y0
-    #             canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-    #         else:
-    #             y0 = oldY0
-    #             # canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-    #             # y0 = oldY0-pressLen
-    #             y1 = y0
-    #             # y1 = oldY1
-    #             canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-    #             oldY1 = y0
-    #             oldY0 -= pressLen
-    #     else:
-    #         # y0 = oldY1-pressLen
-            
-    #         # canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-
-    #         y0 = oldY0-pressLen
-    #         y1 = oldY1
-    #         canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-    #         oldY1 = y0
-    #         oldY0 -= pressLen
-        
-    #     # oldY1 = y0
-    #     # oldY0 = y1
-    #     # oldY0 -= pressLen
-
 ###################################
 #controller
 ###################################
@@ -162,7 +117,9 @@ def kitchenScreen_mouseReleased(app, event):
         app.mode = 'storeScreen'
     # eval button
     elif isValidClick(x, y, app.kitchen_evalBtnDms):
+        evaluateDrink(app)
         app.mode = 'evaluationScreen'
+        
     # red bean button
     elif isValidClick(x, y, (30, 253, 120, 347)) and 'red_bean' not in app.madeDrinkList:
         app.curIngName = 'Red Bean'
@@ -261,14 +218,14 @@ def kitchenScreen_mouseReleased(app, event):
         print(f'cupFullness: {app.cupFullness}')
         app.isPressed = False
         #check if cup full
-        if app.cupFullness > 12:
+        if app.cupFullness > 20:
             app.cupFullness -= app.lenOfPress
             app.madeDrinkList.remove(app.curIng)
             # del app.madeDrinkDict[app.curIng]
         else:
             app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfPress
             app.curIngName = 'None'
-            # print(app.madeDrinkDict)
+            print(app.madeDrinkDict)
         
         
 def kitchenScreen_mousePressed(app, event):

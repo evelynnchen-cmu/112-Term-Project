@@ -7,7 +7,7 @@ from shop import *
 from kitchen import *
 from evaluation import *
 from store import *
-#?code structure inspired by Vania Halim's term project:
+#?code/file structure inspired by Vania Halim's term project:
 #? https://github.com/vaniahalim/15112-TP
 ###################################
 #controller
@@ -15,23 +15,27 @@ from store import *
 
 def appStarted(app): 
     
+    #?learned about modes from 
+    #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
     app.mode = 'startScreen'
     app.timerDelay = 100
     app.money = 0
-    app.difficulty = 'easy'
+    
+    #will change depending on how good the user is
+    app.neededAccuracy = 70
     
     #initiailize days
     app.dayLength = 1200 #should be 120 seconds
-    app.currentDay = Day(app.dayLength, app.difficulty)
+    app.currentDay = Day(app.dayLength, app.neededAccuracy)
     app.dayIndex = 1
     
     #drink stuff
     app.curIng = ''
     app.curIngName = 'None'
-    app.curCustDrink = {'tapioca':400, 'black_tea': 400, '50%_sugar':200, '50%_ice':200, 'whole': 400} # dict()
+    app.curCustDrink = ['tapioca', '50%_sugar', '50%_ice', 'whole', 'black_tea']
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
-    app.correctDrink = dict()
+    app.correctDrinkDict = dict()
     app.startPress = 0
     app.lenOfPress = 0
     app.cupFullness = 0 #adding up timer
@@ -40,10 +44,7 @@ def appStarted(app):
     #evaluating
     app.correctIng = 0
     app.correctProportions = 0 
-    app.drinkAccuracy = 0
-    
-    #will change depending on how good the user is
-    app.neededAccuracy = 70 
+    app.drinkAccuracy = 0 
     
     #running total of all the user's accuracies
     app.totalAccuracy = 0
@@ -53,12 +54,22 @@ def appStarted(app):
     app.toppingsInventory = {"tapioca": 20, "aloe_jelly": 20, "red_bean":20, "pudding": 20}
     app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20, "milk": 20, "sugar":20}
         
-    #never change
-    app.teaOPTIONS = ['black_tea', 'green_tea', 'oolong_tea']
+    #ing options for randomizing
     app.toppingsOPTIONS = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding']
     app.sugarOPTIONS = ['100%_sugar', '75%_sugar', '50%_sugar', '25%_sugar', '0%_sugar']
     app.iceOPTIONS = ['100%_ice', '75%_ice', '50%_ice', '25%_ice', '0%_ice']
     app.milkOPTIONS = ['whole', '2%', 'skim']
+    app.teaOPTIONS = ['black_tea', 'green_tea', 'oolong_tea']
+    app.OPTIONS = [app.toppingsOPTIONS, app.sugarOPTIONS, app.iceOPTIONS, app.milkOPTIONS, app.teaOPTIONS]
+    
+    #ing proper times
+    #!tea don't have specific time bc it'll be whatevers left in the cup
+    app.toppingsTime = {'tapioca': 3, 'aloe_jelly': 3, 'red_bean': 3, 'pudding': 3}
+    app.sugarTime = {'100%_sugar': 2, '75%_sugar': 1.5, '50%_sugar': 1, '25%_sugar': .5, '0%_sugar': 0}
+    app.iceTime = {'100%_ice': 2, '75%_ice': 1.5, '50%_ice': 1, '25%_ice': .5, '0%_ice': 0}
+    app.milkTime = {'whole': 3, '2%': 3, 'skim': 3}
+    app.times = [app.toppingsTime, app.sugarTime, app.iceTime, app.milkTime]
+    
     
     #buttons
     app.start_startBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)

@@ -18,16 +18,13 @@ class Customer():
         self.waitTime = 0
         
     def makeRandomOrder(self, app):
-        self.order.append(random.randomchoice(app.teaOPTIONS))
-        self.order.append(random.randomchoice(app.teaOPTIONS))
-        self.order.append(random.randomchoice(app.toppingsOPTIONS))
-        self.order.append(random.randomchoice(app.sugarOPTIONS))
-        self.order.append(random.randomchoice(app.iceOPTIONS))
-        self.order.append(random.randomchoice(app.milkOPTIONS))
+        for i in range(5):
+            self.order.append(random.randomchoice(app.OPTIONS[i]))
 
 ###################################
 #functions
 ###################################
+#entire game
 def checkIfDayOver(app):
     if app.currentDay.dayTime == 0:
         app.mode = 'dayOverScreen'
@@ -42,10 +39,11 @@ def checkIfGameOver(app):
 
 def startNewDay(app):
     if app.money < 0:
-        app.difficulty = 'baby'
-    app.currentDay = Day(app.dayLength, app.difficulty)
+        app.neededAccuracy = 60
+    app.currentDay = Day(app.dayLength, app.neededAccuracy)
     app.dayIndex += 1
-    
+
+#shop and store
 def drawDayProgBar(app, canvas):
     
     canvas.create_rectangle(15, 10, 502, 50, width=3)
@@ -53,6 +51,7 @@ def drawDayProgBar(app, canvas):
     canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
     canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
 
+#kitchen
 def getIngColor(app, ing):
     if ing == 'tapioca':
         return 'tan4'
@@ -70,6 +69,42 @@ def getIngColor(app, ing):
         return 'mintcream'
     elif ing in app.sugarOPTIONS:
         return 'palegoldenrod'
+
+#called in kitchen --> evaluation
+def evaluateDrink(app):
+    #order: toppings sugar ice milk tea
+    #build up correctDrinkDict
+    for i in range(len(app.curCustDrink)-1):
+        app.correctDrinkDict[app.curCustDrink[i]] = app.times[i][app.curCustDrink[i]]
+    
+    #get tea's (last elem) correct time based on previous ings
+    teaTime = 0
+    otherTimes = 0
+    for ing in app.correctDrinkDict:
+        
+        otherTimes += app.correctDrinkDict[ing]
+        teaTime = 20 - otherTimes
+    app.correctDrinkDict[app.curCustDrink[-1]] = teaTime
+    
+    for ing in app.correctDrinkDict:
+        if ing in app.madeDrinkDict:
+            print(f'yes, {ing} in {app.madeDrinkDict}')
+            madeIngTime = app.madeDrinkDict[ing]
+            correctIngTime = app.correctDrinkDict[ing]
+            errorMargin = app.currentDay.neededAccuracy
+            print(madeIngTime, correctIngTime)
+        else:
+            print(f'no, {ing} not in {app.madeDrinkDict}')
+            
+    #     if app.correctDrinkDict[ing] == app.madeDrinkDict[ing]:
+    #         print(app.correctDrinkDict[ing])
+    #         print(app.madeDrinkDict[ing])
+    # print(app.correctDrinkDict)
+    # print(app.madeDrinkDict)
+    
+    
+        
+    # print(app.currentDay.neededAccuracy)
 
 ###################################   
 #helpers
