@@ -27,10 +27,12 @@ def appStarted(app):
     
     #drink stuff
     app.curIng = ''
-    app.curIngName = ''
-    app.curCustDrink = dict()
+    app.curIngName = 'None'
+    app.curCustDrink = {'tapioca':400, 'black_tea': 400, '50%_sugar':200, '50%_ice':200, 'whole': 400} # dict()
     app.madeDrink = dict()
     app.correctDrink = dict()
+    app.startPress = 0
+    app.lenOfPress = 0
     
     #evaluating
     app.correctIng = 0
@@ -88,6 +90,9 @@ def appStarted(app):
     
     #mix
     app.kitchen_mixBtnDms = (550, 475, 700, 525)
+    
+    #add
+    app.kitchen_addBtnDms = (800, 450, 950, 500)
     
     app.eval_doneBtnDms = (800, 525, 950, 575)
     
