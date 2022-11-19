@@ -89,8 +89,8 @@ def drawSideBar(app, canvas):
 
 def drawDrink(app, canvas):
     #cup = 250 by 300
-    x0 = 250
-    x1 = 500
+    x0 = 252
+    x1 = 499
     oldY0, oldY1 = 500, 500
     for ing in app.madeDrinkList:
         pressLen = app.madeDrinkDict[ing]*10
@@ -208,14 +208,15 @@ def kitchenScreen_mouseReleased(app, event):
     if app.curIngName != 'None' and isValidClick(x, y, app.kitchen_addBtnDms):
         app.lenOfPress = time.time() - app.startPress
         app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfPress
+        app.curIngName = 'None'
         print(app.madeDrinkDict)
         print(app.madeDrinkList)
         
 def kitchenScreen_mousePressed(app, event):
     x, y, = event.x, event.y
     # add button
-    if (app.curIngName != 'None' and isValidClick(x, y, app.kitchen_addBtnDms) 
-                                        and app.curIng not in app.madeDrinkList):
+    print(app.curIng not in app.madeDrinkList)
+    if app.curIngName != 'None' and isValidClick(x, y, app.kitchen_addBtnDms):
         app.startPress = time.time()
         app.madeDrinkList.append(app.curIng)
     

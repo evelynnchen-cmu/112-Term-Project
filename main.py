@@ -53,7 +53,7 @@ def appStarted(app):
     app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20}
         
     #never change
-    app.teaOPTIONS = ['black', 'green', 'oolong']
+    app.teaOPTIONS = ['black_tea', 'green_tea', 'oolong_tea']
     app.toppingsOPTIONS = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding']
     app.sugarOPTIONS = ['100%_sugar', '75%_sugar', '50%_sugar', '25%_sugar', '0%_sugar']
     app.iceOPTIONS = ['100%_ice', '75%_ice', '50%_ice', '25%_ice', '0%_ice']
