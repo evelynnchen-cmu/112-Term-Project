@@ -31,7 +31,8 @@ def evaluationScreen_mouseReleased(app, event):
         app.mode = 'shopScreen'
         
 def evaluationScreen_timerFired(app):
-    checkIfGameOver(app)
     checkIfDayOver(app)
+    checkIfGameOver(app)
+    
     
     

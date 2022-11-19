@@ -28,15 +28,11 @@ class Customer():
 #functions
 ###################################
 def checkIfDayOver(app):
-    app.msCounter += app.timerDelay
     if app.currentDay.dayTime == 0:
-        app.msCounter = 0
         app.mode = 'dayOverScreen'
     else:
-        if app.msCounter % 1000 == 0:
-            app.currentDay.dayTime -= 1
-            app.msCounter = 0
-            print(app.currentDay.dayTime)
+        app.currentDay.dayTime -= 1
+        # print(app.currentDay.dayTime)
 
 def checkIfGameOver(app):
     #check lose condition too
@@ -55,7 +51,6 @@ def drawDayProgBar(app, canvas):
     daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
     canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
     canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
-    
 
 ###################################   
 #helpers

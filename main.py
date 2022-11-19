@@ -16,17 +16,18 @@ from store import *
 def appStarted(app): 
     
     app.mode = 'startScreen'
-    app.timerDelay = 1
+    app.timerDelay = 100
     app.money = 0
     app.difficulty = 'easy'
-    app.msCounter = 0
     
     #initiailize days
-    app.dayLength = 120 #should be 120
+    app.dayLength = 1200 #should be 120 seconds
     app.currentDay = Day(app.dayLength, app.difficulty)
     app.dayIndex = 1
     
     #drink stuff
+    app.curIng = ''
+    app.curIngName = ''
     app.curCustDrink = dict()
     app.madeDrink = dict()
     app.correctDrink = dict()
@@ -67,18 +68,26 @@ def appStarted(app):
     
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
-  
     
     #ice
-    app.kitchen_100iceBtnDms = (25, 50, 110, 100)
-    app.kitchen_75iceBtnDms = (125, 50, 210, 100)
-    app.kitchen_50iceBtnDms = (25, 110, 110, 160)
-    app.kitchen_25iceBtnDms = (125, 110, 210, 160)
+    app.kitchen_100iceBtnDms = (25, 50, 100, 100)
+    app.kitchen_75iceBtnDms = (125, 50, 200, 100)
+    app.kitchen_50iceBtnDms = (25, 110, 100, 160)
+    app.kitchen_25iceBtnDms = (125, 110, 200, 160)
     
     #milk
     app.kitchen_wholeMilkBtnDms = (550, 50, 612.5, 100)
     app.kitchen_2pMilkBtnDms = (650, 50, 712.5, 100)
     app.kitchen_skimMilkBtnDms = (600, 115, 662.5, 165)
+    
+    #sugar
+    app.kitchen_100sugarBtnDms = (550, 225, 612.5, 275)
+    app.kitchen_75sugarBtnDms = (650, 225, 712.5, 275)
+    app.kitchen_50sugarBtnDms = (550, 290, 612.5, 340)
+    app.kitchen_25sugarBtnDms = (650, 290, 712.5, 340)
+    
+    #mix
+    app.kitchen_mixBtnDms = (550, 475, 700, 525)
     
     app.eval_doneBtnDms = (800, 525, 950, 575)
     

@@ -49,6 +49,7 @@ def shopScreen_mouseReleased(app, event):
         app.mode = 'storeScreen'
         
 def shopScreen_timerFired(app):
-    checkIfGameOver(app)
     checkIfDayOver(app)
+    checkIfGameOver(app)
+    
         
