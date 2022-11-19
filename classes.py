@@ -53,6 +53,24 @@ def drawDayProgBar(app, canvas):
     canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
     canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
 
+def getIngColor(app, ing):
+    if ing == 'tapioca':
+        return 'tan4'
+    elif ing == 'aloe_jelly':
+        return 'lemonchiffon'
+    elif ing == 'red_bean':
+        return 'orangered4'
+    elif ing == 'pudding':
+        return 'khaki'
+    elif ing in app.teaOPTIONS:
+        return 'bisque3'
+    elif ing in app.iceOPTIONS:
+        return 'slategray1'
+    elif ing in app.milkOPTIONS:
+        return 'mintcream'
+    elif ing in app.sugarOPTIONS:
+        return 'palegoldenrod'
+
 ###################################   
 #helpers
 ###################################

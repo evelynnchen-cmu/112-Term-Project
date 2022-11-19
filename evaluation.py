@@ -1,5 +1,5 @@
 from classes import *
-
+#!don't forget to reset drink variables
 ###################################
 #view
 ###################################

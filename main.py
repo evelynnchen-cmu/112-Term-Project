@@ -29,10 +29,12 @@ def appStarted(app):
     app.curIng = ''
     app.curIngName = 'None'
     app.curCustDrink = {'tapioca':400, 'black_tea': 400, '50%_sugar':200, '50%_ice':200, 'whole': 400} # dict()
-    app.madeDrink = dict()
+    app.madeDrinkList = []
+    app.madeDrinkDict = dict()
     app.correctDrink = dict()
     app.startPress = 0
     app.lenOfPress = 0
+    app.alrAdded = False
     
     #evaluating
     app.correctIng = 0
