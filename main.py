@@ -34,7 +34,8 @@ def appStarted(app):
     app.correctDrink = dict()
     app.startPress = 0
     app.lenOfPress = 0
-    app.alrAdded = False
+    app.cupFullness = 0 #adding up timer
+    app.isPressed = False
     
     #evaluating
     app.correctIng = 0
@@ -50,7 +51,7 @@ def appStarted(app):
     #inventory
     app.teaInventory = {"black_tea": 20, "green_tea": 20, "oolong_tea": 20}
     app.toppingsInventory = {"tapioca": 20, "aloe_jelly": 20, "red_bean":20, "pudding": 20}
-    app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20}
+    app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20, "milk": 20, "sugar":20}
         
     #never change
     app.teaOPTIONS = ['black_tea', 'green_tea', 'oolong_tea']
