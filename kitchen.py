@@ -239,4 +239,5 @@ def kitchenScreen_timerFired(app):
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
+    app.currentDay.canNextCust(app)
     checkIfGameOver(app)    

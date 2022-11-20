@@ -27,7 +27,7 @@ def appStarted(app):
     
     #initiailize days
     app.dayLength = 1200 #120 seconds
-    app.numOfCusts = 20
+    app.numOfCusts = 2
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex = 1
     
@@ -36,7 +36,6 @@ def appStarted(app):
     app.isThereCust = False
     app.hasTakenOrder = False
     app.hasOrder = False
-    app.curCustDone = False
     
     #drink stuff
     app.curIng = ''

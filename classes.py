@@ -16,7 +16,6 @@ class Day():
     
     def checkIfAddCust(self, app):
         if self.dayTime % self.custPerTime == 0:
-            app.isThereCust = True
             print('new customer')
             self.custList.append(Customer(app))
             
@@ -34,8 +33,11 @@ class Day():
                 
     def canNextCust(self, app):
         if self.custIndex < len(self.custList):
+            app.isThereCust = True
             app.curCustDrink = self.custList[self.custIndex].order
-        
+        else:
+            app.isThereCust = False
+                    
 class Customer():
     def __init__(self, app):
         self.order = []
@@ -52,24 +54,24 @@ class Customer():
         
     def getRandomImg(self, app):
         self.custImg = random.choice(app.custImgs)
-        
-    def __repr__(self):
-        return f'{self.waitTime}'
-        
-        
 
 ###################################
 #functions
 ###################################
 #evaluation
-def resetDrinkVars(app):
+def resetCustVars(app):
     app.curIng = ''
     app.curIngName = 'None'
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
     app.correctDrinkDict = dict()
+    app.startPress = 0
+    app.lenOfPress = 0
     app.cupFullness = 0 #adding up timer
-    app.isPressed = False
+    app.evalRevealTimer = 0
+    app.orderRevealTimer = 0
+    app.hasTakenOrder = False
+    app.hasOrder = False
 
 #entire game
 

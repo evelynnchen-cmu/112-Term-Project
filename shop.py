@@ -37,16 +37,16 @@ def shopScreen_redrawAll(app, canvas):
     
     drawButton(canvas, app.shop_storeBtnDms, 'Store')
     
-    if app.hasOrder:
+    if app.hasOrder and app.isThereCust:
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
-    
+    print(app.isThereCust)
     if app.isThereCust:
         curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex].custImg, (150, 150))
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(curCustImg))
         drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
     
     #slowly reveal order    
-    if app.hasTakenOrder:
+    if app.hasTakenOrder and app.isThereCust:
         canvas.create_text(875, 20, 
             text=f"Customer #{(app.currentDay.custIndex)+1}", font='Arial 20 bold')   
         
@@ -76,7 +76,8 @@ def shopScreen_redrawAll(app, canvas):
 ###################################
 def shopScreen_mouseReleased(app, event):
     # kitchen button
-    if isValidClick(event.x, event.y, app.shop_kitchenBtnDms) and app.hasOrder:
+    if isValidClick(event.x, event.y, app.shop_kitchenBtnDms) and app.hasOrder and app.isThereCust:
+        app.currentDay.custIndex += 1
         app.mode = 'kitchenScreen'
     # store button
     elif isValidClick(event.x, event.y, app.shop_storeBtnDms):
