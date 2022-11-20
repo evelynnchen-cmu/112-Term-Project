@@ -1,5 +1,5 @@
 from classes import *
-#!don't forget to reset drink variables
+#!0% ice and 0% sugar scoring bug
 ###################################
 #view
 ###################################
@@ -19,45 +19,31 @@ def evaluationScreen_redrawAll(app, canvas):
                 image=ImageTk.PhotoImage(tipsJarLarge))
         
     #drink
-    if app.evalRevealTimer > 70:    
+    if app.evalRevealTimer > 50:    
         drawButton(canvas, app.eval_doneBtnDms, 'Done')
     
-    if app.evalRevealTimer > 20:
+    if app.evalRevealTimer > 10:
         drawStats(app, canvas)
         
 def drawStats(app, canvas):
     
     # print(app.tips)
     canvas.create_text(875, 25, text='Order Stats', font='Arial 20 bold underline')
-    if app.evalRevealTimer > 30:
+    if app.evalRevealTimer > 20:
         canvas.create_text(875, 75, text=f'Drink Accuracy: {app.drinkAccuracy*100}%', font='Arial 15 bold')
     
-    if app.evalRevealTimer > 40:
-        #formatting tips
-        if app.tips < 1:
-            if app.tips % 10 == 0:
-                
-                canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', font='Arial 15 bold')
-            else:
-                canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Arial 15 bold')
-        elif app.tips > 1:
-            
-            if app.tips % 10 == 0:
-                
-                canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', font='Arial 15 bold')
-                
-            else:
-                canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Arial 15 bold')
+    if app.evalRevealTimer > 30:
+        canvas.create_text(875, 125, text=f'Tips Earned: {app.tipsDisplay}', font='Arial 15 bold')
     
-    if app.evalRevealTimer > 50:
-        canvas.create_text(875, 175, text=f'Total Accuracy: {app.totalAccuracy}', font='Arial 15 bold')
+    if app.evalRevealTimer > 40:
+        canvas.create_text(875, 175, text=f'Total Accuracy: {app.totalAvgAccuracy*100}%', font='Arial 15 bold')
 
 ###################################    
 #controller
 ###################################
 def evaluationScreen_mouseReleased(app, event):
     # done button
-    if isValidClick(event.x, event.y, app.eval_doneBtnDms) and app.evalRevealTimer > 70:
+    if isValidClick(event.x, event.y, app.eval_doneBtnDms) and app.evalRevealTimer > 50:
         resetCustVars(app)
         app.mode = 'shopScreen'
         

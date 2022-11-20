@@ -113,7 +113,10 @@ def kitchenScreen_mouseReleased(app, event):
     # eval button
     elif isValidClick(x, y, app.kitchen_evalBtnDms):
         evaluateDrink(app)
-        app.tips = app.drinkAccuracy + (random.randint(0, 100)/100)
+        app.tips = app.drinkAccuracy
+        #?format for formatting currency found in 
+        #?https://stackabuse.com/format-number-as-currency-string-in-python/
+        app.tipsDisplay = locale.currency(app.tips)
         app.money += app.tips
         app.evalRevealTimer = 0
         app.mode = 'evaluationScreen'

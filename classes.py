@@ -1,6 +1,11 @@
 from cmu_112_graphics import *
 import random
 import time
+import locale
+
+#?format for formatting currency found in 
+#?https://stackabuse.com/format-number-as-currency-string-in-python/
+locale.setlocale(locale.LC_ALL, 'en_US')
 
 ###################################
 #classes
@@ -50,7 +55,7 @@ class Customer():
         for i in range(5):
             #random.choice from https://www.w3schools.com/python/ref_random_choice.asp
             self.order.append(random.choice(app.OPTIONS[i]))
-        # print(self.order)
+        print(self.order)
         
     def getRandomImg(self, app):
         self.custImg = random.choice(app.custImgs)
@@ -65,8 +70,6 @@ def resetCustVars(app):
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
     app.correctDrinkDict = dict()
-    app.startPress = 0
-    app.lenOfPress = 0
     app.cupFullness = 0 #adding up timer
     app.evalRevealTimer = 0
     app.orderRevealTimer = 0
@@ -74,15 +77,13 @@ def resetCustVars(app):
     app.hasOrder = False
 
 #entire game
-
-
 def checkIfGameOver(app):
     #check lose condition too
     if app.dayIndex > 7:
         app.mode = 'gameOverScreen'
 
 def startNewDay(app):
-    if app.money < 0:
+    if app.totalAvgAccuracy < .6:
         app.neededAccuracy = 60
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex += 1
@@ -158,10 +159,8 @@ def evaluateDrink(app):
                 # print(goodEnoughIngTime)
             app.drinkAccuracy = ((correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5) # <1
        
-    # app.totalAccuracy = (app.totalAccuracy+app.drinkAccuracy)/#will be num of completed orders
-    print(app.drinkAccuracy)
-        
-    # print(app.currentDay.neededAccuracy)
+    app.totalAvgAccuracy = (app.totalAvgAccuracy+app.drinkAccuracy)/app.totalOrders # <1
+    print(app.totalAvgAccuracy)
 
 ###################################   
 #helpers

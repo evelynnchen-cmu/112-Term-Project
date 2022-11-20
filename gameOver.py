@@ -17,7 +17,7 @@ def gameOverScreen_mouseReleased(app, event):
         app.neededAccuracy = 70 
     
         #reset user's total accuracy
-        app.totalAccuracy = 0
+        app.totalAvgAccuracy = 0
         
         #reset user's money
         app.money = 0

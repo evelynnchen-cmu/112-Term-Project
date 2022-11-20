@@ -7,7 +7,7 @@ from shop import *
 from kitchen import *
 from evaluation import *
 from store import *
-#?code/file structure inspired by Vania Halim's term project:
+#?code/file structure inspired by Vania Halim's 15-112 term project:
 #? https://github.com/vaniahalim/15112-TP
 ###################################
 #controller
@@ -21,13 +21,14 @@ def appStarted(app):
     app.timerDelay = 100
     app.money = 0
     app.tips = 0
+    app.totalOrders = 0
     
     #will change depending on how good the user is
     app.neededAccuracy = 70
     
     #initiailize days
     app.dayLength = 1200 #120 seconds
-    app.numOfCusts = 2
+    app.numOfCusts = 20
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex = 1
     
@@ -51,6 +52,7 @@ def appStarted(app):
     
     #evaluating 
     app.drinkAccuracy = 0
+    app.tipsDisplay = ''
     
     #timer
     app.evalRevealTimer = 0
@@ -58,7 +60,7 @@ def appStarted(app):
     
     
     #running total of all the user's accuracies
-    app.totalAccuracy = 0
+    app.totalAvgAccuracy = 0
     
     #inventory
     app.teaInventory = {"black_tea": 20, "green_tea": 20, "oolong_tea": 20}
@@ -141,7 +143,7 @@ def appStarted(app):
     app.greenTea = app.loadImage('./assets/green_tea.png')
     app.blackTea = app.loadImage('./assets/black_tea.png')
     app.oolongTea = app.loadImage('./assets/oolong_tea.png')
-    
+    #?drawn by myself on ibisPaint X
     app.evelynn = app.loadImage('./assets/evelynn.png')
     app.happyGuy = app.loadImage('./assets/happy_guy.png')
     app.custImgs = [app.evelynn, app.happyGuy]
