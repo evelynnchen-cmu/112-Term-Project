@@ -22,17 +22,17 @@ def evaluationScreen_redrawAll(app, canvas):
     if app.evalRevealTimer > 70:    
         drawButton(canvas, app.eval_doneBtnDms, 'Done')
     
-    if app.evalRevealTimer > 30:
+    if app.evalRevealTimer > 20:
         drawStats(app, canvas)
         
 def drawStats(app, canvas):
     
     print(app.tips)
     canvas.create_text(875, 25, text='Order Stats', font='Arial 20 bold underline')
-    if app.evalRevealTimer > 40:
+    if app.evalRevealTimer > 30:
         canvas.create_text(875, 75, text=f'Drink Accuracy: {app.drinkAccuracy*100}%', font='Arial 15 bold')
     
-    if app.evalRevealTimer > 50:
+    if app.evalRevealTimer > 40:
         #formatting tips
         if app.tips < 1:
             if app.tips % 10 == 0:
@@ -49,7 +49,7 @@ def drawStats(app, canvas):
             else:
                 canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Arial 15 bold')
     
-    if app.evalRevealTimer > 60:
+    if app.evalRevealTimer > 50:
         canvas.create_text(875, 175, text=f'Total Accuracy: {app.totalAccuracy}', font='Arial 15 bold')
 
 ###################################    
@@ -58,11 +58,17 @@ def drawStats(app, canvas):
 def evaluationScreen_mouseReleased(app, event):
     # done button
     if isValidClick(event.x, event.y, app.eval_doneBtnDms) and app.evalRevealTimer > 70:
+        app.currentDay.custIndex += 1
         app.mode = 'shopScreen'
+        
         
 def evaluationScreen_timerFired(app):
     app.evalRevealTimer += 1
-    checkIfDayOver(app)
+    app.currentDay.checkIfAddCust(app)
+    app.currentDay.incCustWaitTime()
+    app.currentDay.checkIfDayOver(app)
+    app.currentDay.canNextCust(app)
+    resetDrinkVars(app)
     checkIfGameOver(app)
     
     

@@ -6,31 +6,73 @@ import time
 #classes
 ###################################
 class Day():
-    def __init__(self, dayLength, neededAccuracy):
+    def __init__(self, dayLength, numOfCusts, neededAccuracy):
         self.dayTime = dayLength
+        self.numOfCusts = numOfCusts
         self.neededAccuracy = neededAccuracy
-        print(self.neededAccuracy)
+        self.custPerTime = dayLength/numOfCusts
+        self.custIndex = 0 
+        self.custList = [] #list of Customers
+    
+    def checkIfAddCust(self, app):
+        if self.dayTime % self.custPerTime == 0:
+            app.isThereCust = True
+            print('new customer')
+            self.custList.append(Customer(app))
+            
+    def checkIfDayOver(self, app):
+        if self.dayTime == 0:
+            app.mode = 'dayOverScreen'
+        else:
+            self.dayTime -= 1
+            # print(app.currentDay.dayTime)
+            
+    def incCustWaitTime(self):
+        if len(self.custList) != 0:
+            for cust in self.custList:
+                cust.waitTime += 1
+                
+    def canNextCust(self, app):
+        if self.custIndex < len(self.custList):
+            app.curCustDrink = self.custList[self.custIndex].order
         
 class Customer():
     def __init__(self, app):
         self.order = []
         self.makeRandomOrder(app)
+        self.custImg = ''
+        self.getRandomImg(app)
         self.waitTime = 0
         
     def makeRandomOrder(self, app):
         for i in range(5):
-            self.order.append(random.randomchoice(app.OPTIONS[i]))
+            #random.choice from https://www.w3schools.com/python/ref_random_choice.asp
+            self.order.append(random.choice(app.OPTIONS[i]))
+        # print(self.order)
+        
+    def getRandomImg(self, app):
+        self.custImg = random.choice(app.custImgs)
+        
+    def __repr__(self):
+        return f'{self.waitTime}'
+        
+        
 
 ###################################
 #functions
 ###################################
+#evaluation
+def resetDrinkVars(app):
+    app.curIng = ''
+    app.curIngName = 'None'
+    app.madeDrinkList = []
+    app.madeDrinkDict = dict()
+    app.correctDrinkDict = dict()
+    app.cupFullness = 0 #adding up timer
+    app.isPressed = False
+
 #entire game
-def checkIfDayOver(app):
-    if app.currentDay.dayTime == 0:
-        app.mode = 'dayOverScreen'
-    else:
-        app.currentDay.dayTime -= 1
-        # print(app.currentDay.dayTime)
+
 
 def checkIfGameOver(app):
     #check lose condition too
@@ -40,7 +82,7 @@ def checkIfGameOver(app):
 def startNewDay(app):
     if app.money < 0:
         app.neededAccuracy = 60
-    app.currentDay = Day(app.dayLength, app.neededAccuracy)
+    app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex += 1
 
 #shop and store

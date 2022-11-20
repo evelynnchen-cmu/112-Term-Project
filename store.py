@@ -131,7 +131,9 @@ def storeScreen_mouseReleased(app, event):
         app.money -= 20
         
 def storeScreen_timerFired(app):
-    checkIfDayOver(app)
+    app.currentDay.checkIfAddCust(app)
+    app.currentDay.incCustWaitTime()
+    app.currentDay.checkIfDayOver(app)
     checkIfGameOver(app)
     
     

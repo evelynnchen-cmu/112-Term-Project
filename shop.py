@@ -33,23 +33,67 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_image(650, 350, 
             image=ImageTk.PhotoImage(tipsJarSmall))
         
-    drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
-    drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
+    
+    
     drawButton(canvas, app.shop_storeBtnDms, 'Store')
+    
+    if app.hasOrder:
+        drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
+    
+    if app.isThereCust:
+        curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex].custImg, (150, 150))
+        canvas.create_image(200, 325, image=ImageTk.PhotoImage(curCustImg))
+        drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
+    
+    #slowly reveal order    
+    if app.hasTakenOrder:
+        canvas.create_text(875, 20, 
+            text=f"Customer #{(app.currentDay.custIndex)+1}", font='Arial 20 bold')   
+        
+        if app.orderRevealTimer > 10:
+            canvas.create_text(875, 50, 
+            text=app.currentDay.custList[app.currentDay.custIndex].order[0], font='Arial 20 bold')
+        
+        if app.orderRevealTimer > 20:
+            canvas.create_text(875, 80, 
+            text=app.currentDay.custList[app.currentDay.custIndex].order[1], font='Arial 20 bold')
 
+        if app.orderRevealTimer > 30:
+            canvas.create_text(875, 110, 
+            text=app.currentDay.custList[app.currentDay.custIndex].order[2], font='Arial 20 bold')
+            
+        if app.orderRevealTimer > 40:
+            canvas.create_text(875, 140, 
+            text=app.currentDay.custList[app.currentDay.custIndex].order[3], font='Arial 20 bold')
+            
+        if app.orderRevealTimer > 50:
+            canvas.create_text(875, 170, 
+            text=app.currentDay.custList[app.currentDay.custIndex].order[4], font='Arial 20 bold')
+            
+        
 ###################################    
 #controller
 ###################################
 def shopScreen_mouseReleased(app, event):
     # kitchen button
-    if isValidClick(event.x, event.y, app.shop_kitchenBtnDms):
+    if isValidClick(event.x, event.y, app.shop_kitchenBtnDms) and app.hasOrder:
         app.mode = 'kitchenScreen'
     # store button
     elif isValidClick(event.x, event.y, app.shop_storeBtnDms):
         app.mode = 'storeScreen'
+    elif isValidClick(event.x, event.y, app.shop_takeOrderBtnDms) and app.isThereCust:
+        app.hasTakenOrder = True
+        
         
 def shopScreen_timerFired(app):
-    checkIfDayOver(app)
+    if app.hasTakenOrder:
+        app.orderRevealTimer += 1
+    if app.orderRevealTimer > 60:
+        app.hasOrder = True
+    app.currentDay.checkIfAddCust(app)
+    app.currentDay.incCustWaitTime()
+    app.currentDay.checkIfDayOver(app)
+    app.currentDay.canNextCust(app)
     checkIfGameOver(app)
     
         

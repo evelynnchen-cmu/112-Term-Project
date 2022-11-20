@@ -236,5 +236,7 @@ def kitchenScreen_mousePressed(app, event):
     
         
 def kitchenScreen_timerFired(app):
-    checkIfDayOver(app)
+    app.currentDay.checkIfAddCust(app)
+    app.currentDay.incCustWaitTime()
+    app.currentDay.checkIfDayOver(app)
     checkIfGameOver(app)    

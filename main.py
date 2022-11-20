@@ -20,19 +20,28 @@ def appStarted(app):
     app.mode = 'startScreen'
     app.timerDelay = 100
     app.money = 0
+    app.tips = 0
     
     #will change depending on how good the user is
     app.neededAccuracy = 70
     
     #initiailize days
-    app.dayLength = 1200 #should be 120 seconds
-    app.currentDay = Day(app.dayLength, app.neededAccuracy)
+    app.dayLength = 1200 #120 seconds
+    app.numOfCusts = 20
+    app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex = 1
+    
+    #ordering
+    app.curCustImg = ''
+    app.isThereCust = False
+    app.hasTakenOrder = False
+    app.hasOrder = False
+    app.curCustDone = False
     
     #drink stuff
     app.curIng = ''
-    app.curIngName = 'None' #3 1 1 3 12
-    app.curCustDrink = ['tapioca', '50%_sugar', '50%_ice', 'whole', 'black_tea']
+    app.curIngName = 'None'
+    app.curCustDrink = ''
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
     app.correctDrinkDict = dict()
@@ -46,7 +55,8 @@ def appStarted(app):
     
     #timer
     app.evalRevealTimer = 0
-    app.tips = 0
+    app.orderRevealTimer = 0
+    
     
     #running total of all the user's accuracies
     app.totalAccuracy = 0
@@ -97,7 +107,6 @@ def appStarted(app):
     app.kitchen_wholeMilkBtnDms = (550, 50, 612.5, 100)
     app.kitchen_2pMilkBtnDms = (650, 50, 712.5, 100)
     app.kitchen_skimMilkBtnDms = (600, 115, 662.5, 165)
-    
     #sugar
     app.kitchen_100sugarBtnDms = (550, 225, 612.5, 275)
     app.kitchen_75sugarBtnDms = (650, 225, 712.5, 275)
@@ -133,5 +142,9 @@ def appStarted(app):
     app.greenTea = app.loadImage('./assets/green_tea.png')
     app.blackTea = app.loadImage('./assets/black_tea.png')
     app.oolongTea = app.loadImage('./assets/oolong_tea.png')
+    
+    app.evelynn = app.loadImage('./assets/evelynn.png')
+    app.happyGuy = app.loadImage('./assets/happy_guy.png')
+    app.custImgs = [app.evelynn, app.happyGuy]
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")
