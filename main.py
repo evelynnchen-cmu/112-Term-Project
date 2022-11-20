@@ -31,7 +31,7 @@ def appStarted(app):
     
     #drink stuff
     app.curIng = ''
-    app.curIngName = 'None'
+    app.curIngName = 'None' #3 1 1 3 12
     app.curCustDrink = ['tapioca', '50%_sugar', '50%_ice', 'whole', 'black_tea']
     app.madeDrinkList = []
     app.madeDrinkDict = dict()

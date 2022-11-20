@@ -72,10 +72,8 @@ def getIngColor(app, ing):
 
 #called in kitchen --> evaluation
 def evaluateDrink(app):
-    correctIngs = 0
-    miscalIngs = 0
-    wrongIngs = 0
-    missingIngs = 0
+    errorMargin = 1-(app.currentDay.neededAccuracy/100)
+    
     #order: toppings sugar ice milk tea
     
     #build up correctDrinkDict
@@ -86,36 +84,36 @@ def evaluateDrink(app):
     teaTime = 0
     otherTimes = 0
     for ing in app.correctDrinkDict:
-        
         otherTimes += app.correctDrinkDict[ing]
-        teaTime = 20 - otherTimes
+        teaTime = 20 - otherTimes 
     app.correctDrinkDict[app.curCustDrink[-1]] = teaTime
     
+    correctIngTypes = 0
+    goodEnoughIngTime = 0
     for ing in app.correctDrinkDict:
+        
         if ing in app.madeDrinkDict:
-            print(f'yes, {ing} in {app.madeDrinkDict}')
+            
+            # print(f'yes, {ing} in {app.madeDrinkDict}')
+            
+            correctIngTypes += 1
             madeIngTime = app.madeDrinkDict[ing]
             correctIngTime = app.correctDrinkDict[ing]
-            errorMargin = 1-(app.currentDay.neededAccuracy/100)
-            lowEnd = (1-errorMargin)*correctIngTime
             highEnd = (1+errorMargin)*correctIngTime
-            
-            if lowEnd < madeIngTime < highEnd:
-                correctIngs += 1
-            else:
-                miscalIngs += 1
-        else:
-            print(f'no, {ing} not in {app.madeDrinkDict}')
-            missingIngs += 1
-            
-    for ing in app.madeDrinkDict:
-        if ing not in app.correctDrinkDict:
-            wrongIngs += 1
-    #correct ings - 70%
-    #wait time - 20%
-    #miscalculations, missing, wrong - 10%
-    app.drinkAccuracy = correctIngs
-    print(f'correct: {correctIngs}, miscalculated: {miscalIngs}, missing: {missingIngs}, wrong: {wrongIngs}')
+            howFarOff = abs(correctIngTime - madeIngTime)
+            ingErrorMargin = highEnd-correctIngTime
+            if howFarOff < ingErrorMargin: #within margin of error
+                goodEnoughIngTime += 1
+            # else:#                    15    -  
+            #     pityPoints = 1
+            #     pityPoints -= howFarOff/
+                
+                # pityPoints = abs(abs(madeIngTime - correctIngTime) - errorMargin)
+                # print(f'pityPoints {pityPoints}')
+                # goodEnoughIngTime += pityPoints/errorMargin
+                # print(goodEnoughIngTime)
+            app.drinkAccuracy = (correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5
+       
     print(app.drinkAccuracy)
         
     # print(app.currentDay.neededAccuracy)
