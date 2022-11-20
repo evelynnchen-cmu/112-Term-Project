@@ -42,7 +42,11 @@ def appStarted(app):
     app.isPressed = False
     
     #evaluating 
-    app.drinkAccuracy = 0 
+    app.drinkAccuracy = 0
+    
+    #timer
+    app.evalRevealTimer = 0
+    app.tips = 0
     
     #running total of all the user's accuracies
     app.totalAccuracy = 0
@@ -130,4 +134,4 @@ def appStarted(app):
     app.blackTea = app.loadImage('./assets/black_tea.png')
     app.oolongTea = app.loadImage('./assets/oolong_tea.png')
 
-runApp(width=1000, height=600)
+runApp(width=1000, height=600, title="Evelynn's Bobaria")

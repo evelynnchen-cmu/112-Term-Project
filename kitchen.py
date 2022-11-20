@@ -71,7 +71,7 @@ def drawIngOptions(app, canvas):
     drawButton(canvas, app.kitchen_mixBtnDms, 'Mix & Seal')
     
 def drawSideBar(app, canvas):
-    canvas.create_text(875, 25, text='Current Order', font='Arial 20 bold')
+    canvas.create_text(875, 25, text='Current Order', font='Arial 20 bold underline')
     if len(app.curCustDrink) != 0:
         space = 60
         for ing in app.curCustDrink:
@@ -113,6 +113,9 @@ def kitchenScreen_mouseReleased(app, event):
     # eval button
     elif isValidClick(x, y, app.kitchen_evalBtnDms):
         evaluateDrink(app)
+        app.tips = app.drinkAccuracy + (random.randint(0, 100)/100)
+        app.money += app.tips
+        app.evalRevealTimer = 0
         app.mode = 'evaluationScreen'
         
     # red bean button

@@ -104,7 +104,7 @@ def evaluateDrink(app):
             ingErrorMargin = highEnd-correctIngTime
             if howFarOff < ingErrorMargin: #within margin of error
                 goodEnoughIngTime += 1
-            # else:#                    15    -  
+            # else:  
             #     pityPoints = 1
             #     pityPoints -= howFarOff/
                 
@@ -112,8 +112,9 @@ def evaluateDrink(app):
                 # print(f'pityPoints {pityPoints}')
                 # goodEnoughIngTime += pityPoints/errorMargin
                 # print(goodEnoughIngTime)
-            app.drinkAccuracy = (correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5
+            app.drinkAccuracy = ((correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5) # <1
        
+    # app.totalAccuracy = (app.totalAccuracy+app.drinkAccuracy)/#will be num of completed orders
     print(app.drinkAccuracy)
         
     # print(app.currentDay.neededAccuracy)

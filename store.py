@@ -14,7 +14,7 @@ def storeScreen_redrawAll(app, canvas):
     #day
     drawDayProgBar(app, canvas)
     #money
-    canvas.create_text(600, 30, text=f'Money: ${app.money}', font='Arial 25 bold')
+    canvas.create_text(600, 30, text=f'${app.money}', font='Arial 25 bold')
     
     drawButton(canvas, app.eval_doneBtnDms, 'Done')
     

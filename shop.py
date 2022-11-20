@@ -18,7 +18,7 @@ def shopScreen_redrawAll(app, canvas):
     #day
     drawDayProgBar(app, canvas)
     #money
-    canvas.create_text(600, 30, text=f'Money: ${app.money}', font='Arial 25 bold')
+    canvas.create_text(600, 30, text=f'${app.money}', font='Arial 25 bold')
         
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
