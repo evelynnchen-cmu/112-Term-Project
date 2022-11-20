@@ -89,11 +89,6 @@ def drawDrink(app, canvas):
     y1 = 500
     
     for ing in app.madeDrinkList:
-        
-        #fill bottom arc
-        # if ing == app.madeDrinkList[0]:
-            
-        
         color = getIngColor(app, ing)
         pressLen = app.madeDrinkDict[ing]*15
         y1 = y0

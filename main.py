@@ -41,9 +41,7 @@ def appStarted(app):
     app.cupFullness = 0 #adding up timer
     app.isPressed = False
     
-    #evaluating
-    app.correctIng = 0
-    app.correctProportions = 0 
+    #evaluating 
     app.drinkAccuracy = 0 
     
     #running total of all the user's accuracies
