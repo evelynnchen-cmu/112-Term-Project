@@ -1,9 +1,9 @@
 from classes import *
+
 ###################################
 #view
 ###################################
 def storeScreen_redrawAll(app, canvas):
-    #!bckg    
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
                                                 fill='black', width=3)
@@ -11,13 +11,16 @@ def storeScreen_redrawAll(app, canvas):
     #horizontal divider
     canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, 
                                                 fill='black', width=3)
-    #day
-    drawDayProgBar(app, canvas)
+    #day progress bar
+    canvas.create_rectangle(15, 10, 502, 50, width=3)
+    daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
+    canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
+    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
+   
     #money
-    canvas.create_text(600, 30, text=f'${app.money}', font='Arial 25 bold')
+    canvas.create_text(650, 30, text=f'${app.money}', font='Arial 25 bold')
     
     drawButton(canvas, app.eval_doneBtnDms, 'Done')
-    
     
     #!items
     #toppings
@@ -64,8 +67,6 @@ def storeScreen_redrawAll(app, canvas):
     for item in app.suppliesInventory:
         canvas.create_text(875, space, text=f'{item}: {app.suppliesInventory[item]}', font='Arial 18')
         space += 20
-    
-    
         
 ###################################
 #controller

@@ -5,20 +5,20 @@ from classes import *
 ###################################
 def shopScreen_redrawAll(app, canvas):
     
-    #put in main these below
-    tipsJarSmall = scaleImage(app, app.tipsJar, (100, 100))
-        
     #vertical divider
-    canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
-                                                fill='black', width=3)
+    canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
         
     #horizontal divider
-    canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, 
-                                                fill='black', width=3)
-    #day
-    drawDayProgBar(app, canvas)
+    canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, fill='black', width=3)
+    
+    #day progress bar
+    canvas.create_rectangle(15, 10, 502, 50, width=3)
+    daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
+    canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
+    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
+    
     #money
-    canvas.create_text(600, 30, text=f'${app.money}', font='Arial 25 bold')
+    canvas.create_text(650, 30, text=f'${app.money}', font='Arial 25 bold')
         
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
@@ -30,16 +30,14 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_text(75, 355, text='$$$', fill='green', font='Arial 15 bold')
 
     #tips jar
-    canvas.create_image(650, 350, 
-            image=ImageTk.PhotoImage(tipsJarSmall))
+    tipsJarSmall = scaleImage(app, app.tipsJar, (100, 100))
+    canvas.create_image(650, 350, image=ImageTk.PhotoImage(tipsJarSmall))
         
-    
-    
     drawButton(canvas, app.shop_storeBtnDms, 'Store')
     
     if app.hasOrder and app.isThereCust:
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
-    # print(app.isThereCust)
+
     if app.isThereCust:
         curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex].custImg, (150, 150))
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(curCustImg))
@@ -77,7 +75,6 @@ def shopScreen_redrawAll(app, canvas):
 def shopScreen_mouseReleased(app, event):
     # kitchen button
     if isValidClick(event.x, event.y, app.shop_kitchenBtnDms) and app.hasOrder and app.isThereCust:
-        app.currentDay.custIndex += 1
         app.mode = 'kitchenScreen'
     # store button
     elif isValidClick(event.x, event.y, app.shop_storeBtnDms):
@@ -86,12 +83,13 @@ def shopScreen_mouseReleased(app, event):
         app.totalOrders += 1
         app.hasTakenOrder = True
         
-        
 def shopScreen_timerFired(app):
     if app.hasTakenOrder:
         app.orderRevealTimer += 1
+        
     if app.orderRevealTimer > 60:
         app.hasOrder = True
+        
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)

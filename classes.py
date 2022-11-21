@@ -63,6 +63,7 @@ class Customer():
 ###################################
 #functions
 ###################################
+
 #evaluation
 def resetCustVars(app):
     app.curIng = ''
@@ -75,6 +76,11 @@ def resetCustVars(app):
     app.orderRevealTimer = 0
     app.hasTakenOrder = False
     app.hasOrder = False
+    
+def resetDayVars(app):
+    app.isThereCust = False
+    app.hasTakenOrder = False
+    app.hasOrder = False
 
 #entire game
 def checkIfGameOver(app):
@@ -83,18 +89,11 @@ def checkIfGameOver(app):
         app.mode = 'gameOverScreen'
 
 def startNewDay(app):
-    if app.totalAvgAccuracy < .6:
+    if app.avgScore < .6:
         app.neededAccuracy = 60
+    resetDayVars(app)
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex += 1
-
-#shop and store
-def drawDayProgBar(app, canvas):
-    
-    canvas.create_rectangle(15, 10, 502, 50, width=3)
-    daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
-    canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
-    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
 
 #kitchen
 def getIngColor(app, ing):
@@ -135,12 +134,8 @@ def evaluateDrink(app):
     
     correctIngTypes = 0
     goodEnoughIngTime = 0
-    for ing in app.correctDrinkDict:
-        
+    for ing in app.correctDrinkDict:   
         if ing in app.madeDrinkDict:
-            
-            # print(f'yes, {ing} in {app.madeDrinkDict}')
-            
             correctIngTypes += 1
             madeIngTime = app.madeDrinkDict[ing]
             correctIngTime = app.correctDrinkDict[ing]
@@ -157,13 +152,21 @@ def evaluateDrink(app):
                 # print(f'pityPoints {pityPoints}')
                 # goodEnoughIngTime += pityPoints/errorMargin
                 # print(goodEnoughIngTime)
-            app.drinkAccuracy = ((correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5) # <1
-       
-    app.totalAvgAccuracy = (app.totalAvgAccuracy+app.drinkAccuracy)/app.totalOrders # <1
-    print(app.totalAvgAccuracy)
+            app.drinkScore = ((correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5) # <1
+    
+    #calculate tips
+    #every second waited = 1 cent less; after 40 seconds = no tips
+    app.tips = (400 - app.currentDay.custList[app.currentDay.custIndex].waitTime) *.01 
+    #?format for formatting currency found in 
+    #?https://stackabuse.com/format-number-as-currency-string-in-python/
+    app.tipsDisplay = locale.currency(app.tips)
+    app.money += app.tips   
+    app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
+    # print(app.totalAvgAccuracy)
+    print(f'waitTime: {app.currentDay.custList[app.currentDay.custIndex].waitTime}')
 
 ###################################   
-#helpers
+#general helpers
 ###################################
 def drawButton(canvas, dimensionTuple, buttonName):
     x0, y0, x1, y1 = dimensionTuple
@@ -179,7 +182,8 @@ def isValidClick(x, y, dimensionTuple):
         return True
     return False
 
-# copied from TA Mini-Lecture: Advanced Tkinter Mini Lecture
+#?copied from TA Mini-Lecture: Advanced Tkinter Mini Lecture
+#?https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f19a16b4-d382-4021-b9e7-af43003eb620
 def scaleImage(app, image, box):
     
     originalWidth, originalHeight = image.size
