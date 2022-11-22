@@ -43,14 +43,12 @@ def appStarted(app):
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
     app.correctDrinkDict = dict()
+    app.drinkScore = 0 #used in evaluation
     app.startPress = 0
     app.lenOfPress = 0
     app.cupFullness = 0 #adding up timer
     app.isPressed = False
     
-    #evaluation variables
-    app.drinkScore = 0
-    app.tipsDisplay = ''
     
     #reveal timer variables (shopScreen & evaluationScreen)
     app.evalRevealTimer = 0

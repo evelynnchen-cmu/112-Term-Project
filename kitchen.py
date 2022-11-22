@@ -74,7 +74,7 @@ def drawSideBar(app, canvas):
     if len(app.curCustDrink) != 0:
         space = 60
         for ing in app.curCustDrink:
-            canvas.create_text(875, space, text=ing, font='Arial 20 bold')
+            canvas.create_text(875, space, text=ing, font='Arial 15 bold')
             space += 30
         
     canvas.create_text(875, 400, text=f'Current Ingredient:', font='Arial 15 bold')

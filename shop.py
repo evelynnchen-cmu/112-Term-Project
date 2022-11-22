@@ -18,7 +18,7 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
     
     #money
-    canvas.create_text(650, 30, text=f'${app.money}', font='Arial 25 bold')
+    canvas.create_text(650, 30, text= f'${app.money}', font='Arial 25 bold')
         
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
@@ -50,23 +50,23 @@ def shopScreen_redrawAll(app, canvas):
         
         if app.orderRevealTimer > 10:
             canvas.create_text(875, 50, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[0], font='Arial 20 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex].order[0], font='Arial 15 bold')
         
         if app.orderRevealTimer > 20:
             canvas.create_text(875, 80, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[1], font='Arial 20 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex].order[1], font='Arial 15 bold')
 
         if app.orderRevealTimer > 30:
             canvas.create_text(875, 110, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[2], font='Arial 20 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex].order[2], font='Arial 15 bold')
             
         if app.orderRevealTimer > 40:
             canvas.create_text(875, 140, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[3], font='Arial 20 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex].order[3], font='Arial 15 bold')
             
         if app.orderRevealTimer > 50:
             canvas.create_text(875, 170, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[4], font='Arial 20 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex].order[4], font='Arial 15 bold')
             
         
 ###################################    

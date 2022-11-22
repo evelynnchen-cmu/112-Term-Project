@@ -34,7 +34,7 @@ def drawStats(app, canvas):
     
     if app.evalRevealTimer > 30:
         #tips earned
-        canvas.create_text(875, 125, text=f'Tips Earned: {app.tipsDisplay}', font='Arial 15 bold')
+        canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Arial 15 bold')
     
     if app.evalRevealTimer > 40:
         #total average score

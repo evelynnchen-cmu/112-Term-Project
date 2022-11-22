@@ -1,11 +1,7 @@
 from cmu_112_graphics import *
 import random
 import time
-import locale
-
-#?format for formatting currency found in 
-#?https://stackabuse.com/format-number-as-currency-string-in-python/
-locale.setlocale(locale.LC_ALL, 'en_US')
+import decimal
 
 ###################################
 #classes
@@ -71,6 +67,7 @@ def resetCustVars(app):
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
     app.correctDrinkDict = dict()
+    app.tips = 0
     app.cupFullness = 0 #adding up timer
     app.evalRevealTimer = 0
     app.orderRevealTimer = 0
@@ -81,6 +78,7 @@ def resetDayVars(app):
     app.isThereCust = False
     app.hasTakenOrder = False
     app.hasOrder = False
+    resetCustVars(app)
 
 #entire game
 def checkIfGameOver(app):
@@ -155,12 +153,16 @@ def evaluateDrink(app):
             app.drinkScore = ((correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5) # <1
     
     #calculate tips
-    #every second waited = 1 cent less; after 40 seconds = no tips
-    app.tips = (400 - app.currentDay.custList[app.currentDay.custIndex].waitTime) *.01 
-    #?format for formatting currency found in 
-    #?https://stackabuse.com/format-number-as-currency-string-in-python/
-    app.tipsDisplay = locale.currency(app.tips)
-    app.money += app.tips   
+    #drink score must be above 50% to even get any tips
+    if app.drinkScore > .5:
+        #every second waited = 1 cent less; after 50 seconds = no tips
+        app.tips = (500 - app.currentDay.custList[app.currentDay.custIndex].waitTime) *.01 
+        app.tips = roundUp(app.tips, 2) #to make it money format
+    
+    if app.tips > 0:
+        app.money += app.tips
+    else:
+        app.tips = 0   
     app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
     # print(app.totalAvgAccuracy)
     print(f'waitTime: {app.currentDay.custList[app.currentDay.custIndex].waitTime}')
@@ -181,6 +183,19 @@ def isValidClick(x, y, dimensionTuple):
     if (x0 < x < x1) and (y0 < y < y1):
         return True
     return False
+
+#?copied from 15-112 hw8 https://www.cs.cmu.edu/~112/notes/hw8.html 
+def roundHalfUp(d):
+    # Round to nearest with ties going away from zero.
+    rounding = decimal.ROUND_HALF_UP
+    # See other rounding options here:
+    # https://docs.python.org/3/library/decimal.html#rounding-modes
+    return int(decimal.Decimal(d).to_integral_value(rounding=rounding))
+
+#?copied and modified from https://realpython.com/python-rounding/
+def roundUp(n, decimals=0):
+    multiplier = 10 ** decimals
+    return roundHalfUp(n * multiplier) / multiplier
 
 #?copied from TA Mini-Lecture: Advanced Tkinter Mini Lecture
 #?https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f19a16b4-d382-4021-b9e7-af43003eb620

@@ -71,11 +71,6 @@ def storeScreen_redrawAll(app, canvas):
 ###################################
 #controller
 ###################################
-def storeScreen_keyPressed(app, event):
-    #for testing
-    if event.key == 'b':
-        app.money -= 2
-        app.teaInventory['black_tea'] += 1
         
 def storeScreen_mouseReleased(app, event):
     #done button
