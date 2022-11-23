@@ -51,7 +51,7 @@ class Customer():
         for i in range(5):
             #random.choice from https://www.w3schools.com/python/ref_random_choice.asp
             self.order.append(random.choice(app.OPTIONS[i]))
-        print(self.order)
+        # print(self.order)
         
     def getRandomImg(self, app):
         self.custImg = random.choice(app.custImgs)
@@ -71,6 +71,8 @@ def resetCustVars(app):
     app.cupFullness = 0 #adding up timer
     app.evalRevealTimer = 0
     app.orderRevealTimer = 0
+    app.iceCubeCount = 0
+    app.sugarCubeCount - 0
     app.hasTakenOrder = False
     app.hasOrder = False
     
@@ -180,6 +182,13 @@ def drawButton(canvas, dimensionTuple, buttonName):
 
 def isValidClick(x, y, dimensionTuple):
     x0, y0, x1, y1 = dimensionTuple
+    if (x0 < x < x1) and (y0 < y < y1):
+        return True
+    return False
+
+def isValidIngClick(app, x, y, ingCenterTuple):
+    x0, y0 = ingCenterTuple[0]-app.ingR, ingCenterTuple[1]-app.ingR
+    x1, y1 = ingCenterTuple[0]+app.ingR, ingCenterTuple[1]+app.ingR 
     if (x0 < x < x1) and (y0 < y < y1):
         return True
     return False
