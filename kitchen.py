@@ -49,9 +49,11 @@ def drawIngOptions(app, canvas):
     drawButton(canvas, app.kitchen_25iceBtnDms, '25%')
     
     #tea
-    canvas.create_image(275, 100, image=ImageTk.PhotoImage(scaleImage(app, app.greenTea, (125, 125))))
-    canvas.create_image(375, 100, image=ImageTk.PhotoImage(scaleImage(app, app.blackTea, (115, 115))))
-    canvas.create_image(475, 100, image=ImageTk.PhotoImage(scaleImage(app, app.oolongTea, (115, 115))))
+    canvas.create_image(275, 100, image=ImageTk.PhotoImage(app.greenTea))
+    canvas.create_image(375, 100, image=ImageTk.PhotoImage(app.blackTea))
+    canvas.create_image(475, 100, image=ImageTk.PhotoImage(app.oolongTea))
+    
+    canvas.create_rectangle(237, 70, 313, 131, width=3)
     
     #milk
     canvas.create_text(630, 25, text='Milk:', font='Arial 20 bold')
@@ -70,9 +72,9 @@ def drawIngOptions(app, canvas):
     drawButton(canvas, app.kitchen_mixBtnDms, 'Mix & Seal')
     
 def drawSideBar(app, canvas):
-    canvas.create_text(875, 25, text='Current Order', font='Arial 20 bold underline')
+    canvas.create_text(875, 20, text='Current Order', font='Arial 20 bold underline')
     if len(app.curCustDrink) != 0:
-        space = 60
+        space = 50
         for ing in app.curCustDrink:
             canvas.create_text(875, space, text=ing, font='Arial 15 bold')
             space += 30
@@ -91,6 +93,7 @@ def drawDrink(app, canvas):
         color = getIngColor(app, ing)
         pressLen = app.madeDrinkDict[ing]*15
         y1 = y0
+        
         if ing == app.madeDrinkList[-1]:
             if app.isPressed:
                 #?learned about time module from 

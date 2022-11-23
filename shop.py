@@ -39,7 +39,8 @@ def shopScreen_redrawAll(app, canvas):
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
 
     if app.isThereCust:
-        curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex].custImg, (150, 150))
+        curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex].custImg, (200, 200))
+        # curCustImg = app.currentDay.custList[app.currentDay.custIndex].custImg
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(curCustImg))
         drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
     

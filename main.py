@@ -145,7 +145,7 @@ def appStarted(app):
     app.oolongTea = app.loadImage('./assets/oolong_tea.png')
     #?drawn by myself on ibisPaint X
     app.evelynn = app.loadImage('./assets/evelynn.png')
-    app.happyGuy = app.loadImage('./assets/happy_guy.png')
+    app.happyGuy = app.loadImage('./assets/guy.png')
     app.custImgs = [app.evelynn, app.happyGuy]
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")
