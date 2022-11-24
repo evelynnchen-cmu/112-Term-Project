@@ -1,11 +1,8 @@
 from classes import *
-#!0% ice and 0% sugar scoring bug
 ###################################
 #view
 ###################################
-def evaluationScreen_redrawAll(app, canvas):
-    tipsJarLarge = scaleImage(app, app.tipsJar, (200, 200))
-        
+def evaluationScreen_redrawAll(app, canvas):        
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
         
@@ -14,7 +11,7 @@ def evaluationScreen_redrawAll(app, canvas):
     canvas.create_rectangle(0, app.height*(5/6), app.width*(3/4), app.height, fill='bisque2')
         
     #tips jar
-    canvas.create_image(600, 400, image=ImageTk.PhotoImage(tipsJarLarge))
+    canvas.create_image(600, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (200, 200))))
     
     #body
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))

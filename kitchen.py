@@ -10,44 +10,83 @@ def kitchenScreen_redrawAll(app, canvas):
         
     drawButton(canvas, app.kitchen_storeBtnDms, 'Store')
     drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
+    drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
+    drawSideBar(app, canvas)
     #cup
     canvas.create_line(400, 250, 400, 550, width=3)
     canvas.create_line(650, 250, 650, 550, width=3)
     canvas.create_line(400, 250, 650, 250, width=3)
     canvas.create_line(400, 550, 650, 550, width=3)
-    print(app.madeDrinkDict)
-    #ingredients
-        #teas
-    #draw all ings
-    for i in range(len(app.ingCs)):
-        if app.curIngImg != app.ingImgs[i]:
-            canvas.create_image(app.ingCs[i], image=ImageTk.PhotoImage(app.ingImgs[i]))
-    print(app.curCustDrink)
-    if app.hasItem:
-        canvas.create_image(app.x, app.y, image = ImageTk.PhotoImage(app.curIngImg))
-
-    # print(app.sugarCubeCount, app.iceCubeCount)
-    #!to make 3D maybe later
-    #adapted from hw9 https://www.cs.cmu.edu/~112/notes/hw9.html
-    # canvas.create_arc(250, 525, 500, 475, width=3, style='arc', extent=-180)
-    # r=50
-    # canvas.create_oval(app.width*.375-r*2.5, app.height*(1/3)-r*.5, 
-    #                         app.width*.375+r*2.5, app.height*(1/3)+r*.5, width=3)
     
-    drawSideBar(app, canvas)
-    if len(app.madeDrinkDict) != 0:
-        drawDrink(app, canvas)
-    if app.iceCubeCount + app.sugarCubeCount != 0:
+    app.amtOfSquares = app.iceCubeCount + app.sugarCubeCount
+    
+    #only if done
+    if app.isMixed:
+        x0 = 401
+        x1 = 649
+        y0 = 550
+        y1 = 550
+        mixedDrinkToppings = dict()
+        newColor = mixDrink(app)
+        topOfToppings = 0
+        totalMilk = 0
+        
+        for ing in app.madeDrinkDict:
+            #get dict of only made toppings
+            if ing in app.toppingsOPTIONS:
+                mixedDrinkToppings[ing] = app.madeDrinkDict[ing]
+                topOfToppings += app.madeDrinkDict[ing]
+            if 'milk' in ing:
+                totalMilk += app.madeDrinkDict[ing]
+        print(mixedDrinkToppings)
+
+        #draw toppings
+        for ing in mixedDrinkToppings:
+            color = getIngColor(app, ing)
+            addLen = mixedDrinkToppings[ing]*15
+            y1 = y0 
+            y0 -= addLen
+            canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
+            
+        #draw mixed liquid
+        # canvas.create_rectangle(x0, topOfDrink, x1, topOfToppings, fill=newColor, width=0)
+        canvas.create_rectangle(x0, y1, x1, topOfToppings, fill=newColor, width=0)
+        
+        app.amtOfSquares -= app.sugarCubeCount
         drawCubes(app, canvas)
+    else:
+        
+        
+        #ingredients
+            #teas
+        #draw all ings
+        for i in range(len(app.ingCs)):
+            if app.curIngImg != app.ingImgs[i]:
+                canvas.create_image(app.ingCs[i], image=ImageTk.PhotoImage(app.ingImgs[i]))
+
+        if app.hasItem:
+            canvas.create_image(app.x, app.y, image = ImageTk.PhotoImage(app.curIngImg))
+        
+        #!to make 3D maybe later
+        #adapted from hw9 https://www.cs.cmu.edu/~112/notes/hw9.html
+        # canvas.create_arc(250, 525, 500, 475, width=3, style='arc', extent=-180)
+        # r=50
+        # canvas.create_oval(app.width*.375-r*2.5, app.height*(1/3)-r*.5, 
+        #                         app.width*.375+r*2.5, app.height*(1/3)+r*.5, width=3)
+        
+
+        if len(app.madeDrinkDict) != 0:
+            drawDrink(app, canvas)
+        if app.iceCubeCount + app.sugarCubeCount != 0:
+            drawCubes(app, canvas)
     
     # print(app.madeDrinkList)
     # print(app.madeDrinkDict)
 
 def drawCubes(app, canvas):
     #!optimize this
-    amtOfSquares = app.iceCubeCount + app.sugarCubeCount
-    for i in range(amtOfSquares):
-        #!bug
+    
+    for i in range(app.amtOfSquares):
         if i >= 20:
             canvas.create_rectangle(401+(62.5*(i-20)), 251, 400+(62.5*((i+1)-20)), 299, width=2)
         elif i >= 16:
@@ -179,8 +218,12 @@ def kitchenScreen_mousePressed(app, event):
         
 def kitchenScreen_mouseReleased(app, event):
     x, y, = event.x, event.y
+    
+    #mix button
+    if isValidClick(x, y, app.kitchen_mixBtnDms):
+        app.isMixed = True
     #store button
-    if isValidClick(x, y, app.kitchen_storeBtnDms):
+    elif isValidClick(x, y, app.kitchen_storeBtnDms):
         app.mode = 'storeScreen'
     # eval button
     elif isValidClick(x, y, app.kitchen_evalBtnDms):
@@ -193,12 +236,12 @@ def kitchenScreen_mouseReleased(app, event):
         app.cupFullness += app.lenOfAdd
         app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
     
-    
-    if app.curIng != 'sugarCube' and app.curIng != 'iceCube' and app.curIng != '':    
-        #!bug
-        if app.madeDrinkDict[app.curIng] == 0:
-            del app.madeDrinkDict[app.curIng]
-            app.madeDrinkList.pop()
+    #!idk
+    # if app.curIng != 'sugarCube' and app.curIng != 'iceCube' and app.curIng != '':    
+    #     #!bug
+    #     if app.madeDrinkDict[app.curIng] == 0:
+    #         del app.madeDrinkDict[app.curIng]
+    #         app.madeDrinkList.pop()
     
     app.itemAtRest = True
     app.hasItem = False
@@ -244,4 +287,36 @@ def kitchenScreen_timerFired(app):
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
     app.currentDay.canNextCust(app)
-    checkIfGameOver(app)    
+    checkIfGameOver(app) 
+
+#?adapted from https://www.30secondsofcode.org/python/s/hex-to-rgb
+def hexToRGB(hex):
+    red = int(hex[1:3], 16)
+    green = int(hex[3:5], 16)
+    blue = int(hex[5:7], 16)
+    return (red, green, blue)
+  
+def RGBToHex(RGB):
+    return '#%02x%02x%02x' % RGB
+  
+def mixDrink(app):
+    milkR, milkG, milkB = hexToRGB(getIngColor(app, 'whole_milk'))
+    teaR, teaG, teaB = hexToRGB(getIngColor(app, 'green_tea'))
+    milkTime = 0
+    teaTime = 0
+    
+    for ing in app.madeDrinkDict:
+        if 'milk' in ing:
+            milkTime += app.madeDrinkDict[ing]
+        if 'tea' in ing:
+            teaTime += app.madeDrinkDict[ing]
+    combinedTime = milkTime + teaTime
+    newR = int((milkR*milkTime + teaR*teaTime) / combinedTime)
+    newG = int((milkG*milkTime + teaG*teaTime) / combinedTime)
+    newB = int((milkB*milkTime + teaB*teaTime) / combinedTime)
+    print(newR, newG, newB)
+    newRGB = RGBToHex((newR, newG, newB))
+    
+    return newRGB
+    
+    

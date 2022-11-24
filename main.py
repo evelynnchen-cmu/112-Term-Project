@@ -46,8 +46,10 @@ def appStarted(app):
     app.drinkScore = 0 #used in evaluation
     app.startAdd = 0
     app.lenOfAdd = 0
+    app.amtOfSquares = 0
     app.cupFullness = 0 #adding up timer
     app.isAdding = False
+    app.isMixed = False
     
     #drag and drop variables
     app.itemAtRest = True
@@ -58,7 +60,7 @@ def appStarted(app):
     
     #reveal timer variables (shopScreen & evaluationScreen)
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 0 #!should be 0
+    app.orderRevealTimer = 70 #!should be 0
     
     ###################################
     #inventory
@@ -100,7 +102,7 @@ def appStarted(app):
     #kitchenScreen
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
-    app.kitchen_mixBtnDms = (550, 475, 700, 525)
+    app.kitchen_mixBtnDms = (550, 525, 700, 575)
 
     #ing centers
     #!combine these two l8r maybe
@@ -173,8 +175,19 @@ def appStarted(app):
     app.angry = app.loadImage('./assets/angry.png')
     
     #customers
-    app.longHairGirl = app.loadImage('./assets/long_hair_girl.png')
-    app.shortHairGuy = app.loadImage('./assets/short_hair_guy.png')
-    app.custImgs = [app.longHairGirl, app.shortHairGuy]
+    app.bangs = app.loadImage('./assets/bangs.png')
+    app.boring = app.loadImage('./assets/boring.png')
+    app.emo = app.loadImage('./assets/emo.png')
+    app.grandma = app.loadImage('./assets/grandma.png')
+    app.grandpa = app.loadImage('./assets/grandpa.png')
+    app.leoDicaprio = app.loadImage('./assets/leo_dicaprio.png')
+    app.longCurlyHair = app.loadImage('./assets/long_curly_hair.png')
+    app.longHair = app.loadImage('./assets/long_hair.png')
+    app.longStraightHair = app.loadImage('./assets/long_straight_hair.png')
+    app.shortCurlyHair = app.loadImage('./assets/short_curly_hair.png')
+    
+    app.custImgs = [app.bangs, app.boring, app.emo, app.grandma, app.grandpa, 
+                    app.leoDicaprio, app.longCurlyHair, app.longHair, app.longStraightHair,
+                    app.shortCurlyHair]
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")

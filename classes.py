@@ -72,8 +72,10 @@ def resetCustVars(app):
     app.orderRevealTimer = 0
     app.iceCubeCount = 0
     app.sugarCubeCount = 0
+    app.amtOfSquares = 0
     app.hasTakenOrder = False
     app.hasOrder = False
+    app.isMixed = False
     
 def resetDayVars(app):
     app.isThereCust = False
@@ -97,21 +99,21 @@ def startNewDay(app):
 #kitchen
 def getIngColor(app, ing):
     if ing == 'tapioca':
-        return 'tan4'
+        #?hex color from https://www.color-hex.com/color-palette/59441
+        return '#361212'
     elif ing == 'aloe_jelly':
-        return 'lemonchiffon'
+        return '#FFEC4D'
     elif ing == 'red_bean':
-        return 'orangered4'
+        #?hex color from https://encycolorpedia.com/672422
+        return '#672422'
     elif ing == 'pudding':
-        return 'khaki'
+        #?hex color from https://encycolorpedia.com/ffd47f
+        return '#ffd700'
     elif ing in app.teaOPTIONS:
-        return 'bisque3'
-    elif ing in app.iceOPTIONS:
-        return 'slategray1'
+        #'#923c01'
+        return '#b0906f'
     elif ing in app.milkOPTIONS:
-        return 'mintcream'
-    elif ing in app.sugarOPTIONS:
-        return 'palegoldenrod'
+        return '#fdfff5'
 
 #called in kitchen --> evaluation
 def evaluateDrink(app):
@@ -220,4 +222,3 @@ def scaleImage(app, image, box):
         scale = height/originalHeight
     
     return app.scaleImage(image, scale)
-    

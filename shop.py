@@ -30,8 +30,7 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_text(75, 355, text='$$$', fill='green', font='Arial 15 bold')
 
     #tips jar
-    tipsJarSmall = scaleImage(app, app.tipsJar, (100, 100))
-    canvas.create_image(650, 350, image=ImageTk.PhotoImage(tipsJarSmall))
+    canvas.create_image(650, 350, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (100, 100))))
         
     drawButton(canvas, app.shop_storeBtnDms, 'Store')
     
