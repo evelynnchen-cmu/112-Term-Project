@@ -14,8 +14,15 @@ def evaluationScreen_redrawAll(app, canvas):
     canvas.create_rectangle(0, app.height*(5/6), app.width*(3/4), app.height, fill='bisque2')
         
     #tips jar
-    canvas.create_image(600, 400, 
-                image=ImageTk.PhotoImage(tipsJarLarge))
+    canvas.create_image(600, 400, image=ImageTk.PhotoImage(tipsJarLarge))
+    
+    #body
+    canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))
+    #customer
+    canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex].custImg))
+
+    if app.evalRevealTimer < 20:
+        canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.critique))
         
     #done button
     if app.evalRevealTimer > 50:    
@@ -26,10 +33,19 @@ def evaluationScreen_redrawAll(app, canvas):
         drawStats(app, canvas)
         
 def drawStats(app, canvas):
+    custReaction = ''
+    
+    if app.drinkScore*100 > 80:
+        custReaction = app.happy
+    elif app.drinkScore*100 > 60:
+        custReaction = app.neutral
+    else:
+        custReaction = app.angry
     
     canvas.create_text(875, 25, text='Order Stats', font='Arial 20 bold underline')
     if app.evalRevealTimer > 20:
         #drink score
+        canvas.create_image(200, 325, image=ImageTk.PhotoImage(custReaction))
         canvas.create_text(875, 75, text=f'Drink Score: {app.drinkScore*100}%', font='Arial 15 bold')
     
     if app.evalRevealTimer > 30:

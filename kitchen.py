@@ -15,21 +15,18 @@ def kitchenScreen_redrawAll(app, canvas):
     canvas.create_line(650, 250, 650, 550, width=3)
     canvas.create_line(400, 250, 650, 250, width=3)
     canvas.create_line(400, 550, 650, 550, width=3)
-    
+    print(app.madeDrinkDict)
     #ingredients
         #teas
     #draw all ings
     for i in range(len(app.ingCs)):
         if app.curIngImg != app.ingImgs[i]:
             canvas.create_image(app.ingCs[i], image=ImageTk.PhotoImage(app.ingImgs[i]))
-    
+    print(app.curCustDrink)
     if app.hasItem:
         canvas.create_image(app.x, app.y, image = ImageTk.PhotoImage(app.curIngImg))
-    # if app.isLegal:
-    #     print('pouring')
-    # else:
-    #     print('not pouring')
-    print(app.sugarCubeCount, app.iceCubeCount)
+
+    # print(app.sugarCubeCount, app.iceCubeCount)
     #!to make 3D maybe later
     #adapted from hw9 https://www.cs.cmu.edu/~112/notes/hw9.html
     # canvas.create_arc(250, 525, 500, 475, width=3, style='arc', extent=-180)
@@ -43,7 +40,7 @@ def kitchenScreen_redrawAll(app, canvas):
     if app.iceCubeCount + app.sugarCubeCount != 0:
         drawCubes(app, canvas)
     
-    print(app.madeDrinkList)
+    # print(app.madeDrinkList)
     # print(app.madeDrinkDict)
 
 def drawCubes(app, canvas):
@@ -52,7 +49,7 @@ def drawCubes(app, canvas):
     for i in range(amtOfSquares):
         #!bug
         if i >= 20:
-            canvas.create_rectangle(401+(62.5*(i-20)), 251, 400+(62.5*(i+1)-20), 299, width=2)
+            canvas.create_rectangle(401+(62.5*(i-20)), 251, 400+(62.5*((i+1)-20)), 299, width=2)
         elif i >= 16:
             canvas.create_rectangle(401+(62.5*(i-16)), 301, 400+(62.5*((i+1)-16)), 349, width=2)
         elif i >= 12:
@@ -64,9 +61,6 @@ def drawCubes(app, canvas):
         elif i < 4:
             canvas.create_rectangle(401+(62.5*(i)), 501, 400+(62.5*(i+1)), 549, width=2)
             
-            
-            
-
 def drawSideBar(app, canvas):
     canvas.create_text(875, 20, text='Current Order', font='Arial 20 bold underline')
     if len(app.curCustDrink) != 0:
@@ -74,9 +68,6 @@ def drawSideBar(app, canvas):
         for ing in app.curCustDrink:
             canvas.create_text(875, space, text=ing, font='Arial 15 bold')
             space += 30
-        
-    canvas.create_text(875, 400, text=f'Current Ingredient:', font='Arial 15 bold')
-    canvas.create_text(875, 430, text=f'{app.curIngName}', font='Arial 20 bold')
 
 def drawDrink(app, canvas):
     #cup = 250 by 300
@@ -187,6 +178,16 @@ def kitchenScreen_mousePressed(app, event):
     # print(app.curIng)
         
 def kitchenScreen_mouseReleased(app, event):
+    x, y, = event.x, event.y
+    #store button
+    if isValidClick(x, y, app.kitchen_storeBtnDms):
+        app.mode = 'storeScreen'
+    # eval button
+    elif isValidClick(x, y, app.kitchen_evalBtnDms):
+        evaluateDrink(app)
+        app.evalRevealTimer = 0
+        app.mode = 'evaluationScreen'
+    
     if app.hasItem and app.isLegal:
         app.lenOfAdd = time.time() - app.startAdd
         app.cupFullness += app.lenOfAdd
@@ -207,8 +208,6 @@ def kitchenScreen_mouseReleased(app, event):
     
     app.x = 0
     app.y = 0
-    
-    
     
 def kitchenScreen_mouseDragged(app, event):
     if app.hasItem:
@@ -239,137 +238,7 @@ def kitchenScreen_mouseDragged(app, event):
                 app.iceCubeCount += 1
                 app.hasItem = False
                 app.curIng = ''
-        
-        
-
-# def kitchenScreen_mouseReleased(app, event):
-#     x, y = event.x, event.y
-#     # store button
-#     if isValidClick(x, y, app.kitchen_storeBtnDms):
-#         app.mode = 'storeScreen'
-#     # eval button
-#     elif isValidClick(x, y, app.kitchen_evalBtnDms):
-#         evaluateDrink(app)
-#         app.evalRevealTimer = 0
-#         app.mode = 'evaluationScreen'
-        
-#     # red bean button
-#     elif isValidClick(x, y, (30, 253, 120, 347)) and 'red_bean' not in app.madeDrinkList:
-#         app.curIngName = 'Red Bean'
-#         app.curIng = 'red_bean'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # tapioca button
-#     elif isValidClick(x, y, (29, 353, 120, 447)) and 'tapioca' not in app.madeDrinkList:
-#         app.curIngName = 'Tapioca'
-#         app.curIng = 'tapioca'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # pudding button
-#     elif isValidClick(x, y, (128, 253, 220, 347)) and 'pudding' not in app.madeDrinkList:
-#         app.curIngName = 'Pudding'
-#         app.curIng = 'pudding'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # aloe jelly button
-#     elif isValidClick(x, y, (130, 354, 220, 447)) and 'aloe_jelly' not in app.madeDrinkList:
-#         app.curIngName = 'Aloe Jelly'
-#         app.curIng = 'aloe_jelly'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # green tea button
-#     elif isValidClick(x, y, (232, 73, 317, 128)) and 'green_tea' not in app.madeDrinkList:
-#         app.curIngName = 'Green Tea'
-#         app.curIng = 'green_tea'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # black tea button
-#     elif isValidClick(x, y, (323, 70, 422, 128)) and 'black_tea' not in app.madeDrinkList:
-#         app.curIngName = 'Black Tea'
-#         app.curIng = 'black_tea'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # oolong tea button
-#     elif isValidClick(x, y, (429, 70, 524, 128)) and 'oolong_tea' not in app.madeDrinkList:
-#         app.curIngName = 'Oolong Tea'
-#         app.curIng = 'oolong_tea'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # whole milk button
-#     elif isValidClick(x, y, app.kitchen_wholeMilkBtnDms) and 'whole' not in app.madeDrinkList:
-#         app.curIngName = 'Whole Milk'
-#         app.curIng = 'whole'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 2% milk button
-#     elif isValidClick(x, y, app.kitchen_2pMilkBtnDms) and '2%' not in app.madeDrinkList:
-#         app.curIngName = '2% Milk'
-#         app.curIng = '2%'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # skim milk button
-#     elif isValidClick(x, y, app.kitchen_skimMilkBtnDms) and 'skim' not in app.madeDrinkList:
-#         app.curIngName = 'Skim Milk'
-#         app.curIng = 'skim'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 100% ice button
-#     elif isValidClick(x, y, app.kitchen_100iceBtnDms) and '100%_ice' not in app.madeDrinkList:
-#         app.curIngName = 'Ice'
-#         app.curIng = '100%_ice'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 75% ice button
-#     elif isValidClick(x, y, app.kitchen_75iceBtnDms) and '75%_ice' not in app.madeDrinkList:
-#         app.curIngName = 'Ice'
-#         app.curIng = '75%_ice'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 50% ice button
-#     elif isValidClick(x, y, app.kitchen_50iceBtnDms) and '50%_ice' not in app.madeDrinkList:
-#         app.curIngName = 'Ice'
-#         app.curIng = '50%_ice'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 25% ice button
-#     elif isValidClick(x, y, app.kitchen_25iceBtnDms) and '25%_ice' not in app.madeDrinkList:
-#         app.curIngName = 'Ice'
-#         app.curIng = '25%_ice'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 100% sugar button
-#     elif isValidClick(x, y, app.kitchen_100sugarBtnDms) and '100%_sugar' not in app.madeDrinkList:
-#         app.curIngName = 'Liquid Sugar'
-#         app.curIng = '100%_sugar'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 75% sugar button
-#     elif isValidClick(x, y, app.kitchen_75sugarBtnDms) and '75%_sugar' not in app.madeDrinkList:
-#         app.curIngName = 'Liquid Sugar'
-#         app.curIng = '75%_sugar'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 50% sugar button
-#     elif isValidClick(x, y, app.kitchen_50sugarBtnDms) and '50%_sugar' not in app.madeDrinkList:
-#         app.curIngName = 'Liquid Sugar'
-#         app.curIng = '50%_sugar'
-#         app.madeDrinkDict[app.curIng] = 0
-#     # 25% sugar button
-#     elif isValidClick(x, y, app.kitchen_25sugarBtnDms) and '25%_sugar' not in app.madeDrinkList:
-#         app.curIngName = 'Liquid Sugar'
-#         app.curIng = '25%_sugar'
-#         app.madeDrinkDict[app.curIng] = 0
-        
-#     #getting ing timers
-#     if app.curIngName != 'None' and isValidClick(x, y, app.kitchen_addBtnDms):
-#         app.lenOfPress = time.time() - app.startPress
-#         app.cupFullness += app.lenOfPress
-#         print(f'cupFullness: {app.cupFullness}')
-#         app.isPressed = False
-#         #check if cup full
-#         if app.cupFullness > 20:
-#             app.cupFullness -= app.lenOfPress
-#             app.madeDrinkList.remove(app.curIng)
-#             # del app.madeDrinkDict[app.curIng]
-#         else:
-#             app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfPress
-#             app.curIngName = 'None'
-#             print(app.madeDrinkDict)
-        
-        
-# def kitchenScreen_mousePressed(app, event):
-#     x, y, = event.x, event.y
-#     # add button
-#     if app.curIngName != 'None' and isValidClick(x, y, app.kitchen_addBtnDms):
-#         app.isPressed = True
-#         app.startPress = time.time()
-#         app.madeDrinkList.append(app.curIng)
-    
-        
+                
 def kitchenScreen_timerFired(app):
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()

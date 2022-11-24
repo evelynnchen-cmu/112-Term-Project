@@ -63,16 +63,15 @@ class Customer():
 #evaluation
 def resetCustVars(app):
     app.curIng = ''
-    app.curIngName = 'None'
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
-    app.correctDrinkDict = dict()
+    # app.correctDrinkDict = dict()
     app.tips = 0
     app.cupFullness = 0 #adding up timer
     app.evalRevealTimer = 0
     app.orderRevealTimer = 0
     app.iceCubeCount = 0
-    app.sugarCubeCount - 0
+    app.sugarCubeCount = 0
     app.hasTakenOrder = False
     app.hasOrder = False
     
@@ -117,43 +116,44 @@ def getIngColor(app, ing):
 #called in kitchen --> evaluation
 def evaluateDrink(app):
     errorMargin = 1-(app.currentDay.neededAccuracy/100)
-    
-    #order: toppings sugar ice milk tea
-    
-    #build up correctDrinkDict
-    for i in range(len(app.curCustDrink)-1):
-        app.correctDrinkDict[app.curCustDrink[i]] = app.times[i][app.curCustDrink[i]]
-    
-    #get tea's (last elem) correct time based on previous ings
-    teaTime = 0
-    otherTimes = 0
-    for ing in app.correctDrinkDict:
-        otherTimes += app.correctDrinkDict[ing]
-        teaTime = 20 - otherTimes 
-    app.correctDrinkDict[app.curCustDrink[-1]] = teaTime
-    
     correctIngTypes = 0
     goodEnoughIngTime = 0
-    for ing in app.correctDrinkDict:   
-        if ing in app.madeDrinkDict:
+    wrongIngs = 0
+    for ing in app.madeDrinkDict:
+        if ing in app.curCustDrink:
             correctIngTypes += 1
+            
+            if 'milk' in ing:
+                correctIngTime = 3
+            elif ing in app.toppingsOPTIONS:
+                correctIngTime = 4
+            elif ing in app.teaOPTIONS:
+                correctIngTime = 13
+            
             madeIngTime = app.madeDrinkDict[ing]
-            correctIngTime = app.correctDrinkDict[ing]
             highEnd = (1+errorMargin)*correctIngTime
             howFarOff = abs(correctIngTime - madeIngTime)
             ingErrorMargin = highEnd-correctIngTime
             if howFarOff < ingErrorMargin: #within margin of error
                 goodEnoughIngTime += 1
-            # else:  
-            #     pityPoints = 1
-            #     pityPoints -= howFarOff/
-                
-                # pityPoints = abs(abs(madeIngTime - correctIngTime) - errorMargin)
-                # print(f'pityPoints {pityPoints}')
-                # goodEnoughIngTime += pityPoints/errorMargin
-                # print(goodEnoughIngTime)
-            app.drinkScore = ((correctIngTypes/5)*.5 + (goodEnoughIngTime/5)*.5) # <1
-    
+        else:
+            wrongIngs += 1
+            
+    #sugar cube score
+    correctSugarCubes = int(app.curCustDrink[1][:1])
+    if app.sugarCubeCount == correctSugarCubes:
+        correctIngTypes += 1
+    correctIceCubes = int(app.curCustDrink[2][:1])
+    if app.iceCubeCount == correctIceCubes:
+        correctIngTypes += 1
+        
+    #50%-correct ing types
+    #30%-accuracy of ing times
+    #20%-wait time
+    if len(app.madeDrinkDict) != 0:
+        app.drinkScore = (correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + ((500-app.currentDay.custList[app.currentDay.custIndex].waitTime)/500)*.2 # <1
+    else:
+        app.drinkScore = 0
     #calculate tips
     #drink score must be above 50% to even get any tips
     if app.drinkScore > .5:
@@ -165,10 +165,9 @@ def evaluateDrink(app):
         app.money += app.tips
     else:
         app.tips = 0   
+    
     app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
-    # print(app.totalAvgAccuracy)
-    print(f'waitTime: {app.currentDay.custList[app.currentDay.custIndex].waitTime}')
-
+    
 ###################################   
 #general helpers
 ###################################

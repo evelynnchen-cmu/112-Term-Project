@@ -12,7 +12,6 @@ from store import *
 ###################################
 #controller
 ###################################
-
 def appStarted(app): 
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
@@ -59,7 +58,7 @@ def appStarted(app):
     
     #reveal timer variables (shopScreen & evaluationScreen)
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 70 #!should be 0
+    app.orderRevealTimer = 0 #!should be 0
     
     ###################################
     #inventory
@@ -81,11 +80,10 @@ def appStarted(app):
     # app.toppingsTime = {'tapioca': 3, 'aloe_jelly': 3, 'red_bean': 3, 'pudding': 3}
     # app.milkTime = {'whole_milk': 3, '2%_milk': 3, 'skim_milk': 3}
     
-    app.sugarAmts = {'4_sugar_cubes':4, '3_sugar_cubes':3, '2_sugar_cubes':2, '1_sugar_cube':1, '0_sugar_cubes':0}
-    app.iceAmts = {'4_ice_cubes':4, '3_ice_cubes':3, '2_ice_cubes':2, '1_ice_cube':1, '0_ice_cubes':0}
-    #!tea don't have specific time bc it'll be whatevers left in the cup
-    # app.times = [app.toppingsTime, app.milkTime]
-    app.amts = [app.sugarAmts, app.iceAmts]
+    # app.sugarAmts = {'4_sugar_cubes':4, '3_sugar_cubes':3, '2_sugar_cubes':2, '1_sugar_cube':1, '0_sugar_cubes':0}
+    # app.iceAmts = {'4_ice_cubes':4, '3_ice_cubes':3, '2_ice_cubes':2, '1_ice_cube':1, '0_ice_cubes':0}
+    # # app.times = [app.toppingsTime, app.milkTime]
+    # app.amts = [app.sugarAmts, app.iceAmts]
     
     
     ###################################
@@ -103,25 +101,7 @@ def appStarted(app):
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
     app.kitchen_mixBtnDms = (550, 475, 700, 525)
-    app.kitchen_addBtnDms = (800, 450, 950, 500)
-    
-        #ice
-    app.kitchen_100iceBtnDms = (25, 50, 100, 100)
-    app.kitchen_75iceBtnDms = (125, 50, 200, 100)
-    app.kitchen_50iceBtnDms = (25, 110, 100, 160)
-    app.kitchen_25iceBtnDms = (125, 110, 200, 160)
-    
-        #milk
-    app.kitchen_wholeMilkBtnDms = (550, 50, 612.5, 100)
-    app.kitchen_2pMilkBtnDms = (650, 50, 712.5, 100)
-    app.kitchen_skimMilkBtnDms = (600, 115, 662.5, 165)
-    
-        #sugar
-    app.kitchen_100sugarBtnDms = (550, 225, 612.5, 275)
-    app.kitchen_75sugarBtnDms = (650, 225, 712.5, 275)
-    app.kitchen_50sugarBtnDms = (550, 290, 612.5, 340)
-    app.kitchen_25sugarBtnDms = (650, 290, 712.5, 340)
-    
+
     #ing centers
     #!combine these two l8r maybe
     app.sugarCubeCount = 0
@@ -184,8 +164,17 @@ def appStarted(app):
                  app.sugarCube, app.iceCube, app.wholeMilk, app.twoPMilk, 
                  app.skimMilk, app.greenTea, app.blackTea, app.oolongTea]
     
-    app.evelynn = app.loadImage('./assets/evelynn.png')
-    app.happyGuy = app.loadImage('./assets/guy.png')
-    app.custImgs = [app.evelynn, app.happyGuy]
+    app.body = app.loadImage('./assets/body.png')
+    app.neutral = app.loadImage('./assets/neutral.png')
+    
+    #reactions
+    app.happy = app.loadImage('./assets/happy.png')
+    app.critique = app.loadImage('./assets/critique.png')
+    app.angry = app.loadImage('./assets/angry.png')
+    
+    #customers
+    app.longHairGirl = app.loadImage('./assets/long_hair_girl.png')
+    app.shortHairGuy = app.loadImage('./assets/short_hair_guy.png')
+    app.custImgs = [app.longHairGirl, app.shortHairGuy]
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")
