@@ -26,7 +26,7 @@ def appStarted(app):
     #initiailize day variables and start Day 1
     app.dayIndex = 1
     app.dayLength = 1200 #120 seconds
-    app.numOfCusts = 20
+    app.numOfCusts = 3
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     
     #ordering variables (shopScreen)
@@ -46,7 +46,6 @@ def appStarted(app):
     app.drinkScore = 0 #used in evaluation
     app.startAdd = 0
     app.lenOfAdd = 0
-    app.amtOfSquares = 0
     app.cupFullness = 0 #adding up timer
     app.isAdding = False
     app.isMixed = False
@@ -55,6 +54,7 @@ def appStarted(app):
     app.itemAtRest = True
     app.hasItem = False
     app.isLegal = False
+    app.entered = False
     app.x = app.width//2
     app.y = app.height//2
     
@@ -92,7 +92,7 @@ def appStarted(app):
     #buttons
     ###################################
     #startScreen
-    app.start_startBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)
+    app.start_startBtnDms = (425, 350, 575, 400)
     
     #shopScreen
     app.shop_takeOrderBtnDms = (app.width*(1/40), app.height*(.6875), app.width*(.175), app.height*(.77))
@@ -102,7 +102,7 @@ def appStarted(app):
     #kitchenScreen
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
-    app.kitchen_mixBtnDms = (550, 525, 700, 575)
+    app.kitchen_mixBtnDms = (800, 425, 950, 475)
 
     #ing centers
     #!combine these two l8r maybe
@@ -145,10 +145,8 @@ def appStarted(app):
     ###################################
     #images
     ###################################
-    #?taken from https://www.freepik.com/premium-vector/tip-jar-semi-flat-color-vector-
-    #?object_21941243.htm#page=2&query=tip%20jar&position=11&from_view=keyword
-    app.tipsJar = app.loadImage('./assets/tips_jar.png')
     #?drawn by myself on Procreate
+    app.tipsJar = app.loadImage('./assets/tips_jar.png')
     app.tapioca = app.loadImage('./assets/tapioca.png')
     app.aloeJelly = app.loadImage('./assets/aloe_jelly.png')
     app.redBean = app.loadImage('./assets/red_bean.png')

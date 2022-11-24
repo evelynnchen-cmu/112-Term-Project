@@ -4,6 +4,8 @@ from classes import *
 #view
 ###################################
 def startScreen_redrawAll(app, canvas):
+    #background color
+    canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
     drawButton(canvas, app.start_startBtnDms, 'Start')
 
 ###################################    

@@ -8,37 +8,37 @@ def kitchenScreen_redrawAll(app, canvas):
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
                                                 fill='black', width=3)
         
-    drawButton(canvas, app.kitchen_storeBtnDms, 'Store')
-    drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
-    drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
-    drawSideBar(app, canvas)
-    #cup
-    canvas.create_line(400, 250, 400, 550, width=3)
-    canvas.create_line(650, 250, 650, 550, width=3)
-    canvas.create_line(400, 250, 650, 250, width=3)
-    canvas.create_line(400, 550, 650, 550, width=3)
+    # drawButton(canvas, app.kitchen_storeBtnDms, 'Store')
+    if app.isMixed:
+        drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
     
-    app.amtOfSquares = app.iceCubeCount + app.sugarCubeCount
+    if not app.isMixed:
+        drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
+    drawSideBar(app, canvas)
+    # print(app.madeDrinkDict)
+    # print(app.madeDrinkList)
     
     #only if done
     if app.isMixed:
-        x0 = 401
-        x1 = 649
+        
+        #cup
+        canvas.create_line(250, 250, 250, 550, width=3)
+        canvas.create_line(500, 250, 500, 550, width=3)
+        canvas.create_line(250, 250, 500, 250, width=3)
+        canvas.create_line(250, 550, 500, 550, width=3)
+        x0 = 251
+        x1 = 501
         y0 = 550
         y1 = 550
         mixedDrinkToppings = dict()
         newColor = mixDrink(app)
         topOfToppings = 0
-        totalMilk = 0
         
         for ing in app.madeDrinkDict:
             #get dict of only made toppings
             if ing in app.toppingsOPTIONS:
                 mixedDrinkToppings[ing] = app.madeDrinkDict[ing]
                 topOfToppings += app.madeDrinkDict[ing]
-            if 'milk' in ing:
-                totalMilk += app.madeDrinkDict[ing]
-        print(mixedDrinkToppings)
 
         #draw toppings
         for ing in mixedDrinkToppings:
@@ -47,16 +47,18 @@ def kitchenScreen_redrawAll(app, canvas):
             y1 = y0 
             y0 -= addLen
             canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-            
         #draw mixed liquid
-        # canvas.create_rectangle(x0, topOfDrink, x1, topOfToppings, fill=newColor, width=0)
-        canvas.create_rectangle(x0, y1, x1, topOfToppings, fill=newColor, width=0)
-        
-        app.amtOfSquares -= app.sugarCubeCount
-        drawCubes(app, canvas)
+        canvas.create_rectangle(x0, 550-(app.cupFullness*15), x1, 
+                                550-(topOfToppings*15), fill=newColor, width=0)
+
+        drawCubes(canvas, app.iceCubeCount)
     else:
         
-        
+        #cup
+        canvas.create_line(400, 250, 400, 550, width=3)
+        canvas.create_line(650, 250, 650, 550, width=3)
+        canvas.create_line(400, 250, 650, 250, width=3)
+        canvas.create_line(400, 550, 650, 550, width=3)
         #ingredients
             #teas
         #draw all ings
@@ -78,15 +80,11 @@ def kitchenScreen_redrawAll(app, canvas):
         if len(app.madeDrinkDict) != 0:
             drawDrink(app, canvas)
         if app.iceCubeCount + app.sugarCubeCount != 0:
-            drawCubes(app, canvas)
-    
-    # print(app.madeDrinkList)
-    # print(app.madeDrinkDict)
+            drawCubes(canvas, (app.iceCubeCount + app.sugarCubeCount))
 
-def drawCubes(app, canvas):
+def drawCubes(canvas, numOfSquares):
     #!optimize this
-    
-    for i in range(app.amtOfSquares):
+    for i in range(numOfSquares):
         if i >= 20:
             canvas.create_rectangle(401+(62.5*(i-20)), 251, 400+(62.5*((i+1)-20)), 299, width=2)
         elif i >= 16:
@@ -226,7 +224,7 @@ def kitchenScreen_mouseReleased(app, event):
     elif isValidClick(x, y, app.kitchen_storeBtnDms):
         app.mode = 'storeScreen'
     # eval button
-    elif isValidClick(x, y, app.kitchen_evalBtnDms):
+    elif isValidClick(x, y, app.kitchen_evalBtnDms) and app.isMixed:
         evaluateDrink(app)
         app.evalRevealTimer = 0
         app.mode = 'evaluationScreen'
@@ -248,6 +246,7 @@ def kitchenScreen_mouseReleased(app, event):
     app.isLegal = False
     app.curIngImg = ''
     app.isAdding = False
+    app.entered = False
     
     app.x = 0
     app.y = 0
@@ -259,6 +258,7 @@ def kitchenScreen_mouseDragged(app, event):
     #if item is above cup
     if app.curIng != 'iceCube' and app.curIng != 'sugarCube':
         if 425 < app.x < 625 and 0 < app.y < 250:
+            app.entered = True
             app.isAdding = True
             if app.startAdd == 0:
                 app.startAdd = time.time()
@@ -266,6 +266,8 @@ def kitchenScreen_mouseDragged(app, event):
         else:
             app.isLegal = False 
             app.isAdding = False
+            if app.entered:
+                app.hasItem = False
 
         if app.hasItem and app.isLegal:
             app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
@@ -283,21 +285,12 @@ def kitchenScreen_mouseDragged(app, event):
                 app.curIng = ''
                 
 def kitchenScreen_timerFired(app):
+    app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
-    app.currentDay.canNextCust(app)
+    
     checkIfGameOver(app) 
-
-#?adapted from https://www.30secondsofcode.org/python/s/hex-to-rgb
-def hexToRGB(hex):
-    red = int(hex[1:3], 16)
-    green = int(hex[3:5], 16)
-    blue = int(hex[5:7], 16)
-    return (red, green, blue)
-  
-def RGBToHex(RGB):
-    return '#%02x%02x%02x' % RGB
   
 def mixDrink(app):
     milkR, milkG, milkB = hexToRGB(getIngColor(app, 'whole_milk'))
@@ -310,13 +303,18 @@ def mixDrink(app):
             milkTime += app.madeDrinkDict[ing]
         if 'tea' in ing:
             teaTime += app.madeDrinkDict[ing]
+    
+    #if no mixing is needed        
+    if milkTime == 0:
+        return getIngColor(app, 'green_tea')
+    elif teaTime == 0:
+        return getIngColor(app, 'whole_milk')
+    
     combinedTime = milkTime + teaTime
     newR = int((milkR*milkTime + teaR*teaTime) / combinedTime)
     newG = int((milkG*milkTime + teaG*teaTime) / combinedTime)
     newB = int((milkB*milkTime + teaB*teaTime) / combinedTime)
-    print(newR, newG, newB)
-    newRGB = RGBToHex((newR, newG, newB))
-    
-    return newRGB
+    newHex = RGBToHex((newR, newG, newB))
+    return newHex
     
     

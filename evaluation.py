@@ -16,7 +16,7 @@ def evaluationScreen_redrawAll(app, canvas):
     #body
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))
     #customer
-    canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex].custImg))
+    canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex-1].custImg))
 
     if app.evalRevealTimer < 20:
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.critique))
@@ -60,16 +60,18 @@ def evaluationScreen_mouseReleased(app, event):
     # done button
     if isValidClick(event.x, event.y, app.eval_doneBtnDms) and app.evalRevealTimer > 50:
         app.currentDay.custIndex += 1
+        print(app.currentDay.custIndex)
         resetCustVars(app)
         app.mode = 'shopScreen'
         
         
 def evaluationScreen_timerFired(app):
     app.evalRevealTimer += 1
+    app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
-    app.currentDay.canNextCust(app)
+    
     checkIfGameOver(app)
     
     

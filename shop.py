@@ -4,7 +4,7 @@ from classes import *
 #view
 ###################################
 def shopScreen_redrawAll(app, canvas):
-    
+
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
         
@@ -36,40 +36,42 @@ def shopScreen_redrawAll(app, canvas):
     
     if app.hasOrder and app.isThereCust:
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
-
+    else:
+        canvas.create_text(875, 300, text='No Current Order', font='Arial 15 bold')
+    
     if app.isThereCust:
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(scaleImage(app, app.body, (200, 200))))
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(scaleImage(app, app.neutral, (200, 200))))
         
-        curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex].custImg, (200, 200))
-        # curCustImg = app.currentDay.custList[app.currentDay.custIndex].custImg
+        curCustImg = scaleImage(app, app.currentDay.custList[app.currentDay.custIndex-1].custImg, (200, 200))
+        
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(curCustImg))
         drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
     
     #slowly reveal order    
     if app.hasTakenOrder and app.isThereCust:
         canvas.create_text(875, 20, 
-            text=f"Customer #{(app.currentDay.custIndex)+1}", font='Arial 20 bold')   
+            text=f"Customer #{(app.currentDay.custIndex)}", font='Arial 20 bold')   
         
         if app.orderRevealTimer > 10:
             canvas.create_text(875, 50, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[0], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[0], font='Arial 15 bold')
         
         if app.orderRevealTimer > 20:
             canvas.create_text(875, 80, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[1], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[1], font='Arial 15 bold')
 
         if app.orderRevealTimer > 30:
             canvas.create_text(875, 110, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[2], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[2], font='Arial 15 bold')
             
         if app.orderRevealTimer > 40:
             canvas.create_text(875, 140, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[3], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[3], font='Arial 15 bold')
             
         if app.orderRevealTimer > 50:
             canvas.create_text(875, 170, 
-            text=app.currentDay.custList[app.currentDay.custIndex].order[4], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[4], font='Arial 15 bold')
             
         
 ###################################    
@@ -78,6 +80,7 @@ def shopScreen_redrawAll(app, canvas):
 def shopScreen_mouseReleased(app, event):
     # kitchen button
     if isValidClick(event.x, event.y, app.shop_kitchenBtnDms) and app.hasOrder and app.isThereCust:
+        app.isThereCust = False
         app.mode = 'kitchenScreen'
     # store button
     elif isValidClick(event.x, event.y, app.shop_storeBtnDms):
@@ -93,10 +96,11 @@ def shopScreen_timerFired(app):
     if app.orderRevealTimer > 60:
         app.hasOrder = True
         
+    app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
-    app.currentDay.canNextCust(app)
+    
     checkIfGameOver(app)
     
         

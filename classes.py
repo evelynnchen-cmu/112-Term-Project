@@ -12,20 +12,20 @@ class Day():
         self.numOfCusts = numOfCusts
         self.neededAccuracy = neededAccuracy
         self.custPerTime = dayLength/numOfCusts
-        self.custIndex = 0 
+        self.custIndex = 1
         self.custList = [] #list of Customers
     
     def checkIfAddCust(self, app):
         if self.dayTime % self.custPerTime == 0:
             print('new customer')
             self.custList.append(Customer(app))
+            app.isThereCust = True
             
     def checkIfDayOver(self, app):
         if self.dayTime == 0:
             app.mode = 'dayOverScreen'
         else:
             self.dayTime -= 1
-            # print(app.currentDay.dayTime)
             
     def incCustWaitTime(self):
         if len(self.custList) != 0:
@@ -33,11 +33,21 @@ class Day():
                 cust.waitTime += 1
                 
     def canNextCust(self, app):
-        if self.custIndex < len(self.custList):
-            app.isThereCust = True
-            app.curCustDrink = self.custList[self.custIndex].order
-        else:
-            app.isThereCust = False
+        print(app.isThereCust, self.custIndex, len(self.custList))
+        #False 1 1 
+        if len(self.custList) >= self.custIndex:
+        # if self.custIndex < len(self.custList):
+            
+            # app.isThereCust = True
+            app.curCustDrink = self.custList[self.custIndex-1].order
+        
+        
+        # if self.custIndex > len(self.custList):
+        #     app.isThereCust = False 
+        # else:
+        #     app.isThereCust = True
+        #     app.curCustDrink = self.custList[self.custIndex].order
+            
                     
 class Customer():
     def __init__(self, app):
@@ -72,7 +82,6 @@ def resetCustVars(app):
     app.orderRevealTimer = 0
     app.iceCubeCount = 0
     app.sugarCubeCount = 0
-    app.amtOfSquares = 0
     app.hasTakenOrder = False
     app.hasOrder = False
     app.isMixed = False
@@ -110,7 +119,6 @@ def getIngColor(app, ing):
         #?hex color from https://encycolorpedia.com/ffd47f
         return '#ffd700'
     elif ing in app.teaOPTIONS:
-        #'#923c01'
         return '#b0906f'
     elif ing in app.milkOPTIONS:
         return '#fdfff5'
@@ -120,7 +128,6 @@ def evaluateDrink(app):
     errorMargin = 1-(app.currentDay.neededAccuracy/100)
     correctIngTypes = 0
     goodEnoughIngTime = 0
-    wrongIngs = 0
     for ing in app.madeDrinkDict:
         if ing in app.curCustDrink:
             correctIngTypes += 1
@@ -138,8 +145,6 @@ def evaluateDrink(app):
             ingErrorMargin = highEnd-correctIngTime
             if howFarOff < ingErrorMargin: #within margin of error
                 goodEnoughIngTime += 1
-        else:
-            wrongIngs += 1
             
     #sugar cube score
     correctSugarCubes = int(app.curCustDrink[1][:1])
@@ -153,22 +158,24 @@ def evaluateDrink(app):
     #30%-accuracy of ing times
     #20%-wait time
     if len(app.madeDrinkDict) != 0:
-        app.drinkScore = (correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + ((500-app.currentDay.custList[app.currentDay.custIndex].waitTime)/500)*.2 # <1
+        app.drinkScore = (correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2 # <1
     else:
         app.drinkScore = 0
     #calculate tips
     #drink score must be above 50% to even get any tips
     if app.drinkScore > .5:
         #every second waited = 1 cent less; after 50 seconds = no tips
-        app.tips = (500 - app.currentDay.custList[app.currentDay.custIndex].waitTime) *.01 
+        app.tips = (500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01 
         app.tips = roundUp(app.tips, 2) #to make it money format
     
     if app.tips > 0:
         app.money += app.tips
     else:
         app.tips = 0   
-    
-    app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
+    if app.totalOrders > 0:
+        app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
+    else:
+        app.avgScore = app.drinkScore
     
 ###################################   
 #general helpers
@@ -222,3 +229,13 @@ def scaleImage(app, image, box):
         scale = height/originalHeight
     
     return app.scaleImage(image, scale)
+
+#?adapted from https://www.30secondsofcode.org/python/s/hex-to-rgb
+def hexToRGB(hex):
+    red = int(hex[1:3], 16)
+    green = int(hex[3:5], 16)
+    blue = int(hex[5:7], 16)
+    return (red, green, blue)
+  
+def RGBToHex(RGB):
+    return '#%02x%02x%02x' % RGB
