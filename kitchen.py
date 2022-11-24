@@ -37,12 +37,35 @@ def kitchenScreen_redrawAll(app, canvas):
     # canvas.create_oval(app.width*.375-r*2.5, app.height*(1/3)-r*.5, 
     #                         app.width*.375+r*2.5, app.height*(1/3)+r*.5, width=3)
     
-    # drawIngOptions(app, canvas)
     drawSideBar(app, canvas)
-    # if len(app.madeDrinkDict) != 0:
-    #     drawDrink(app, canvas)
-    # print(app.madeDrinkList)
+    if len(app.madeDrinkDict) != 0:
+        drawDrink(app, canvas)
+    if app.iceCubeCount + app.sugarCubeCount != 0:
+        drawCubes(app, canvas)
+    
+    print(app.madeDrinkList)
     # print(app.madeDrinkDict)
+
+def drawCubes(app, canvas):
+    #!optimize this
+    amtOfSquares = app.iceCubeCount + app.sugarCubeCount
+    for i in range(amtOfSquares):
+        #!bug
+        if i >= 20:
+            canvas.create_rectangle(401+(62.5*(i-20)), 251, 400+(62.5*(i+1)-20), 299, width=2)
+        elif i >= 16:
+            canvas.create_rectangle(401+(62.5*(i-16)), 301, 400+(62.5*((i+1)-16)), 349, width=2)
+        elif i >= 12:
+            canvas.create_rectangle(401+(62.5*(i-12)), 351, 400+(62.5*((i+1)-12)), 399, width=2)
+        elif i >= 8:
+            canvas.create_rectangle(401+(62.5*(i-8)), 401, 400+(62.5*((i+1)-8)), 449, width=2)
+        elif i >= 4:
+            canvas.create_rectangle(401+(62.5*(i-4)), 451, 400+(62.5*((i+1)-4)), 499, width=2)
+        elif i < 4:
+            canvas.create_rectangle(401+(62.5*(i)), 501, 400+(62.5*(i+1)), 549, width=2)
+            
+            
+            
 
 def drawSideBar(app, canvas):
     canvas.create_text(875, 20, text='Current Order', font='Arial 20 bold underline')
@@ -57,24 +80,26 @@ def drawSideBar(app, canvas):
 
 def drawDrink(app, canvas):
     #cup = 250 by 300
-    x0 = 400
-    x1 = 650
+    x0 = 401
+    x1 = 649
     y0 = 550
     y1 = 550
     
     for ing in app.madeDrinkList:
         color = getIngColor(app, ing)
-        pressLen = app.madeDrinkDict[ing]*15
+        addLen = app.madeDrinkDict[ing]*15
         y1 = y0
         
+        
         if ing == app.madeDrinkList[-1]:
-            if app.isPressed:
+            if app.isAdding:
                 #?learned about time module from 
                 #?https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
-                y0 -= (time.time() - app.startPress)*15
+                y0 -= (time.time() - app.startAdd)*15
+                canvas.create_rectangle(app.x-15, app.y+app.ingR, app.x+15, y0, fill=color, width=0)
                 canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
         
-        y0 -= pressLen
+        y0 -= addLen
         canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
         
 ###################################
@@ -110,14 +135,14 @@ def kitchenScreen_mousePressed(app, event):
         app.itemAtRest = False
         app.x, app.y = app.puddingC
     elif isValidIngClick(app, x, y, app.sugarCubeC):
-        #!fix
+        #!different
         app.curIng = 'sugarCube'
         app.curIngImg = app.sugarCube
         app.hasItem = True
         app.itemAtRest = False
         app.x, app.y = app.sugarCubeC
     elif isValidIngClick(app, x, y, app.iceCubeC):
-        #!fix
+        #!different
         app.curIng = 'iceCube'
         app.curIngImg = app.iceCube
         app.hasItem = True
@@ -165,18 +190,20 @@ def kitchenScreen_mouseReleased(app, event):
     if app.hasItem and app.isLegal:
         app.lenOfAdd = time.time() - app.startAdd
         app.cupFullness += app.lenOfAdd
-        app.madeDrinkList.append(app.curIng)
         app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
     
     
     if app.curIng != 'sugarCube' and app.curIng != 'iceCube' and app.curIng != '':    
+        #!bug
         if app.madeDrinkDict[app.curIng] == 0:
             del app.madeDrinkDict[app.curIng]
+            app.madeDrinkList.pop()
     
     app.itemAtRest = True
     app.hasItem = False
     app.isLegal = False
     app.curIngImg = ''
+    app.isAdding = False
     
     app.x = 0
     app.y = 0
@@ -188,24 +215,30 @@ def kitchenScreen_mouseDragged(app, event):
         app.x, app.y, = event.x, event.y
     
     #if item is above cup
-    if 425 < app.x < 625 and 0 < app.y < 250:
-        
-        if app.startAdd == 0:
-            app.startAdd = time.time()
-        app.isLegal = True
-    else:
-        app.isLegal = False
-    
-    if app.hasItem and app.isLegal:
-        if app.curIng == 'sugarCube':
-            app.sugarCubeCount += 1
-            app.hasItem = False
-            # app.itemAtRest = True
-        elif app.curIng == 'iceCube':
-            app.iceCubeCount += 1
-            app.hasItem = False
+    if app.curIng != 'iceCube' and app.curIng != 'sugarCube':
+        if 425 < app.x < 625 and 0 < app.y < 250:
+            app.isAdding = True
+            if app.startAdd == 0:
+                app.startAdd = time.time()
+            app.isLegal = True
         else:
+            app.isLegal = False 
+            app.isAdding = False
+
+        if app.hasItem and app.isLegal:
             app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
+            if app.curIng not in app.madeDrinkList:
+                app.madeDrinkList.append(app.curIng)
+    else:
+        if app.sugarCubeCount + app.iceCubeCount < 24:
+            if app.curIng == 'sugarCube':
+                app.sugarCubeCount += 1
+                app.hasItem = False
+                app.curIng = ''
+            elif app.curIng == 'iceCube':
+                app.iceCubeCount += 1
+                app.hasItem = False
+                app.curIng = ''
         
         
 

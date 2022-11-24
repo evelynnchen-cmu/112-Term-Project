@@ -48,7 +48,7 @@ def appStarted(app):
     app.startAdd = 0
     app.lenOfAdd = 0
     app.cupFullness = 0 #adding up timer
-    app.isPressed = False
+    app.isAdding = False
     
     #drag and drop variables
     app.itemAtRest = True
