@@ -33,7 +33,7 @@ class Day():
                 cust.waitTime += 1
                 
     def canNextCust(self, app):
-        print(app.isThereCust, self.custIndex, len(self.custList))
+        # print(app.isThereCust, self.custIndex, len(self.custList))
         #False 1 1 
         if len(self.custList) >= self.custIndex:
         # if self.custIndex < len(self.custList):
@@ -186,7 +186,7 @@ def drawButton(canvas, dimensionTuple, buttonName):
     buttonHeight = abs(y0-y1)
     canvas.create_rectangle(x0, y0, x1, y1, fill = 'lightblue1', width = 3)
     canvas.create_text(x0 + (buttonWidth/2), y0 + (buttonHeight/2), text = buttonName, 
-                            font = 'Arial 15 bold', fill = 'black')
+                            font = 'Courier 15 bold', fill = 'black')
 
 def isValidClick(x, y, dimensionTuple):
     x0, y0, x1, y1 = dimensionTuple

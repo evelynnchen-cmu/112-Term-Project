@@ -99,11 +99,11 @@ def drawCubes(canvas, numOfSquares):
             canvas.create_rectangle(401+(62.5*(i)), 501, 400+(62.5*(i+1)), 549, width=2)
             
 def drawSideBar(app, canvas):
-    canvas.create_text(875, 20, text='Current Order', font='Arial 20 bold underline')
+    canvas.create_text(875, 20, text='Current Order', font='Courier 20 bold underline')
     if len(app.curCustDrink) != 0:
         space = 50
         for ing in app.curCustDrink:
-            canvas.create_text(875, space, text=ing, font='Arial 15 bold')
+            canvas.create_text(875, space, text=ing, font='Courier 15 bold')
             space += 30
 
 def drawDrink(app, canvas):

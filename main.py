@@ -25,7 +25,7 @@ def appStarted(app):
     
     #initiailize day variables and start Day 1
     app.dayIndex = 1
-    app.dayLength = 1200 #120 seconds
+    app.dayLength = 12 #120 seconds
     app.numOfCusts = 3
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     
@@ -92,7 +92,7 @@ def appStarted(app):
     #buttons
     ###################################
     #startScreen
-    app.start_startBtnDms = (425, 350, 575, 400)
+    app.start_startBtnDms = (425, 300, 575, 350)
     
     #shopScreen
     app.shop_takeOrderBtnDms = (app.width*(1/40), app.height*(.6875), app.width*(.175), app.height*(.77))
@@ -137,7 +137,7 @@ def appStarted(app):
     app.store_doneBtnDms = (800, 525, 950, 575)
     
     #dayOverScreen
-    app.dayOver_nextDayBtnDms = (800, 525, 950, 575)
+    app.dayOver_nextDayBtnDms = (425, 275, 575 , 325)
     
     #gameOverScreen
     app.gameOver_restartBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)

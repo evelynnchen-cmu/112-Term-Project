@@ -15,10 +15,10 @@ def storeScreen_redrawAll(app, canvas):
     canvas.create_rectangle(15, 10, 502, 50, width=3)
     daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
     canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
-    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
+    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Courier 15 bold')
    
     #money
-    canvas.create_text(650, 30, text=f'${app.money}', font='Arial 25 bold')
+    canvas.create_text(650, 30, text=f'${app.money}', font='Courier 25 bold')
     
     drawButton(canvas, app.eval_doneBtnDms, 'Done')
     
@@ -44,28 +44,28 @@ def storeScreen_redrawAll(app, canvas):
     #!inventory
     space = 70
     #Inventory title
-    canvas.create_text(875, 25, text='Current Inventory', font='Arial 20 bold')
+    canvas.create_text(875, 25, text='Current Inventory', font='Courier 20 bold')
     
     #tea 
-    canvas.create_text(875, 50, text='Teas', font='Arial 18 bold')
+    canvas.create_text(875, 50, text='Teas', font='Courier 18 bold')
     for item in app.teaInventory:
-        canvas.create_text(875, space, text=f'{item}: {app.teaInventory[item]}', font='Arial 18')
+        canvas.create_text(875, space, text=f'{item}: {app.teaInventory[item]}', font='Courier 18')
         space += 20
          
     #toppings
     space += 20
-    canvas.create_text(875, space, text='Toppings', font='Arial 18 bold')
+    canvas.create_text(875, space, text='Toppings', font='Courier 18 bold')
     space += 20
     for item in app.toppingsInventory:
-        canvas.create_text(875, space, text=f'{item}: {app.toppingsInventory[item]}', font='Arial 18')
+        canvas.create_text(875, space, text=f'{item}: {app.toppingsInventory[item]}', font='Courier 18')
         space += 20
         
     #supplies
     space += 20
-    canvas.create_text(875, space, text='Supplies', font='Arial 18 bold')
+    canvas.create_text(875, space, text='Supplies', font='Courier 18 bold')
     space += 20
     for item in app.suppliesInventory:
-        canvas.create_text(875, space, text=f'{item}: {app.suppliesInventory[item]}', font='Arial 18')
+        canvas.create_text(875, space, text=f'{item}: {app.suppliesInventory[item]}', font='Courier 18')
         space += 20
         
 ###################################

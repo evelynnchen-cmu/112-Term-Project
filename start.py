@@ -6,6 +6,7 @@ from classes import *
 def startScreen_redrawAll(app, canvas):
     #background color
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
+    canvas.create_text(app.width//2, app.height//3, text="Evelynn's Bobaria", font='Courier 50 bold')
     drawButton(canvas, app.start_startBtnDms, 'Start')
 
 ###################################    

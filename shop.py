@@ -15,10 +15,10 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_rectangle(15, 10, 502, 50, width=3)
     daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
     canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
-    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Arial 15 bold')
+    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Courier 15 bold')
     
     #money
-    canvas.create_text(650, 30, text= f'${app.money}', font='Arial 25 bold')
+    canvas.create_text(650, 30, text= f'${app.money}', font='Courier 25 bold')
         
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
@@ -27,7 +27,7 @@ def shopScreen_redrawAll(app, canvas):
     #cash register
     canvas.create_rectangle(25, 325, 125, 385, fill='black')
     canvas.create_rectangle(62.5, 375, 87.5, 400, fill='black')
-    canvas.create_text(75, 355, text='$$$', fill='green', font='Arial 15 bold')
+    canvas.create_text(75, 355, text='$$$', fill='green', font='Courier 15 bold')
 
     #tips jar
     canvas.create_image(650, 350, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (100, 100))))
@@ -36,8 +36,8 @@ def shopScreen_redrawAll(app, canvas):
     
     if app.hasOrder and app.isThereCust:
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
-    else:
-        canvas.create_text(875, 300, text='No Current Order', font='Arial 15 bold')
+    if not app.hasTakenOrder:
+        canvas.create_text(875, 300, text='No Current Order', font='Courier 15 bold')
     
     if app.isThereCust:
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(scaleImage(app, app.body, (200, 200))))
@@ -51,27 +51,27 @@ def shopScreen_redrawAll(app, canvas):
     #slowly reveal order    
     if app.hasTakenOrder and app.isThereCust:
         canvas.create_text(875, 20, 
-            text=f"Customer #{(app.currentDay.custIndex)}", font='Arial 20 bold')   
+            text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 20 bold')   
         
         if app.orderRevealTimer > 10:
             canvas.create_text(875, 50, 
-            text=app.currentDay.custList[app.currentDay.custIndex-1].order[0], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[0], font='Courier 15 bold')
         
         if app.orderRevealTimer > 20:
             canvas.create_text(875, 80, 
-            text=app.currentDay.custList[app.currentDay.custIndex-1].order[1], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[1], font='Courier 15 bold')
 
         if app.orderRevealTimer > 30:
             canvas.create_text(875, 110, 
-            text=app.currentDay.custList[app.currentDay.custIndex-1].order[2], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[2], font='Courier 15 bold')
             
         if app.orderRevealTimer > 40:
             canvas.create_text(875, 140, 
-            text=app.currentDay.custList[app.currentDay.custIndex-1].order[3], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[3], font='Courier 15 bold')
             
         if app.orderRevealTimer > 50:
             canvas.create_text(875, 170, 
-            text=app.currentDay.custList[app.currentDay.custIndex-1].order[4], font='Arial 15 bold')
+            text=app.currentDay.custList[app.currentDay.custIndex-1].order[4], font='Courier 15 bold')
             
         
 ###################################    
