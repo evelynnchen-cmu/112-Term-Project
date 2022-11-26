@@ -130,7 +130,6 @@ def drawDrink(app, canvas):
         addLen = app.madeDrinkDict[ing]*15
         y1 = y0
         
-        
         if ing == app.madeDrinkList[-1]:
             if app.isAdding:
                 #?learned about time module from 
@@ -233,12 +232,13 @@ def kitchenScreen_mouseReleased(app, event):
     if isValidClick(x, y, app.kitchen_mixBtnDms):
         app.isMixed = True
     #store button
-    elif isValidClick(x, y, app.kitchen_storeBtnDms):
-        app.mode = 'storeScreen'
+    # elif isValidClick(x, y, app.kitchen_storeBtnDms):
+    #     app.mode = 'storeScreen'
     # eval button
-    elif isValidClick(x, y, app.kitchen_evalBtnDms) and app.isMixed:
+    elif isValidClick(x, y, app.kitchen_evalBtnDms):
+        print('hi')
         evaluateDrink(app)
-        app.evalRevealTimer = 0
+        # app.evalRevealTimer = 0
         app.mode = 'evaluationScreen'
     
     if app.hasItem and app.isLegal:

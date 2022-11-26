@@ -102,7 +102,7 @@ def appStarted(app):
     
     #kitchenScreen
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
-    app.kitchen_evalBtnDms = (800, 425, 950, 475)
+    app.kitchen_evalBtnDms = (800, 525, 950, 575)
     app.kitchen_mixBtnDms = (800, 425, 950, 475)
 
     #ing centers
