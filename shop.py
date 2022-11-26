@@ -6,12 +6,12 @@ from classes import *
 def shopScreen_redrawAll(app, canvas):
 
     #background color
-    canvas.create_rectangle(0, 0, app.width, app.height, fill='#FAF9F6', width=0)
+    canvas.create_rectangle(0, 0, app.width, app.height, fill='#b2beb5', width=0)
     
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
-    #purple sidebar
-    canvas.create_rectangle(750, 0, app.width, app.height, fill='#dcd3fe', width=0)
+    #blue sidebar#dcd3fe
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='lightblue1', width=0)
     
     #logo
     canvas.create_image(375, 225, image=ImageTk.PhotoImage(app.logo))
@@ -20,17 +20,19 @@ def shopScreen_redrawAll(app, canvas):
     # canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, fill='black', width=3)
     
     #day progress bar
-    canvas.create_rectangle(15, 10, 502, 50, width=3)
+    canvas.create_rectangle(225, 10, 722, 50, width=3)
     daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
-    canvas.create_rectangle(17, 12, 17+daySlice, 49, width=0, fill='chartreuse4')
-    canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Courier 15 bold')
+    canvas.create_rectangle(227, 12, 227+daySlice, 49, width=0, fill='chartreuse4')
+    
+    #day index
+    canvas.create_text(115, 30, text=f'Day {app.dayIndex}', font='Courier 20 bold')
     
     #money
     canvas.create_text(650, 275, text= f'${app.money}', font='Courier 25 bold')
         
     #counter
-    canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
-    canvas.create_rectangle(0, app.height*(2/3), app.width*(3/4), app.height, fill='bisque2')
+    canvas.create_line(0, app.height*(2/3), app.width*(3/4), app.height*(2/3), fill='black', width=3)
+    canvas.create_image(375, 500, image=ImageTk.PhotoImage(app.counter))
     
     #tips jar
     canvas.create_image(650, 350, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (100, 100))))
@@ -52,8 +54,10 @@ def shopScreen_redrawAll(app, canvas):
         drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
     
     #cash register
+    canvas.create_rectangle(32, 300, 122, 357, fill='white', width=0)
     canvas.create_image(125, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
     canvas.create_image(75, 327, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegisterScreen, (63, 63))))
+    
     
     
     #trademark

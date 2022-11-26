@@ -4,15 +4,18 @@ from classes import *
 ###################################
 def evaluationScreen_redrawAll(app, canvas):        
     
-    #purple sidebar
-    canvas.create_rectangle(750, 0, app.width, app.height, fill='#dcd3fe', width=0)
+    #background
+    canvas.create_rectangle(0, 0, 750, 500, fill='#b2beb5', width=0)
+    
+    #blue sidebar
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='lightblue1', width=0)
     
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
     
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
-    canvas.create_rectangle(0, app.height*(5/6), app.width*(3/4), app.height, fill='bisque2')
+    canvas.create_image(375, 600, image=ImageTk.PhotoImage(app.counter))
         
     #tips jar
     canvas.create_image(600, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (200, 200))))
@@ -66,7 +69,7 @@ def drawMiniDrink(app, canvas):
     #draw mixed liquid
     canvas.create_rectangle(x0, 499-(app.cupFullness*5), x1, 
                             499-(topOfToppings*5), fill=newColor, width=0)
-    canvas.create_image(400, 450, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutline, (100, 100))))
+    canvas.create_image(400, 450, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutlineGreen, (100, 100))))
     
     
     
@@ -89,7 +92,10 @@ def drawStats(app, canvas):
     
     if app.evalRevealTimer > 30:
         #tips earned
-        canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Courier 15 bold')
+        if len(str(app.tips)) == 3:
+            canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', font='Courier 15 bold')
+        else:
+            canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Courier 15 bold')
     
     if app.evalRevealTimer > 40:
         #total average score

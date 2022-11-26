@@ -158,7 +158,7 @@ def evaluateDrink(app):
     #30%-accuracy of ing times
     #20%-wait time
     if len(app.madeDrinkDict) != 0:
-        app.drinkScore = (correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2 # <1
+        app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2) # <1
     else:
         app.drinkScore = 0
     #calculate tips
@@ -209,7 +209,7 @@ def drawButton(canvas, dimensionTuple, buttonName):
     x0, y0, x1, y1 = dimensionTuple
     buttonWidth = abs(x0-x1)
     buttonHeight = abs(y0-y1)
-    canvas.create_rectangle(x0, y0, x1, y1, fill = 'lightblue1', width = 3)
+    canvas.create_rectangle(x0, y0, x1, y1, fill = '#807d7d', width = 3)
     canvas.create_text(x0 + (buttonWidth/2), y0 + (buttonHeight/2), text = buttonName, 
                             font = 'Courier 15 bold', fill = 'black')
 

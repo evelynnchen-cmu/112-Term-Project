@@ -165,10 +165,12 @@ def appStarted(app):
                  app.sugarCube, app.iceCube, app.wholeMilk, app.twoPMilk, 
                  app.skimMilk, app.greenTea, app.blackTea, app.oolongTea]
     
-    app.cupOutline = app.loadImage('./assets/cup_outline.png')
+    app.cupOutlineGray = app.loadImage('./assets/cup_outline_gray.png')
+    app.cupOutlineGreen = app.loadImage('./assets/cup_outline_green.png')
     app.logo = app.loadImage('./assets/logo.png')
     app.boba = app.loadImage('./assets/boba.png')
     app.cashRegister = app.loadImage('./assets/cash_register.png')
+    app.counter = app.loadImage('./assets/counter.png')
     
     #?taken from https://www.istockphoto.com/es/vector/t%C3%A9-de-burbujas-popular-
     #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-

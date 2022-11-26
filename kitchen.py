@@ -4,8 +4,8 @@ from classes import *
 #view
 ###################################
 def kitchenScreen_redrawAll(app, canvas):
-    #purple sidebar
-    canvas.create_rectangle(750, 0, app.width, app.height, fill='#dcd3fe', width=0)
+    #blue sidebar
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='lightblue1', width=0)
     
     #background 
     canvas.create_rectangle(0, 0, 750, app.height, fill='#D3D3D3', width=0)
@@ -58,7 +58,7 @@ def kitchenScreen_redrawAll(app, canvas):
                                 549-(topOfToppings*15), fill=newColor, width=0)
         
         drawCubes(canvas, app.iceCubeCount, 251)
-        canvas.create_image(376, 401, image=ImageTk.PhotoImage(app.cupOutline))
+        canvas.create_image(376, 401, image=ImageTk.PhotoImage(app.cupOutlineGray))
     else:
         
         #cup
@@ -89,7 +89,7 @@ def kitchenScreen_redrawAll(app, canvas):
             drawDrink(app, canvas)
         if app.iceCubeCount + app.sugarCubeCount != 0:
             drawCubes(canvas, (app.iceCubeCount + app.sugarCubeCount), 401)
-        canvas.create_image(526, 401, image=ImageTk.PhotoImage(app.cupOutline))
+        canvas.create_image(526, 401, image=ImageTk.PhotoImage(app.cupOutlineGray))
         
     #trademark
     canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
