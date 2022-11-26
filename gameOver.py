@@ -4,7 +4,13 @@ from classes import *
 #view
 ###################################
 def gameOverScreen_redrawAll(app, canvas):
+    #background color
+    canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
+    
     drawButton(canvas, app.gameOver_restartBtnDms, 'Restart')
+    
+    #trademark
+    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
 
 ###################################    
 #controller

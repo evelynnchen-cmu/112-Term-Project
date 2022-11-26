@@ -25,7 +25,7 @@ def appStarted(app):
     
     #initiailize day variables and start Day 1
     app.dayIndex = 1
-    app.dayLength = 12 #120 seconds
+    app.dayLength = 1200 #120 seconds
     app.numOfCusts = 3
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     
@@ -49,6 +49,7 @@ def appStarted(app):
     app.cupFullness = 0 #adding up timer
     app.isAdding = False
     app.isMixed = False
+    app.mixedDrinkToppings = dict()
     
     #drag and drop variables
     app.itemAtRest = True
@@ -96,12 +97,12 @@ def appStarted(app):
     
     #shopScreen
     app.shop_takeOrderBtnDms = (app.width*(1/40), app.height*(.6875), app.width*(.175), app.height*(.77))
-    app.shop_kitchenBtnDms = (575, 525, 725, 575)
+    app.shop_kitchenBtnDms = (800, 425, 950, 475)
     app.shop_storeBtnDms = (25, 525, 175, 575)
     
     #kitchenScreen
     app.kitchen_storeBtnDms = (25, 525, 175, 575)
-    app.kitchen_evalBtnDms = (800, 525, 950, 575)
+    app.kitchen_evalBtnDms = (800, 425, 950, 475)
     app.kitchen_mixBtnDms = (800, 425, 950, 475)
 
     #ing centers
@@ -163,6 +164,16 @@ def appStarted(app):
     app.ingImgs = [app.tapioca, app.aloeJelly, app.redBean, app.pudding, 
                  app.sugarCube, app.iceCube, app.wholeMilk, app.twoPMilk, 
                  app.skimMilk, app.greenTea, app.blackTea, app.oolongTea]
+    
+    app.cupOutline = app.loadImage('./assets/cup_outline.png')
+    app.logo = app.loadImage('./assets/logo.png')
+    app.boba = app.loadImage('./assets/boba.png')
+    app.cashRegister = app.loadImage('./assets/cash_register.png')
+    
+    #?taken from https://www.istockphoto.com/es/vector/t%C3%A9-de-burbujas-popular-
+    #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-
+    #?gm1273459736-375324413
+    app.cashRegisterScreen = app.loadImage('./assets/cash_register_screen.jpg')
     
     app.body = app.loadImage('./assets/body.png')
     app.neutral = app.loadImage('./assets/neutral.png')

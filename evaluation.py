@@ -3,9 +3,13 @@ from classes import *
 #view
 ###################################
 def evaluationScreen_redrawAll(app, canvas):        
+    
+    #purple sidebar
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='#dcd3fe', width=0)
+    
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
-        
+    
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
     canvas.create_rectangle(0, app.height*(5/6), app.width*(3/4), app.height, fill='bisque2')
@@ -17,7 +21,12 @@ def evaluationScreen_redrawAll(app, canvas):
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))
     #customer
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex-1].custImg))
+    
+    #trademark
+    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
 
+    drawMiniDrink(app, canvas)
+    
     if app.evalRevealTimer < 20:
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.critique))
         
@@ -28,6 +37,39 @@ def evaluationScreen_redrawAll(app, canvas):
     #side bar stats
     if app.evalRevealTimer > 10:
         drawStats(app, canvas)
+
+def drawMiniDrink(app, canvas):
+    # canvas.create_line(360, 400, 440, 400, fill='red')
+    # canvas.create_line(360, 500, 440, 500, fill='red')
+    x0 = 361
+    x1 = 441
+    y0 = 499
+    y1 = 499
+    
+    newColor = mixDrink(app)
+    mixedDrinkToppings = dict()
+    topOfToppings = 0
+        
+    for ing in app.madeDrinkDict:
+        #get dict of only made toppings
+        if ing in app.toppingsOPTIONS:
+            mixedDrinkToppings[ing] = app.madeDrinkDict[ing]
+            topOfToppings += app.madeDrinkDict[ing]
+
+    #draw toppings
+    for ing in mixedDrinkToppings:
+        color = getIngColor(app, ing)
+        addLen = mixedDrinkToppings[ing]*5
+        y1 = y0 
+        y0 -= addLen
+        canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
+    #draw mixed liquid
+    canvas.create_rectangle(x0, 499-(app.cupFullness*5), x1, 
+                            499-(topOfToppings*5), fill=newColor, width=0)
+    canvas.create_image(400, 450, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutline, (100, 100))))
+    
+    
+    
         
 def drawStats(app, canvas):
     custReaction = ''

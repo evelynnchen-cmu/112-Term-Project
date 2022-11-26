@@ -4,9 +4,14 @@ from classes import *
 #view
 ###################################
 def kitchenScreen_redrawAll(app, canvas):
+    #purple sidebar
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='#dcd3fe', width=0)
+    
+    #background 
+    canvas.create_rectangle(0, 0, 750, app.height, fill='#D3D3D3', width=0)
+    
     #vertical divider
-    canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
-                                                fill='black', width=3)
+    canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
         
     # drawButton(canvas, app.kitchen_storeBtnDms, 'Store')
     if app.isMixed:
@@ -15,23 +20,24 @@ def kitchenScreen_redrawAll(app, canvas):
     if not app.isMixed:
         drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
     drawSideBar(app, canvas)
-    # print(app.madeDrinkDict)
+    print(app.madeDrinkDict)
     # print(app.madeDrinkList)
     
     #only if done
     if app.isMixed:
         
         #cup
-        canvas.create_line(250, 250, 250, 550, width=3)
-        canvas.create_line(500, 250, 500, 550, width=3)
-        canvas.create_line(250, 250, 500, 250, width=3)
-        canvas.create_line(250, 550, 500, 550, width=3)
+        # canvas.create_line(250, 250, 250, 550, width=3)
+        # canvas.create_line(500, 250, 500, 550, width=3)
+        # canvas.create_line(250, 250, 500, 250, width=3)
+        # canvas.create_line(250, 550, 500, 550, width=3)
+        
         x0 = 251
         x1 = 501
-        y0 = 550
-        y1 = 550
-        mixedDrinkToppings = dict()
+        y0 = 549
+        y1 = 549
         newColor = mixDrink(app)
+        mixedDrinkToppings = dict()
         topOfToppings = 0
         
         for ing in app.madeDrinkDict:
@@ -48,17 +54,19 @@ def kitchenScreen_redrawAll(app, canvas):
             y0 -= addLen
             canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
         #draw mixed liquid
-        canvas.create_rectangle(x0, 550-(app.cupFullness*15), x1, 
-                                550-(topOfToppings*15), fill=newColor, width=0)
-
-        drawCubes(canvas, app.iceCubeCount)
+        canvas.create_rectangle(x0, 549-(app.cupFullness*15), x1, 
+                                549-(topOfToppings*15), fill=newColor, width=0)
+        
+        drawCubes(canvas, app.iceCubeCount, 251)
+        canvas.create_image(376, 401, image=ImageTk.PhotoImage(app.cupOutline))
     else:
         
         #cup
-        canvas.create_line(400, 250, 400, 550, width=3)
-        canvas.create_line(650, 250, 650, 550, width=3)
-        canvas.create_line(400, 250, 650, 250, width=3)
-        canvas.create_line(400, 550, 650, 550, width=3)
+        # canvas.create_line(400, 250, 400, 550, width=3)
+        # canvas.create_line(650, 250, 650, 550, width=3)
+        # canvas.create_line(400, 250, 650, 250, width=3)
+        # canvas.create_line(400, 550, 650, 550, width=3)
+        
         #ingredients
             #teas
         #draw all ings
@@ -80,23 +88,27 @@ def kitchenScreen_redrawAll(app, canvas):
         if len(app.madeDrinkDict) != 0:
             drawDrink(app, canvas)
         if app.iceCubeCount + app.sugarCubeCount != 0:
-            drawCubes(canvas, (app.iceCubeCount + app.sugarCubeCount))
+            drawCubes(canvas, (app.iceCubeCount + app.sugarCubeCount), 401)
+        canvas.create_image(526, 401, image=ImageTk.PhotoImage(app.cupOutline))
+        
+    #trademark
+    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
 
-def drawCubes(canvas, numOfSquares):
+def drawCubes(canvas, numOfSquares, x):
     #!optimize this
     for i in range(numOfSquares):
         if i >= 20:
-            canvas.create_rectangle(401+(62.5*(i-20)), 251, 400+(62.5*((i+1)-20)), 299, width=2)
+            canvas.create_rectangle(x+(62.5*(i-20)), 251, x+(62.5*((i+1)-20)), 299, width=2)
         elif i >= 16:
-            canvas.create_rectangle(401+(62.5*(i-16)), 301, 400+(62.5*((i+1)-16)), 349, width=2)
+            canvas.create_rectangle(x+(62.5*(i-16)), 301, x+(62.5*((i+1)-16)), 349, width=2)
         elif i >= 12:
-            canvas.create_rectangle(401+(62.5*(i-12)), 351, 400+(62.5*((i+1)-12)), 399, width=2)
+            canvas.create_rectangle(x+(62.5*(i-12)), 351, x+(62.5*((i+1)-12)), 399, width=2)
         elif i >= 8:
-            canvas.create_rectangle(401+(62.5*(i-8)), 401, 400+(62.5*((i+1)-8)), 449, width=2)
+            canvas.create_rectangle(x+(62.5*(i-8)), 401, x+(62.5*((i+1)-8)), 449, width=2)
         elif i >= 4:
-            canvas.create_rectangle(401+(62.5*(i-4)), 451, 400+(62.5*((i+1)-4)), 499, width=2)
+            canvas.create_rectangle(x+(62.5*(i-4)), 451, x+(62.5*((i+1)-4)), 499, width=2)
         elif i < 4:
-            canvas.create_rectangle(401+(62.5*(i)), 501, 400+(62.5*(i+1)), 549, width=2)
+            canvas.create_rectangle(x+(62.5*(i)), 501, x+(62.5*(i+1)), 549, width=2)
             
 def drawSideBar(app, canvas):
     canvas.create_text(875, 20, text='Current Order', font='Courier 20 bold underline')
@@ -253,7 +265,8 @@ def kitchenScreen_mouseReleased(app, event):
     
 def kitchenScreen_mouseDragged(app, event):
     if app.hasItem:
-        app.x, app.y, = event.x, event.y
+        if event.x < 750:
+            app.x, app.y, = event.x, event.y
     
     #if item is above cup
     if app.curIng != 'iceCube' and app.curIng != 'sugarCube':
@@ -291,30 +304,6 @@ def kitchenScreen_timerFired(app):
     app.currentDay.checkIfDayOver(app)
     
     checkIfGameOver(app) 
-  
-def mixDrink(app):
-    milkR, milkG, milkB = hexToRGB(getIngColor(app, 'whole_milk'))
-    teaR, teaG, teaB = hexToRGB(getIngColor(app, 'green_tea'))
-    milkTime = 0
-    teaTime = 0
-    
-    for ing in app.madeDrinkDict:
-        if 'milk' in ing:
-            milkTime += app.madeDrinkDict[ing]
-        if 'tea' in ing:
-            teaTime += app.madeDrinkDict[ing]
-    
-    #if no mixing is needed        
-    if milkTime == 0:
-        return getIngColor(app, 'green_tea')
-    elif teaTime == 0:
-        return getIngColor(app, 'whole_milk')
-    
-    combinedTime = milkTime + teaTime
-    newR = int((milkR*milkTime + teaR*teaTime) / combinedTime)
-    newG = int((milkG*milkTime + teaG*teaTime) / combinedTime)
-    newB = int((milkB*milkTime + teaB*teaTime) / combinedTime)
-    newHex = RGBToHex((newR, newG, newB))
-    return newHex
+
     
     

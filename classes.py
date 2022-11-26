@@ -176,7 +176,32 @@ def evaluateDrink(app):
         app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
     else:
         app.avgScore = app.drinkScore
+
+def mixDrink(app):
+    milkR, milkG, milkB = hexToRGB(getIngColor(app, 'whole_milk'))
+    teaR, teaG, teaB = hexToRGB(getIngColor(app, 'green_tea'))
+    milkTime = 0
+    teaTime = 0
     
+    for ing in app.madeDrinkDict:
+        if 'milk' in ing:
+            milkTime += app.madeDrinkDict[ing]
+        if 'tea' in ing:
+            teaTime += app.madeDrinkDict[ing]
+    
+    #if no mixing is needed        
+    if milkTime == 0:
+        return getIngColor(app, 'green_tea')
+    elif teaTime == 0:
+        return getIngColor(app, 'whole_milk')
+    
+    combinedTime = milkTime + teaTime
+    newR = int((milkR*milkTime + teaR*teaTime) / combinedTime)
+    newG = int((milkG*milkTime + teaG*teaTime) / combinedTime)
+    newB = int((milkB*milkTime + teaB*teaTime) / combinedTime)
+    newHex = RGBToHex((newR, newG, newB))
+    return newHex
+
 ###################################   
 #general helpers
 ###################################

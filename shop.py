@@ -5,11 +5,19 @@ from classes import *
 ###################################
 def shopScreen_redrawAll(app, canvas):
 
+    #background color
+    canvas.create_rectangle(0, 0, app.width, app.height, fill='#FAF9F6', width=0)
+    
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
+    #purple sidebar
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='#dcd3fe', width=0)
+    
+    #logo
+    canvas.create_image(375, 225, image=ImageTk.PhotoImage(app.logo))
         
     #horizontal divider
-    canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, fill='black', width=3)
+    # canvas.create_line(0, app.height/10, app.width*(3/4), app.height/10, fill='black', width=3)
     
     #day progress bar
     canvas.create_rectangle(15, 10, 502, 50, width=3)
@@ -18,17 +26,12 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_text(257.5, 30, text=f'Day {app.dayIndex}', font='Courier 15 bold')
     
     #money
-    canvas.create_text(650, 30, text= f'${app.money}', font='Courier 25 bold')
+    canvas.create_text(650, 275, text= f'${app.money}', font='Courier 25 bold')
         
     #counter
     canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
     canvas.create_rectangle(0, app.height*(2/3), app.width*(3/4), app.height, fill='bisque2')
-        
-    #cash register
-    canvas.create_rectangle(25, 325, 125, 385, fill='black')
-    canvas.create_rectangle(62.5, 375, 87.5, 400, fill='black')
-    canvas.create_text(75, 355, text='$$$', fill='green', font='Courier 15 bold')
-
+    
     #tips jar
     canvas.create_image(650, 350, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (100, 100))))
         
@@ -47,6 +50,14 @@ def shopScreen_redrawAll(app, canvas):
         
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(curCustImg))
         drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
+    
+    #cash register
+    canvas.create_image(125, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
+    canvas.create_image(75, 327, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegisterScreen, (63, 63))))
+    
+    
+    #trademark
+    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
     
     #slowly reveal order    
     if app.hasTakenOrder and app.isThereCust:
@@ -72,6 +83,8 @@ def shopScreen_redrawAll(app, canvas):
         if app.orderRevealTimer > 50:
             canvas.create_text(875, 170, 
             text=app.currentDay.custList[app.currentDay.custIndex-1].order[4], font='Courier 15 bold')
+            
+    
             
         
 ###################################    
