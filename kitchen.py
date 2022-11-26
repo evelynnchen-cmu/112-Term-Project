@@ -23,14 +23,7 @@ def kitchenScreen_redrawAll(app, canvas):
     print(app.madeDrinkDict)
     # print(app.madeDrinkList)
     
-    #only if done
     if app.isMixed:
-        
-        #cup
-        # canvas.create_line(250, 250, 250, 550, width=3)
-        # canvas.create_line(500, 250, 500, 550, width=3)
-        # canvas.create_line(250, 250, 500, 250, width=3)
-        # canvas.create_line(250, 550, 500, 550, width=3)
         
         x0 = 251
         x1 = 501
@@ -58,17 +51,10 @@ def kitchenScreen_redrawAll(app, canvas):
                                 549-(topOfToppings*15), fill=newColor, width=0)
         
         drawCubes(canvas, app.iceCubeCount, 251)
-        canvas.create_image(376, 401, image=ImageTk.PhotoImage(app.cupOutlineGray))
+        canvas.create_image(376, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
     else:
         
-        #cup
-        # canvas.create_line(400, 250, 400, 550, width=3)
-        # canvas.create_line(650, 250, 650, 550, width=3)
-        # canvas.create_line(400, 250, 650, 250, width=3)
-        # canvas.create_line(400, 550, 650, 550, width=3)
-        
         #ingredients
-            #teas
         #draw all ings
         for i in range(len(app.ingCs)):
             if app.curIngImg != app.ingImgs[i]:
@@ -76,44 +62,35 @@ def kitchenScreen_redrawAll(app, canvas):
 
         if app.hasItem:
             canvas.create_image(app.x, app.y, image = ImageTk.PhotoImage(app.curIngImg))
-        
-        #!to make 3D maybe later
-        #adapted from hw9 https://www.cs.cmu.edu/~112/notes/hw9.html
-        # canvas.create_arc(250, 525, 500, 475, width=3, style='arc', extent=-180)
-        # r=50
-        # canvas.create_oval(app.width*.375-r*2.5, app.height*(1/3)-r*.5, 
-        #                         app.width*.375+r*2.5, app.height*(1/3)+r*.5, width=3)
-        
 
         if len(app.madeDrinkDict) != 0:
             drawDrink(app, canvas)
         if app.iceCubeCount + app.sugarCubeCount != 0:
-            drawCubes(canvas, (app.iceCubeCount + app.sugarCubeCount), 401)
-        canvas.create_image(526, 401, image=ImageTk.PhotoImage(app.cupOutlineGray))
-        
-    #trademark
-    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
+            drawCubes(canvas, (app.iceCubeCount + app.sugarCubeCount), 410)
+        canvas.create_image(526, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
 
 def drawCubes(canvas, numOfSquares, x):
     #!optimize this
+    canvas.create_line(410, 500, 527, 500, fill='red', width=10)
     for i in range(numOfSquares):
-        if i >= 20:
-            canvas.create_rectangle(x+(62.5*(i-20)), 251, x+(62.5*((i+1)-20)), 299, width=2)
-        elif i >= 16:
-            canvas.create_rectangle(x+(62.5*(i-16)), 301, x+(62.5*((i+1)-16)), 349, width=2)
-        elif i >= 12:
-            canvas.create_rectangle(x+(62.5*(i-12)), 351, x+(62.5*((i+1)-12)), 399, width=2)
-        elif i >= 8:
-            canvas.create_rectangle(x+(62.5*(i-8)), 401, x+(62.5*((i+1)-8)), 449, width=2)
-        elif i >= 4:
-            canvas.create_rectangle(x+(62.5*(i-4)), 451, x+(62.5*((i+1)-4)), 499, width=2)
-        elif i < 4:
-            canvas.create_rectangle(x+(62.5*(i)), 501, x+(62.5*(i+1)), 549, width=2)
+        if i >= 19:
+            canvas.create_rectangle(x+(62.5*(i-20)), 248, x+(62.5*((i+1)-20)), 299, width=2)
+        elif i >= 15:
+            canvas.create_rectangle(x+(62.5*(i-16)), 298, x+(62.5*((i+1)-16)), 349, width=2)
+        elif i >= 11:
+            canvas.create_rectangle(x+(62.5*(i-12)), 348, x+(62.5*((i+1)-12)), 399, width=2)
+        elif i >= 7:
+            canvas.create_rectangle(x+(62.5*(i-8)), 398, x+(62.5*((i+1)-8)), 449, width=2)
+        elif i >= 3:
+            canvas.create_rectangle(x+(62.5*(i-4)), 448, x+(62.5*((i+1)-4)), 499, width=2)
+        elif i < 3:
+            canvas.create_rectangle(x+(62.5*(i)), 498, x+(62.5*(i+1)), 549, width=2)
             
 def drawSideBar(app, canvas):
-    canvas.create_text(875, 20, text='Current Order', font='Courier 20 bold underline')
+    canvas.create_rectangle(775, 25, 975, 250, fill='#eecf90', width=3)
+    canvas.create_text(875, 40, text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 20 bold')    
     if len(app.curCustDrink) != 0:
-        space = 50
+        space = 70
         for ing in app.curCustDrink:
             canvas.create_text(875, space, text=ing, font='Courier 15 bold')
             space += 30
@@ -174,14 +151,12 @@ def kitchenScreen_mousePressed(app, event):
         app.itemAtRest = False
         app.x, app.y = app.puddingC
     elif isValidIngClick(app, x, y, app.sugarCubeC):
-        #!different
         app.curIng = 'sugarCube'
         app.curIngImg = app.sugarCube
         app.hasItem = True
         app.itemAtRest = False
         app.x, app.y = app.sugarCubeC
     elif isValidIngClick(app, x, y, app.iceCubeC):
-        #!different
         app.curIng = 'iceCube'
         app.curIngImg = app.iceCube
         app.hasItem = True
@@ -287,7 +262,7 @@ def kitchenScreen_mouseDragged(app, event):
             if app.curIng not in app.madeDrinkList:
                 app.madeDrinkList.append(app.curIng)
     else:
-        if app.sugarCubeCount + app.iceCubeCount < 24:
+        if app.sugarCubeCount + app.iceCubeCount < 23:
             if app.curIng == 'sugarCube':
                 app.sugarCubeCount += 1
                 app.hasItem = False

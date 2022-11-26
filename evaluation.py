@@ -25,11 +25,6 @@ def evaluationScreen_redrawAll(app, canvas):
     #customer
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex-1].custImg))
     
-    #trademark
-    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
-
-    drawMiniDrink(app, canvas)
-    
     if app.evalRevealTimer < 20:
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.critique))
         
@@ -40,12 +35,27 @@ def evaluationScreen_redrawAll(app, canvas):
     #side bar stats
     if app.evalRevealTimer > 10:
         drawStats(app, canvas)
+        
+    #mini ticket
+    drawMiniTicket(app, canvas)
+
+    drawMiniDrink(app, canvas)
+
+def drawMiniTicket(app, canvas):
+    #8x9
+    canvas.create_rectangle(275, 415, 347, 496, fill='#eecf90', width=3)
+    canvas.create_text(311, 425, text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 6 bold')    
+    if len(app.curCustDrink) != 0:
+        space = 435
+        for ing in app.curCustDrink:
+            canvas.create_text(311, space, text=ing, font='Courier 5 bold')
+            space += 10
 
 def drawMiniDrink(app, canvas):
     # canvas.create_line(360, 400, 440, 400, fill='red')
     # canvas.create_line(360, 500, 440, 500, fill='red')
-    x0 = 361
-    x1 = 441
+    x0 = 411
+    x1 = 491
     y0 = 499
     y1 = 499
     
@@ -69,7 +79,7 @@ def drawMiniDrink(app, canvas):
     #draw mixed liquid
     canvas.create_rectangle(x0, 499-(app.cupFullness*5), x1, 
                             499-(topOfToppings*5), fill=newColor, width=0)
-    canvas.create_image(400, 450, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutlineGreen, (100, 100))))
+    canvas.create_image(450, 450, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutlineGreen, (100, 100))))
     
     
     

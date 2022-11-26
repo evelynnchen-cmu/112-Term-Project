@@ -44,6 +44,7 @@ def shopScreen_redrawAll(app, canvas):
     if not app.hasTakenOrder:
         canvas.create_text(875, 300, text='No Current Order', font='Courier 15 bold')
     
+    
     if app.isThereCust:
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(scaleImage(app, app.body, (200, 200))))
         canvas.create_image(200, 300, image=ImageTk.PhotoImage(scaleImage(app, app.neutral, (200, 200))))
@@ -58,34 +59,30 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_image(125, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
     canvas.create_image(75, 327, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegisterScreen, (63, 63))))
     
-    
-    
-    #trademark
-    canvas.create_image(965, 555, image=ImageTk.PhotoImage(scaleImage(app, app.logo, (75, 75))))
-    
     #slowly reveal order    
-    if app.hasTakenOrder and app.isThereCust:
-        canvas.create_text(875, 20, 
-            text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 20 bold')   
+    if app.hasTakenOrder and app.isThereCust:   
+        #yellow paper
+        canvas.create_rectangle(775, 25, 975, 250, fill='#eecf90', width=3)
+        canvas.create_text(875, 40, text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 20 bold')
         
         if app.orderRevealTimer > 10:
-            canvas.create_text(875, 50, 
+            canvas.create_text(875, 70, 
             text=app.currentDay.custList[app.currentDay.custIndex-1].order[0], font='Courier 15 bold')
         
         if app.orderRevealTimer > 20:
-            canvas.create_text(875, 80, 
+            canvas.create_text(875, 100, 
             text=app.currentDay.custList[app.currentDay.custIndex-1].order[1], font='Courier 15 bold')
 
         if app.orderRevealTimer > 30:
-            canvas.create_text(875, 110, 
+            canvas.create_text(875, 130, 
             text=app.currentDay.custList[app.currentDay.custIndex-1].order[2], font='Courier 15 bold')
             
         if app.orderRevealTimer > 40:
-            canvas.create_text(875, 140, 
+            canvas.create_text(875, 160, 
             text=app.currentDay.custList[app.currentDay.custIndex-1].order[3], font='Courier 15 bold')
             
         if app.orderRevealTimer > 50:
-            canvas.create_text(875, 170, 
+            canvas.create_text(875, 190, 
             text=app.currentDay.custList[app.currentDay.custIndex-1].order[4], font='Courier 15 bold')
             
     
