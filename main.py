@@ -55,6 +55,7 @@ def appStarted(app):
     app.lenOfAdd = 0
     app.cupFullness = 0
     app.sugarY = 0
+    app.randomSpot = 0
     app.isAdding = False
     app.isMixed = False
     

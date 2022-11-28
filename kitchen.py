@@ -143,7 +143,22 @@ def drawDrink(app, canvas):
                 #?learned about time module from 
                 #?https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
                 y0 -= (time.time() - app.startAdd)*15
-                canvas.create_rectangle(app.x-15, app.y+app.ingR, app.x+15, y0, fill=color, width=0)
+                # app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + y0/15
+                # print(app.madeDrinkDict)
+                
+                #draw pouring rectangle
+                if ing in app.teaOPTIONS:
+                    canvas.create_rectangle(app.x-35, app.y+30, app.x-25, y0, fill=color, width=0)
+                elif ing in app.milkOPTIONS:
+                    canvas.create_rectangle(app.x-35, app.y+10, app.x-25, y0, fill=color, width=0)
+                elif ing in app.toppingsOPTIONS:
+                    canvas.create_rectangle(app.x-45, app.y+30, app.x-25, y0, fill=color, width=0)
+                    #random spots
+                    if app.randomSpot < y0:
+                        canvas.create_rectangle(app.x-45, app.y+30+app.randomSpot, app.x-25, app.y+40+app.randomSpot, fill='black', width=0)
+                    
+
+                    
                 canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
 
         y0 -= addLen
@@ -156,6 +171,7 @@ def kitchenScreen_mousePressed(app, event):
     x, y = event.x, event.y
     app.startAdd = 0
     app.lenOfAdd = 0
+    
     #checks what ingredient the user clicked on
     if isValidIngClick(app, x, y, app.tapiocaC) and 'tapioca' not in app.madeDrinkDict:
         app.curIng = 'tapioca'
@@ -317,6 +333,8 @@ def kitchenScreen_mouseDragged(app, event):
                     
                 
 def kitchenScreen_timerFired(app):
+    app.randomSpot = (random.randint(0, 600))
+    print(app.randomSpot)
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()

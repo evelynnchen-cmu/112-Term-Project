@@ -18,7 +18,7 @@ def evaluationScreen_redrawAll(app, canvas):
     canvas.create_image(375, 600, image=ImageTk.PhotoImage(app.counter))
         
     #tips jar
-    canvas.create_image(600, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (200, 200))))
+    canvas.create_image(650, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (200, 200))))
     
     #customer's body
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))
@@ -103,11 +103,6 @@ def drawMiniDrink(app, canvas):
             for i in range(app.iceCubeCount):
                 canvas.create_rectangle(425+(11.66*i), 487.34, 425+(11.66*(i+1)), 499, width=0.1, fill='#C6DCF5')
             
-        
-    
-        
-    
-    
     #cup
     canvas.create_image(450, 449, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutlineGreen, (100, 100))))
 
@@ -133,8 +128,13 @@ def drawStats(app, canvas):
         #tips earned
         if len(str(app.tips)) == 3:
             canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', font='Courier 14 bold')
+            #tips above tip jar
+            canvas.create_text(650, 275, text=f'+${app.tips}0', font='Courier 25 bold')
         else:
             canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Courier 14 bold')
+            #tips above tip jar
+            canvas.create_text(650, 275, text=f'+${app.tips}', font='Courier 25 bold')
+        
     
     if app.evalRevealTimer > 40:
         #total average score
@@ -160,7 +160,4 @@ def evaluationScreen_timerFired(app):
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
-    checkIfGameOver(app)
-    
-    
-    
+    checkIfGameOver(app) 
