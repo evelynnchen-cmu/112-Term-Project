@@ -7,6 +7,7 @@ from shop import *
 from kitchen import *
 from evaluation import *
 from store import *
+
 #?code/file structure inspired by Vania Halim's 15-112 term project:
 #?https://github.com/vaniahalim/15112-TP
 ###################################
@@ -129,18 +130,18 @@ def appStarted(app):
     #----images----
     #?drawn by myself on Procreate
     #----ingredients----
-    app.tapioca = app.loadImage('./assets/tapioca.png')
-    app.aloeJelly = app.loadImage('./assets/aloe_jelly.png')
-    app.redBean = app.loadImage('./assets/red_bean.png')
-    app.pudding = app.loadImage('./assets/pudding.png')
-    app.greenTea = app.loadImage('./assets/green_tea.png')
-    app.blackTea = app.loadImage('./assets/black_tea.png')
-    app.oolongTea = app.loadImage('./assets/oolong_tea.png')
-    app.wholeMilk = app.loadImage('./assets/whole_milk.png')
-    app.twoPMilk = app.loadImage('./assets/2p_milk.png')
-    app.skimMilk = app.loadImage('./assets/skim_milk.png')
-    app.sugarCube = app.loadImage ('./assets/sugar_cube.png')
-    app.iceCube = app.loadImage ('./assets/ice_cube.png')
+    app.tapioca = app.loadImage('./assets/ingredients/tapioca.png')
+    app.aloeJelly = app.loadImage('./assets/ingredients/aloe_jelly.png')
+    app.redBean = app.loadImage('./assets/ingredients/red_bean.png')
+    app.pudding = app.loadImage('./assets/ingredients/pudding.png')
+    app.greenTea = app.loadImage('./assets/ingredients/green_tea.png')
+    app.blackTea = app.loadImage('./assets/ingredients/black_tea.png')
+    app.oolongTea = app.loadImage('./assets/ingredients/oolong_tea.png')
+    app.wholeMilk = app.loadImage('./assets/ingredients/whole_milk.png')
+    app.twoPMilk = app.loadImage('./assets/ingredients/2p_milk.png')
+    app.skimMilk = app.loadImage('./assets/ingredients/skim_milk.png')
+    app.sugarCube = app.loadImage ('./assets/ingredients/sugar_cube.png')
+    app.iceCube = app.loadImage ('./assets/ingredients/ice_cube.png')
     app.ingImgs = [app.tapioca, app.aloeJelly, app.redBean, app.pudding, 
                  app.sugarCube, app.iceCube, app.wholeMilk, app.twoPMilk, 
                  app.skimMilk, app.greenTea, app.blackTea, app.oolongTea]
@@ -148,41 +149,41 @@ def appStarted(app):
     
     #----customers----
     #?drawn by myself on Procreate
-    app.body = app.loadImage('./assets/body.png')
-    app.neutral = app.loadImage('./assets/neutral.png')
+    app.body = app.loadImage('./assets/customers/stances/body.png')
+    app.neutral = app.loadImage('./assets/customers/stances/neutral.png')
     
     #----reactions----
-    app.happy = app.loadImage('./assets/happy.png')
-    app.critique = app.loadImage('./assets/critique.png')
-    app.angry = app.loadImage('./assets/angry.png')
+    app.happy = app.loadImage('./assets/customers/stances/happy.png')
+    app.critique = app.loadImage('./assets/customers/stances/critique.png')
+    app.angry = app.loadImage('./assets/customers/stances/angry.png')
     
     #----hairstyles----
-    app.bangs = app.loadImage('./assets/bangs.png')
-    app.boring = app.loadImage('./assets/boring.png')
-    app.emo = app.loadImage('./assets/emo.png')
-    app.grandma = app.loadImage('./assets/grandma.png')
-    app.grandpa = app.loadImage('./assets/grandpa.png')
-    app.leoDicaprio = app.loadImage('./assets/leo_dicaprio.png')
-    app.longCurlyHair = app.loadImage('./assets/long_curly_hair.png')
-    app.longHair = app.loadImage('./assets/long_hair.png')
-    app.longStraightHair = app.loadImage('./assets/long_straight_hair.png')
-    app.shortCurlyHair = app.loadImage('./assets/short_curly_hair.png')
+    app.bangs = app.loadImage('./assets/customers/bangs.png')
+    app.boring = app.loadImage('./assets/customers/boring.png')
+    app.emo = app.loadImage('./assets/customers/emo.png')
+    app.grandma = app.loadImage('./assets/customers/grandma.png')
+    app.grandpa = app.loadImage('./assets/customers/grandpa.png')
+    app.leoDicaprio = app.loadImage('./assets/customers/leo_dicaprio.png')
+    app.longCurlyHair = app.loadImage('./assets/customers/long_curly_hair.png')
+    app.longHair = app.loadImage('./assets/customers/long_hair.png')
+    app.longStraightHair = app.loadImage('./assets/customers/long_straight_hair.png')
+    app.shortCurlyHair = app.loadImage('./assets/customers/short_curly_hair.png')
     app.custImgs = [app.bangs, app.boring, app.emo, app.grandma, app.grandpa, 
                     app.leoDicaprio, app.longCurlyHair, app.longHair, app.longStraightHair,
                     app.shortCurlyHair]
     
-    #----decoration----
-    app.tipsJar = app.loadImage('./assets/tips_jar.png')
-    app.cupOutlineGray = app.loadImage('./assets/cup_outline_gray.png')
-    app.cupOutlineGreen = app.loadImage('./assets/cup_outline_green.png')
-    app.logo = app.loadImage('./assets/logo.png')
-    app.boba = app.loadImage('./assets/boba.png')
-    app.cashRegister = app.loadImage('./assets/cash_register.png')
-    app.counter = app.loadImage('./assets/counter.png')
+    #----decorations----
+    app.tipsJar = app.loadImage('./assets/decorations/tips_jar.png')
+    app.cupOutlineGray = app.loadImage('./assets/decorations/cup_outline_gray.png')
+    app.cupOutlineGreen = app.loadImage('./assets/decorations/cup_outline_green.png')
+    app.logo = app.loadImage('./assets/decorations/logo.png')
+    app.boba = app.loadImage('./assets/decorations/boba.png')
+    app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
+    app.counter = app.loadImage('./assets/decorations/counter.png')
     
     #?taken from https://www.istockphoto.com/es/vector/t%C3%A9-de-burbujas-popular-
     #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-
     #?gm1273459736-375324413
-    app.cashRegisterScreen = app.loadImage('./assets/cash_register_screen.jpg')
+    app.cashRegisterScreen = app.loadImage('./assets/decorations/cash_register_screen.jpg')
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")
