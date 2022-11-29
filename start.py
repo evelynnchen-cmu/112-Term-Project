@@ -10,7 +10,7 @@ def startScreen_redrawAll(app, canvas):
     #title
     canvas.create_text(app.width//2, app.height//3, text="Evelynn's Bobaria", font='Courier 50 bold')
     
-    #logos
+    #bobas
     canvas.create_image(250, 350, image=ImageTk.PhotoImage(app.boba))
     canvas.create_image(750, 350, image=ImageTk.PhotoImage(app.boba))
     

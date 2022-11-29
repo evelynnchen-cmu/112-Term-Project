@@ -71,6 +71,8 @@ def resetCustVars(app):
     app.iceCubeCount = 0
     app.sugarCubeCount = 0
     app.sugarY = 0
+    app.x = 0
+    app.y = 0
     app.curIng = ''
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
@@ -96,11 +98,10 @@ def startNewDay(app):
     
     #if score drops by 10%, drop neededAcurracy by 10%
     if app.avgScore < app.lastDaysScore-.1:
-        print('wtf')
         app.neededAccuracy -= 10 
     #if score drops by 20%, decrease number of customers by 1
     if app.avgScore < app.lastDaysScore-.2:
-        if app.numOfCosts > 2:
+        if app.numOfCusts > 2:
             app.numOfCusts -=1
     #if score increases by 10%, increase neededAcurracy by 10% and number of Customers by 1
     if app.avgScore > app.lastDaysScore+.1:
@@ -133,6 +134,9 @@ def getIngColor(app, ing):
 
 #evaluates the drink
 def evaluateDrink(app):
+    print(f'made:{app.madeDrinkDict}')
+    print(f'curr: {app.curCustDrink}')
+    
     errorMargin = roundHalfUp(1-(app.currentDay.neededAccuracy/100))
     correctIngTypes = 0
     goodEnoughIngTime = 0
@@ -187,7 +191,7 @@ def evaluateDrink(app):
         app.lastDaysScore = app.avgScore
         
     if app.totalOrders > 0:
-        app.avgScore = (app.avgScore+app.drinkScore)/app.totalOrders # <1
+        app.avgScore = roundUp((app.avgScore+app.drinkScore)/app.totalOrders, 2) # <1
     else:
         app.avgScore = app.drinkScore
 

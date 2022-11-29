@@ -49,7 +49,6 @@ def appStarted(app):
     app.curCustDrink = ''
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
-    app.correctDrinkDict = dict()
     app.drinkScore = 0
     app.startAdd = 0
     app.lenOfAdd = 0
@@ -70,7 +69,7 @@ def appStarted(app):
     
     #reveal timer variables
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 70 #!should be 0
+    app.orderRevealTimer = 0 #!should be 0
     
     # #inventory
     # #starting inventory of ingredients

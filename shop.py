@@ -36,13 +36,13 @@ def shopScreen_redrawAll(app, canvas):
     canvas.create_image(650, 350, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (100, 100))))
     
     #store button display
-    drawButton(canvas, app.shop_storeBtnDms, 'Store')
+    # drawButton(canvas, app.shop_storeBtnDms, 'Store')
     
     if app.hasOrder and app.isThereCust:
         #kitchen button display
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
     if not app.hasTakenOrder:
-        canvas.create_text(875, 300, text='No Current Order', font='Courier 15 bold')
+        canvas.create_text(875, 40, text='No Current Order', font='Courier 15 bold')
     
     
     if app.isThereCust:

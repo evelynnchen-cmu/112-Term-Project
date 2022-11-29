@@ -52,7 +52,9 @@ def kitchenScreen_redrawAll(app, canvas):
         
         if app.iceCubeCount > 0:
             drawIceCubes(app, canvas, 300)
-        canvas.create_image(376, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
+            
+        #cup
+        canvas.create_image(376, 403, image=ImageTk.PhotoImage(app.cupOutlineGray))
     else:
         #mix button display
         drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
@@ -79,6 +81,16 @@ def kitchenScreen_redrawAll(app, canvas):
 
         #cup
         canvas.create_image(526, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
+        
+        if app.neededAccuracy <= 80:
+            #recommended fill lines
+            #toppings
+            canvas.create_rectangle(630, 489, 650, 491, fill='black')
+            canvas.create_text(690, 490, text='Topping', font='Courier 10 bold')
+            
+            #milk
+            canvas.create_rectangle(635, 443, 655, 445, fill='black')
+            canvas.create_text(680, 444, text='Milk', font='Courier 10 bold')
 
 def drawIceCubes(app, canvas, x):
     #!bruh this code-
@@ -143,8 +155,6 @@ def drawDrink(app, canvas):
                 #?learned about time module from 
                 #?https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
                 y0 -= (time.time() - app.startAdd)*15
-                # app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + y0/15
-                # print(app.madeDrinkDict)
                 
                 #draw pouring rectangle
                 if ing in app.teaOPTIONS:
@@ -153,11 +163,10 @@ def drawDrink(app, canvas):
                     canvas.create_rectangle(app.x-35, app.y+10, app.x-25, y0, fill=color, width=0)
                 elif ing in app.toppingsOPTIONS:
                     canvas.create_rectangle(app.x-45, app.y+30, app.x-25, y0, fill=color, width=0)
-                    #random spots
-                    if app.randomSpot < y0:
-                        canvas.create_rectangle(app.x-45, app.y+30+app.randomSpot, app.x-25, app.y+40+app.randomSpot, fill='black', width=0)
                     
-
+                    #random breaks in topping
+                    if app.y < app.randomSpot < y0-10:
+                        canvas.create_rectangle(app.x-45, app.randomSpot, app.x-25, 10+app.randomSpot, fill='#D3D3D3', width=0)
                     
                 canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
 
@@ -264,8 +273,10 @@ def kitchenScreen_mouseReleased(app, event):
     #stops adding ingredient to the drink and records its time
     if app.hasItem and app.isLegal:
         app.lenOfAdd = time.time() - app.startAdd
-        app.cupFullness += app.lenOfAdd
-        app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
+        #checks if cup overflowed
+        if app.cupFullness+app.lenOfAdd <= 20:
+            app.cupFullness += app.lenOfAdd
+            app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
     
     #resets dragging/pouring variables
     app.itemAtRest = True
@@ -333,8 +344,8 @@ def kitchenScreen_mouseDragged(app, event):
                     
                 
 def kitchenScreen_timerFired(app):
-    app.randomSpot = (random.randint(0, 600))
-    print(app.randomSpot)
+    print(app.madeDrinkDict)
+    app.randomSpot = random.randint(250, 550)
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()

@@ -8,11 +8,14 @@ def gameOverScreen_redrawAll(app, canvas):
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
     
     #stats
-    canvas.create_text(500, 50, text=f"Game {app.dayIndex} Statistics", font='Courier 30 bold underline')
+    canvas.create_text(500, 50, text=f"Game Statistics", font='Courier 30 bold underline')
     canvas.create_text(500, 100, 
         text=f"Total Number of Customers Served: {app.totalOrders}", 
                         font='Courier 20')
     canvas.create_text(500, 150, text=f'Average Score: {app.avgScore*100}', font='Courier 20')
+    canvas.create_text(500, 200, text=f'Total Tips: {app.money}', font='Courier 20')
+    
+    canvas.create_image(505, 450, image=ImageTk.PhotoImage(app.logo))
     
     #restart button display
     drawButton(canvas, app.gameOver_restartBtnDms, 'Restart')
@@ -33,6 +36,10 @@ def gameOverScreen_mouseReleased(app, event):
         #reset user's money
         app.money = 0
         
+        
+        #reset default number of customers
+        app.numOfCusts = 3
+        
         #reset difficulty
         app.neededAccuracy = 70
         
@@ -43,9 +50,9 @@ def gameOverScreen_mouseReleased(app, event):
 
         #reset day count
         app.dayIndex = 1
-        app.currentDay = Day(app.dayLength, app.difficulty)
+        app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
         
-        resetCustVars()
-        resetDayVars()
+        resetCustVars(app)
+        resetDayVars(app)
         
         app.mode = 'shopScreen'
