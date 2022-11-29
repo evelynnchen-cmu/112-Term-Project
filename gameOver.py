@@ -36,6 +36,8 @@ def gameOverScreen_mouseReleased(app, event):
         #reset user's money
         app.money = 0
         
+        app.totalScore = 0
+        app.totalOrders = 0
         
         #reset default number of customers
         app.numOfCusts = 3

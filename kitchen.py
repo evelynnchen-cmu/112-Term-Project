@@ -17,11 +17,17 @@ def kitchenScreen_redrawAll(app, canvas):
     # drawButton(canvas, app.kitchen_storeBtnDms, 'Store'):
         
     drawSideBar(app, canvas)
-    # print(app.madeDrinkDict)
-    # print(app.madeDrinkList)
+
+    #draw the valid square space
+    if app.hasItem:
+        canvas.create_rectangle(425, 50, 625, 250, fill='coral1', width=2)
+        canvas.create_text(525, 150, text='Keep ingredient', font='Courier 13 bold')
+        canvas.create_text(525, 165, text='in here to pour', font='Courier 13 bold')
+        
     
     #checks if the user wants to be done with the drink and mix it
     if app.isMixed:
+        
         #evaluate button display
         drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
         
@@ -162,11 +168,11 @@ def drawDrink(app, canvas):
                 elif ing in app.milkOPTIONS:
                     canvas.create_rectangle(app.x-35, app.y+10, app.x-25, y0, fill=color, width=0)
                 elif ing in app.toppingsOPTIONS:
-                    canvas.create_rectangle(app.x-45, app.y+30, app.x-25, y0, fill=color, width=0)
+                    canvas.create_rectangle(app.x-40, app.y+30, app.x-25, y0, fill=color, width=0)
                     
                     #random breaks in topping
                     if app.y < app.randomSpot < y0-10:
-                        canvas.create_rectangle(app.x-45, app.randomSpot, app.x-25, 10+app.randomSpot, fill='#D3D3D3', width=0)
+                        canvas.create_rectangle(app.x-40, app.randomSpot, app.x-25, 20+app.randomSpot, fill='#D3D3D3', width=0)
                     
                 canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
 
@@ -296,7 +302,7 @@ def kitchenScreen_mouseDragged(app, event):
     
     if app.curIng != 'iceCube' and app.curIng != 'sugarCube':
         #if ingredient is above cup
-        if 425 < app.x < 625 and 0 < app.y < 250:
+        if 425 < app.x < 625 and 50 < app.y < 250:
             app.isLegal = True
             app.entered = True
             app.isAdding = True
@@ -325,7 +331,7 @@ def kitchenScreen_mouseDragged(app, event):
                 app.madeDrinkList.append(app.curIng)
     else:
         #adding sugar/ice cube(s)
-        if 425 < app.x < 625 and 0 < app.y < 250:
+        if 425 < app.x < 625 and 50 < app.y < 250:
             if app.curIng == 'sugarCube':
                 if app.sugarCubeCount < 4:
                     app.sugarCubeCount += 1

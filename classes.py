@@ -134,8 +134,6 @@ def getIngColor(app, ing):
 
 #evaluates the drink
 def evaluateDrink(app):
-    print(f'made:{app.madeDrinkDict}')
-    print(f'curr: {app.curCustDrink}')
     
     errorMargin = roundHalfUp(1-(app.currentDay.neededAccuracy/100))
     correctIngTypes = 0
@@ -169,7 +167,9 @@ def evaluateDrink(app):
 
     #calculate drink score
     if len(app.madeDrinkDict) != 0:
-        app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2) # <1
+        
+        app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + 
+                ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2) # <1
     else:
         app.drinkScore = 0
         
@@ -180,7 +180,7 @@ def evaluateDrink(app):
         app.tips = (500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01 
         #to keep tips consistent with standard U.S. money format
         app.tips = roundUp(app.tips, 2)
-    
+        
     if app.tips > 0:
         app.money += app.tips
     else:
@@ -191,7 +191,8 @@ def evaluateDrink(app):
         app.lastDaysScore = app.avgScore
         
     if app.totalOrders > 0:
-        app.avgScore = roundUp((app.avgScore+app.drinkScore)/app.totalOrders, 2) # <1
+        app.totalScore += app.drinkScore
+        app.avgScore = roundUp(app.totalScore/app.totalOrders, 2) # <1
     else:
         app.avgScore = app.drinkScore
 

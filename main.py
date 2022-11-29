@@ -25,6 +25,7 @@ def appStarted(app):
     app.tips = 0
     #avg of all the user's scores
     app.avgScore = 0 
+    app.totalScore = 0
     app.totalOrders = 0
     #will change depending on how good the user is
     app.neededAccuracy = 70 
@@ -69,7 +70,7 @@ def appStarted(app):
     
     #reveal timer variables
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 0 #!should be 0
+    app.orderRevealTimer = 70 #!should be 0
     
     # #inventory
     # #starting inventory of ingredients
