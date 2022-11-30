@@ -17,7 +17,8 @@ def appStarted(app):
     
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
-    app.mode = 'startScreen'
+    # app.mode = 'startScreen'
+    app.mode = 'gameOverScreen'
     
     #----overall game----
     app.timerDelay = 100
@@ -70,7 +71,9 @@ def appStarted(app):
     
     #reveal timer variables
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 70 #!should be 0
+    app.orderRevealTimer = 0 #!should be 0
+    app.dayOverRevealTimer = 0
+    app.gameOverRevealTimer = 0
     
     # #inventory
     # #starting inventory of ingredients
@@ -105,6 +108,7 @@ def appStarted(app):
     
     #----startScreen button----
     app.start_startBtnDms = (425, 300, 575, 350)
+    app.start_exitBtnDms = (425, 375, 575, 425)
     
     #----shopScreen buttons----
     app.shop_takeOrderBtnDms = (25, 412.5, 175, 462)
@@ -123,10 +127,11 @@ def appStarted(app):
     app.store_doneBtnDms = (800, 525, 950, 575)
     
     #----dayOverScreen button----
-    app.dayOver_nextDayBtnDms = (425, 275, 575 , 325)
+    app.dayOver_nextDayBtnDms = (825, 525, 975, 575)
     
     #----gameOverScreen button----
-    app.gameOver_restartBtnDms = ((app.width//2)-75, (app.height//2)-25, (app.width//2)+75, (app.height//2)+25)
+    app.gameOver_restartBtnDms = (525, 525, 675, 575) 
+    app.gameOver_exitBtnDms = (325, 525, 475, 575)
     
     #----images----
     #?drawn by myself on Procreate
@@ -169,9 +174,11 @@ def appStarted(app):
     app.longHair = app.loadImage('./assets/customers/long_hair.png')
     app.longStraightHair = app.loadImage('./assets/customers/long_straight_hair.png')
     app.shortCurlyHair = app.loadImage('./assets/customers/short_curly_hair.png')
+    app.justin = app.loadImage('./assets/customers/justin.png')
     app.custImgs = [app.bangs, app.boring, app.emo, app.grandma, app.grandpa, 
                     app.leoDicaprio, app.longCurlyHair, app.longHair, app.longStraightHair,
-                    app.shortCurlyHair]
+                    app.shortCurlyHair, app.justin]
+    
     
     #----decorations----
     app.tipsJar = app.loadImage('./assets/decorations/tips_jar.png')

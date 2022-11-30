@@ -85,6 +85,7 @@ def resetDayVars(app):
     app.isThereCust = False
     app.hasTakenOrder = False
     app.hasOrder = False
+    app.dayOverRevealTimer = 0
     resetCustVars(app)
 
 #checks if the game is over
@@ -282,6 +283,7 @@ def hexToRGB(hex):
     green = int(hex[3:5], 16)
     blue = int(hex[5:7], 16)
     return (red, green, blue)
-  
+
+#?adapted from https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/  
 def RGBToHex(RGB):
     return '#%02x%02x%02x' % RGB

@@ -644,6 +644,8 @@ class App(object):
         root.canvas = app._canvas = WrappedCanvas(app)
         app._canvas.pack(fill=BOTH, expand=YES)
         # initialize, start the timer, and launch the app
+        #?learned how to change icon from https://piazza.com/class/l754ykydwsd6yq/post/3028
+        app._root.iconbitmap("title.ico")
         app._running = True
         app._paused = False
         app._ignoredFields = set(app.__dict__.keys()) | {'_ignoredFields'}

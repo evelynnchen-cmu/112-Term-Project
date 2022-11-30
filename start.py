@@ -16,6 +16,9 @@ def startScreen_redrawAll(app, canvas):
     
     #start button display
     drawButton(canvas, app.start_startBtnDms, 'Start')
+    
+    #exit button display
+    drawButton(canvas, app.start_exitBtnDms, 'Exit')
 
 ###################################    
 #controller
@@ -24,3 +27,7 @@ def startScreen_mouseReleased(app, event):
     # start button check
     if isValidClick(event.x, event.y, app.start_startBtnDms):
         app.mode = 'shopScreen'
+    # exit button check
+    elif isValidClick(event.x, event.y, app.start_exitBtnDms):
+        #?copied from cmu_112_graphics.py
+        os._exit(0)
