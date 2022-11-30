@@ -140,9 +140,6 @@ def evaluateDrink(app):
     correctIngTypes = 0
     goodEnoughIngTime = 0
     
-    print(f'madeDrinkdict: {app.madeDrinkDict}')
-    print(f'curCust: {app.curCustDrink}')
-    
     for ing in app.madeDrinkDict:
         if app.madeDrinkDict[ing] == 0:
             continue
@@ -176,7 +173,6 @@ def evaluateDrink(app):
         
         app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.4 + 
                 ((550-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/550)*.1, 2) # <1
-        print(app.drinkScore)
     else:
         app.drinkScore = 0
         
@@ -185,11 +181,10 @@ def evaluateDrink(app):
     if app.drinkScore > .5:
         #every second waited = 1 cent less; after 50 seconds = no tips
         app.tips = (500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01 
-        #to keep tips consistent with standard U.S. money format
-        app.tips = roundUp(app.tips, 2)
         
     if app.tips > 0:
-        app.money += app.tips
+        #to keep tips consistent with standard U.S. money format
+        app.money += roundUp(app.tips, 2)
     else:
         app.tips = 0
     

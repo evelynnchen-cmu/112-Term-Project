@@ -20,9 +20,9 @@ def kitchenScreen_redrawAll(app, canvas):
 
     #draw the valid square space
     if app.hasItem:
-        canvas.create_rectangle(425, 50, 625, 250, fill='coral1', width=2)
-        canvas.create_text(525, 150, text='Keep ingredient', font='Courier 13 bold')
-        canvas.create_text(525, 165, text='in here to add', font='Courier 13 bold')
+        canvas.create_rectangle(400, 50, 650, 250, fill='coral1', width=2)
+        canvas.create_text(525, 150, text='Drag in here', font='Courier 13 bold')
+        canvas.create_text(525, 165, text='to add', font='Courier 13 bold')
         
     
     #checks if the user wants to be done with the drink and mix it
@@ -288,7 +288,17 @@ def kitchenScreen_mouseReleased(app, event):
         #checks if cup overflowed
         if app.cupFullness+app.lenOfAdd <= 20:
             app.cupFullness += app.lenOfAdd
-            app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
+            app.madeDrinkDict[app.curIng] = (app.madeDrinkDict.get(app.curIng, 0) 
+                                            + app.lenOfAdd)
+    
+    #check for 0 times
+    # for ing in app.madeDrinkDict:
+    #     if app.madeDrinkDict[ing] == 0:
+    #         for i in range(len(app.madeDrinkList)):
+    #             if ing == app.madeDrinkList[i]:
+    #                 print(f'{ing} is equal to {app.madeDrinkList[i]}')
+    #                 app.madeDrinkList.remove(ing)
+    #                 break
     
     #resets dragging/pouring variables
     app.itemAtRest = True
@@ -299,7 +309,9 @@ def kitchenScreen_mouseReleased(app, event):
     app.isAdding = False
     app.entered = False
     app.isRotated = False
-    
+
+#?learned about mouseDragged from 
+#?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#events    
 def kitchenScreen_mouseDragged(app, event):
     #keeps ingredient in building space
     if app.hasItem:
@@ -308,7 +320,7 @@ def kitchenScreen_mouseDragged(app, event):
     
     if app.curIng != 'iceCube' and app.curIng != 'sugarCube':
         #if ingredient is above cup
-        if 425 < app.x < 625 and 50 < app.y < 250:
+        if 437 < app.x < 675 and 50 < app.y < 250:
             app.isLegal = True
             app.entered = True
             app.isAdding = True
@@ -332,12 +344,13 @@ def kitchenScreen_mouseDragged(app, event):
 
         #adds ingredient to made drink dictionary and list
         if app.hasItem and app.isLegal:
-            app.madeDrinkDict[app.curIng] = app.madeDrinkDict.get(app.curIng, 0) + app.lenOfAdd
+            app.madeDrinkDict[app.curIng] = (app.madeDrinkDict.get(app.curIng, 0) 
+                                             + app.lenOfAdd)
             if app.curIng not in app.madeDrinkList:
                 app.madeDrinkList.append(app.curIng)
     else:
         #adding sugar/ice cube(s)
-        if 425 < app.x < 625 and 50 < app.y < 250:
+        if 425 < app.x < 650 and 50 < app.y < 250:
             if app.curIng == 'sugarCube':
                 if app.sugarCubeCount < 4:
                     app.sugarCubeCount += 1
@@ -356,6 +369,9 @@ def kitchenScreen_mouseDragged(app, event):
                     
                 
 def kitchenScreen_timerFired(app):
+    
+    print(app.madeDrinkList)
+    print(app.madeDrinkDict)
     app.randomSpot = random.randint(250, 550)
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
