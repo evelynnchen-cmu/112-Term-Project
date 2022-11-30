@@ -71,8 +71,8 @@ def resetCustVars(app):
     app.iceCubeCount = 0
     app.sugarCubeCount = 0
     app.sugarY = 0
-    app.x = 0
-    app.y = 0
+    app.x = 1000
+    app.y = 1000
     app.curIng = ''
     app.madeDrinkList = []
     app.madeDrinkDict = dict()
@@ -170,7 +170,7 @@ def evaluateDrink(app):
     if len(app.madeDrinkDict) != 0:
         
         app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + 
-                ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2) # <1
+                ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2, 2) # <1
     else:
         app.drinkScore = 0
         
