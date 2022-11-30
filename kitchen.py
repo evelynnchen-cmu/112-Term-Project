@@ -110,33 +110,40 @@ def drawIceCubes(app, canvas, x):
             #ice cube(s) will sit under liquid
             if 549-(topOfDrink*15) < 514:
                 for i in range(app.iceCubeCount):
-                    canvas.create_rectangle(x+(35*i), 549-(topOfDrink*15), x+(35*(i+1)), 
-                                                    549-((topOfDrink*15)-35), width=0.5, fill='#C6DCF5')
+                    canvas.create_rectangle(x+(35*i), 549-(topOfDrink*15), 
+                                            x+(35*(i+1)), 549-((topOfDrink*15)-35), 
+                                            width=0.5, fill='#C6DCF5')
             else:
                 for i in range(app.iceCubeCount):
-                    canvas.create_rectangle(x+(35*i), 513, x+(35*(i+1)), 549, width=0.5, fill='#C6DCF5')
+                    canvas.create_rectangle(x+(35*i), 513, x+(35*(i+1)), 549, 
+                                            width=0.5, fill='#C6DCF5')
         elif app.madeDrinkList[-1] in app.toppingsOPTIONS:
             #ice cube(s) will sit on top of toppings
             if 549-(topOfDrink*15) > 252:
                 for i in range(app.iceCubeCount):
                     canvas.create_rectangle(x+(35*i), 549-(topOfDrink*15)-35, 
-                                    x+(35*(i+1)), 549-(topOfDrink*15), width=0.5, fill='#C6DCF5')
+                        x+(35*(i+1)), 549-(topOfDrink*15), width=0.5, 
+                                            fill='#C6DCF5')
             else:
                 for i in range(app.iceCubeCount):
-                    canvas.create_rectangle(x+(35*i), 513, x+(35*(i+1)), 549, width=0.5, fill='#C6DCF5')
+                    canvas.create_rectangle(x+(35*i), 513, x+(35*(i+1)), 549, 
+                                            width=0.5, fill='#C6DCF5')
     else:
         #ice cube(s) will sit at the bottom of the cup
         for i in range(app.iceCubeCount):
-                canvas.create_rectangle(x+(35*i), 513, x+(35*(i+1)), 549, width=0.5, fill='#C6DCF5')
+                canvas.create_rectangle(x+(35*i), 513, x+(35*(i+1)), 549, 
+                                        width=0.5, fill='#C6DCF5')
  
 def drawSugarCubes(app, canvas):
     for i in range(app.sugarCubeCount):
-        canvas.create_rectangle(445+(25*i), 549-(app.sugarY*15)-25, 445+(25*(i+1)), 
-                                                    549-(app.sugarY*15), width=0.5, fill='#FAF9F6') 
+        canvas.create_rectangle(445+(25*i), 549-(app.sugarY*15)-25, 
+                            445+(25*(i+1)), 549-(app.sugarY*15), width=0.5, 
+                            fill='#FAF9F6') 
             
 def drawSideBar(app, canvas):
     canvas.create_rectangle(775, 25, 975, 250, fill='#eecf90', width=3)
-    canvas.create_text(875, 40, text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 20 bold')    
+    canvas.create_text(875, 40, text=f"Customer #{(app.currentDay.custIndex)}", 
+                       font='Courier 20 bold')    
     if len(app.curCustDrink) != 0:
         space = 70
         for ing in app.curCustDrink:
@@ -356,6 +363,3 @@ def kitchenScreen_timerFired(app):
     app.currentDay.checkIfDayOver(app)
     
     checkIfGameOver(app) 
-
-    
-    

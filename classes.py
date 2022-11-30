@@ -136,11 +136,16 @@ def getIngColor(app, ing):
 #evaluates the drink
 def evaluateDrink(app):
     
-    errorMargin = roundHalfUp(1-(app.currentDay.neededAccuracy/100))
+    errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100), 2)
     correctIngTypes = 0
     goodEnoughIngTime = 0
     
+    print(f'madeDrinkdict: {app.madeDrinkDict}')
+    print(f'curCust: {app.curCustDrink}')
+    
     for ing in app.madeDrinkDict:
+        if app.madeDrinkDict[ing] == 0:
+            continue
         if ing in app.curCustDrink:
             correctIngTypes += 1
             if 'milk' in ing:
@@ -165,12 +170,13 @@ def evaluateDrink(app):
     correctIceCubes = int(app.curCustDrink[2][:1])
     if app.iceCubeCount == correctIceCubes:
         correctIngTypes += 1
-
+        
     #calculate drink score
     if len(app.madeDrinkDict) != 0:
         
-        app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.3 + 
-                ((500-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/500)*.2, 2) # <1
+        app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.4 + 
+                ((550-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/550)*.1, 2) # <1
+        print(app.drinkScore)
     else:
         app.drinkScore = 0
         
@@ -189,13 +195,13 @@ def evaluateDrink(app):
     
     #saving the previous day's stats for future use    
     if app.currentDay.custIndex == 1:
-        app.lastDaysScore = app.avgScore
+        app.lastDaysScore = roundUp(app.avgScore, 2)
         
     if app.totalOrders > 0:
         app.totalScore += app.drinkScore
         app.avgScore = roundUp(app.totalScore/app.totalOrders, 2) # <1
     else:
-        app.avgScore = app.drinkScore
+        app.avgScore = roundUp(app.drinkScore, 2)
 
 #mixes the milk and tea colors based on ratio 
 def mixDrink(app):

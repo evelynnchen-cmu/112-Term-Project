@@ -10,7 +10,7 @@ def gameOverScreen_redrawAll(app, canvas):
     canvas.create_image(150, 350, image=ImageTk.PhotoImage(app.logo))
     canvas.create_image(850, 350, image=ImageTk.PhotoImage(app.logo))
     
-    #cover bobas' mouthes
+    #cover bobas' mouths
     canvas.create_rectangle(125, 335, 150, 350, fill='#ceb195', width=0)
     canvas.create_rectangle(825, 335, 850, 350, fill='#ceb195', width=0)
     
@@ -59,7 +59,7 @@ def drawGameResults(app, canvas):
             canvas.create_text(150, 200, text='You Won!', font='Courier 25 bold')
             canvas.create_text(850, 200, text='You Won!', font='Courier 25 bold')
             e = -180
-        #bobas' mouthes
+        #bobas' mouths
         #?adapted from 15-112 hw9 https://www.cs.cmu.edu/~112/notes/hw9.html#freddyFractal
         canvas.create_arc(125, 330, 150, 345,
                         outline="black", width = 3, style="arc", extent=e)

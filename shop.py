@@ -122,6 +122,4 @@ def shopScreen_timerFired(app):
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
     
-    checkIfGameOver(app)
-    
-        
+    checkIfGameOver(app)   
