@@ -22,7 +22,7 @@ def kitchenScreen_redrawAll(app, canvas):
     if app.hasItem:
         canvas.create_rectangle(425, 50, 625, 250, fill='coral1', width=2)
         canvas.create_text(525, 150, text='Keep ingredient', font='Courier 13 bold')
-        canvas.create_text(525, 165, text='in here to pour', font='Courier 13 bold')
+        canvas.create_text(525, 165, text='in here to add', font='Courier 13 bold')
         
     
     #checks if the user wants to be done with the drink and mix it
@@ -99,7 +99,6 @@ def kitchenScreen_redrawAll(app, canvas):
             canvas.create_text(680, 444, text='Milk', font='Courier 10 bold')
 
 def drawIceCubes(app, canvas, x):
-    #!bruh this code-
     topOfDrink = 0
     #getting the current top of the drink
     for ing in app.madeDrinkDict:
@@ -350,7 +349,6 @@ def kitchenScreen_mouseDragged(app, event):
                     
                 
 def kitchenScreen_timerFired(app):
-    print(app.madeDrinkDict)
     app.randomSpot = random.randint(250, 550)
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)

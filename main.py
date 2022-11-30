@@ -17,18 +17,16 @@ def appStarted(app):
     
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
-    # app.mode = 'startScreen'
-    app.mode = 'gameOverScreen'
+    app.mode = 'startScreen'
     
     #----overall game----
     app.timerDelay = 100
     app.money = 0
     app.tips = 0
-    #avg of all the user's scores
     app.avgScore = 0 
     app.totalScore = 0
     app.totalOrders = 0
-    #will change depending on how good the user is
+
     app.neededAccuracy = 70 
     
     #----day variables----

@@ -111,7 +111,7 @@ def startNewDay(app):
     
     resetDayVars(app)
     resetCustVars(app)
-    print(app.avgScore, app.neededAccuracy, app.numOfCusts)
+    # print(app.avgScore, app.neededAccuracy, app.numOfCusts)
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex += 1
 
