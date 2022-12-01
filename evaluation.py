@@ -4,6 +4,20 @@ from classes import *
 ###################################
 def evaluationScreen_redrawAll(app, canvas):        
     
+    drawBckg(app, canvas)
+    drawCust(app, canvas)
+    drawMiniTicket(app, canvas)
+    drawMiniDrink(app, canvas)
+        
+    #done button display
+    if app.evalRevealTimer > 50:    
+        drawButton(canvas, app.eval_doneBtnDms, 'Done')
+    
+    #side bar stats
+    if app.evalRevealTimer > 10:
+        drawStats(app, canvas)
+
+def drawBckg(app, canvas):
     #background
     canvas.create_rectangle(0, 0, 750, 500, fill='#b2beb5', width=0)
     
@@ -19,7 +33,8 @@ def evaluationScreen_redrawAll(app, canvas):
         
     #tips jar
     canvas.create_image(650, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (200, 200))))
-    
+
+def drawCust(app, canvas):
     #customer's body
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))
     #customer's hairstyle
@@ -29,19 +44,18 @@ def evaluationScreen_redrawAll(app, canvas):
     if app.evalRevealTimer < 20:
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.critique))
         
-    #done button display
-    if app.evalRevealTimer > 50:    
-        drawButton(canvas, app.eval_doneBtnDms, 'Done')
+    custReaction = ''
     
-    #side bar stats
-    if app.evalRevealTimer > 10:
-        drawStats(app, canvas)
-        
-    #mini ticket
-    drawMiniTicket(app, canvas)
-
-    #mini drink
-    drawMiniDrink(app, canvas)
+    if app.drinkScore*100 > 80:
+        custReaction = app.happy
+    elif app.drinkScore*100 > 60:
+        custReaction = app.neutral
+    else:
+        custReaction = app.angry
+    
+    if app.evalRevealTimer > 20:
+        #drink score
+        canvas.create_image(200, 325, image=ImageTk.PhotoImage(custReaction))
 
 def drawMiniTicket(app, canvas):
     canvas.create_rectangle(275, 415, 347, 496, fill='#eecf90', width=3)
@@ -108,20 +122,11 @@ def drawMiniDrink(app, canvas):
 
 #draws sidebar stats
 def drawStats(app, canvas):
-    custReaction = ''
-    
-    if app.drinkScore*100 > 80:
-        custReaction = app.happy
-    elif app.drinkScore*100 > 60:
-        custReaction = app.neutral
-    else:
-        custReaction = app.angry
-    
-    canvas.create_text(875, 25, text='Order Stats', font='Courier 20 bold underline')
+    if app.evalRevealTimer > 10:
+        canvas.create_text(875, 25, text='Order Stats', font='Courier 20 bold underline')
     
     if app.evalRevealTimer > 20:
-        #drink score
-        canvas.create_image(200, 325, image=ImageTk.PhotoImage(custReaction))
+        
         canvas.create_text(875, 75, text=f'Drink Score: {app.drinkScore*100}%', font='Courier 15 bold')
     
     if app.evalRevealTimer > 30:

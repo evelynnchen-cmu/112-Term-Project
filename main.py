@@ -6,7 +6,7 @@ from gameOver import *
 from shop import *
 from kitchen import *
 from evaluation import *
-from store import *
+from help import *
 
 #?code/file structure inspired by Vania Halim's 15-112 term project:
 #?https://github.com/vaniahalim/15112-TP
@@ -26,7 +26,6 @@ def appStarted(app):
     app.avgScore = 0 
     app.totalScore = 0
     app.totalOrders = 0
-
     app.neededAccuracy = 70 
     
     #----day variables----
@@ -69,15 +68,9 @@ def appStarted(app):
     
     #reveal timer variables
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 0 #!should be 0
+    app.orderRevealTimer = 70 #!should be 0
     app.dayOverRevealTimer = 0
     app.gameOverRevealTimer = 0
-    
-    # #inventory
-    # #starting inventory of ingredients
-    # app.teaInventory = {"black_tea": 20, "green_tea": 20, "oolong_tea": 20}
-    # app.toppingsInventory = {"tapioca": 20, "aloe_jelly": 20, "red_bean":20, "pudding": 20}
-    # app.suppliesInventory = {"cups": 20, "straws": 20, "seals": 20, "milk": 20, "sugar":20}
         
     #----ingredients----
     app.ings = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding', 'sugarCube', 
@@ -111,18 +104,16 @@ def appStarted(app):
     #----shopScreen buttons----
     app.shop_takeOrderBtnDms = (25, 412.5, 175, 462)
     app.shop_kitchenBtnDms = (800, 425, 950, 475)
-    app.shop_storeBtnDms = (25, 525, 175, 575)
     
     #----kitchenScreen buttons----
-    app.kitchen_storeBtnDms = (25, 525, 175, 575)
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
     app.kitchen_mixBtnDms = (800, 425, 950, 475)
     
     #----evaluationScreen button----
     app.eval_doneBtnDms = (800, 525, 950, 575)
     
-    #----storeScreen button----
-    app.store_doneBtnDms = (800, 525, 950, 575)
+    #----helpScreen button----
+    app.help_doneBtnDms = (800, 525, 950, 575)
     
     #----dayOverScreen button----
     app.dayOver_nextDayBtnDms = (825, 525, 975, 575)

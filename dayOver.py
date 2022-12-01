@@ -4,18 +4,18 @@ from classes import *
 #view
 ###################################
 def dayOverScreen_redrawAll(app, canvas):
-    #background color
-    canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
-    
+
+    drawBckg(app, canvas)
     drawDayResults(app, canvas)
-    
-    
-    canvas.create_image(150, 350, image=ImageTk.PhotoImage(app.boba))
-    canvas.create_image(850, 350, image=ImageTk.PhotoImage(app.boba))
     
     if app.dayOverRevealTimer > 70:
         #next day button display
         drawButton(canvas, app.dayOver_nextDayBtnDms, 'Next Day')
+
+def drawBckg(app, canvas):
+    canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
+    canvas.create_image(150, 350, image=ImageTk.PhotoImage(app.boba))
+    canvas.create_image(850, 350, image=ImageTk.PhotoImage(app.boba))
 
 def drawDayResults(app, canvas):
     
@@ -37,7 +37,6 @@ def drawDayResults(app, canvas):
         
     if app.dayOverRevealTimer > 60:
         canvas.create_text(500, 320, text=f'{app.avgScore*100}%', font='Courier 25 bold')
-        
 
 ###################################    
 #controller

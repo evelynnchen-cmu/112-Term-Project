@@ -5,6 +5,24 @@ from classes import *
 ###################################
 def kitchenScreen_redrawAll(app, canvas):
     
+    #draws kitchen layout
+    drawBckg(app, canvas)
+    #draws customer's order ticket
+    drawSideBar(app, canvas)
+    #draws customer's ongoing wait time
+    drawCurCustWaitTime(app, canvas)
+    #notifies user if a new customer arrived
+    drawIfNewCust(app, canvas)
+    #helps user know where to add to drink
+    drawPourGuide(app, canvas)
+    
+    #checks if the user wants to be done with the drink and mix it
+    if app.isMixed:
+        drawMixedDrinkMiniScreen(app, canvas)
+    else:
+        drawDrinkAssembly(app, canvas)
+
+def drawBckg(app, canvas):
     #background 
     canvas.create_rectangle(0, 0, 750, app.height, fill='#D3D3D3', width=0)
     
@@ -13,90 +31,143 @@ def kitchenScreen_redrawAll(app, canvas):
     
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
-        
-    # drawButton(canvas, app.kitchen_storeBtnDms, 'Store'):
-        
-    drawSideBar(app, canvas)
 
-    #draw the valid square space
+def drawSideBar(app, canvas):
+    #yellow ticket
+    canvas.create_rectangle(775, 25, 975, 250, fill='#eecf90', width=3)
+    canvas.create_text(875, 40, text=f"Customer #{(app.currentDay.custIndex)}", 
+                       font='Courier 20 bold')    
+    if len(app.curCustDrink) != 0:
+        space = 70
+        for ing in app.curCustDrink:
+            canvas.create_text(875, space, text=ing, font='Courier 15 bold')
+            space += 30
+
+def drawCurCustWaitTime(app, canvas):
+    canvas.create_rectangle(775, 280, 975, 360, fill='MediumPurple1', width=3)
+    canvas.create_text(875, 295, text='Time Since', font='Courier 15 bold')
+    canvas.create_text(875, 320, text=f'Customer Arrived:', font='Courier 14 bold')
+    canvas.create_text(875, 345, text=f'{app.currentDay.custList[app.currentDay.custIndex-1].waitTime/10}',
+                       font='Courier 15 bold')
+
+def drawIfNewCust(app, canvas):
+    if app.isThereCust and not app.isMixed:
+        canvas.create_rectangle(15, 15, 150, 55, fill='coral1', width=2)
+        canvas.create_text(82.5, 27.5, text='New Customer', font='Courier 10 bold')
+        canvas.create_text(82.5, 42.5, text='Waiting', font='Courier 10 bold')
+
+def drawPourGuide(app, canvas):
     if app.hasItem:
         canvas.create_rectangle(400, 50, 650, 250, fill='coral1', width=2)
         canvas.create_text(525, 150, text='Drag in here', font='Courier 13 bold')
         canvas.create_text(525, 165, text='to add', font='Courier 13 bold')
-        
+
+def drawMixedDrinkMiniScreen(app, canvas):
+    #evaluate button display
+    drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
     
-    #checks if the user wants to be done with the drink and mix it
-    if app.isMixed:
-        
-        #evaluate button display
-        drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
-        
-        x0 = 251
-        x1 = 501
-        y0 = 549
-        y1 = 549
-        newColor = mixDrink(app)
-        mixedDrinkToppings = dict()
-        topOfToppings = 0
-        
-        for ing in app.madeDrinkDict:
-            #get dict of the drink's toppings
-            if ing in app.toppingsOPTIONS:
-                mixedDrinkToppings[ing] = app.madeDrinkDict[ing]
-                topOfToppings += app.madeDrinkDict[ing]
-
-        #draw toppings
-        for ing in mixedDrinkToppings:
-            color = getIngColor(app, ing)
-            addLen = mixedDrinkToppings[ing]*15
-            y1 = y0 
-            y0 -= addLen
-            canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-        #draw mixed liquid
-        canvas.create_rectangle(x0, 549-(app.cupFullness*15), x1, 
-                                549-(topOfToppings*15), fill=newColor, width=0)
-        
-        if app.iceCubeCount > 0:
-            drawIceCubes(app, canvas, 300)
-            
-        #cup
-        canvas.create_image(376, 403, image=ImageTk.PhotoImage(app.cupOutlineGray))
-    else:
-        #mix button display
-        drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
+    x0 = 251
+    x1 = 501
+    y0 = 549
+    y1 = 549
+    newColor = mixDrink(app)
+    mixedDrinkToppings = dict()
+    topOfToppings = 0
     
-        #draw all ingredient options
-        for i in range(len(app.ings)):
-            if app.curIng != app.ings[i]:
-                canvas.create_image(app.ingCs[i], image=ImageTk.PhotoImage(app.ingImgs[i]))
+    for ing in app.madeDrinkDict:
+        #get dict of the drink's toppings
+        if ing in app.toppingsOPTIONS:
+            mixedDrinkToppings[ing] = app.madeDrinkDict[ing]
+            topOfToppings += app.madeDrinkDict[ing]
 
-        if app.hasItem:
-            canvas.create_image(app.x, app.y, image = ImageTk.PhotoImage(app.curIngImg))
-
-        #drink liquid
-        if len(app.madeDrinkDict) != 0:
-            drawDrink(app, canvas)
+    #draw toppings
+    for ing in mixedDrinkToppings:
+        color = getIngColor(app, ing)
+        addLen = mixedDrinkToppings[ing]*15
+        y1 = y0 
+        y0 -= addLen
+        canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
+    #draw mixed liquid
+    canvas.create_rectangle(x0, 549-(app.cupFullness*15), x1, 
+                            549-(topOfToppings*15), fill=newColor, width=0)
+    
+    if app.iceCubeCount > 0:
+        drawIceCubes(app, canvas, 300)
         
-        #ice cubes
-        if app.iceCubeCount > 0:
-            drawIceCubes(app, canvas, 445)
-            
-        #sugar cubes
-        if app.sugarCubeCount > 0:
-            drawSugarCubes(app, canvas)
+    #cup
+    canvas.create_image(376, 403, image=ImageTk.PhotoImage(app.cupOutlineGray))
 
-        #cup
-        canvas.create_image(526, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
+def drawDrinkAssembly(app, canvas):
+    #mix button display
+    drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
+
+    #draw all ingredient options
+    for i in range(len(app.ings)):
+        if app.curIng != app.ings[i]:
+            canvas.create_image(app.ingCs[i], image=ImageTk.PhotoImage(app.ingImgs[i]))
+
+    if app.hasItem:
+        canvas.create_image(app.x, app.y, image = ImageTk.PhotoImage(app.curIngImg))
+
+    #drink liquid
+    if len(app.madeDrinkDict) != 0:
+        drawDrink(app, canvas)
+    
+    #ice cubes
+    if app.iceCubeCount > 0:
+        drawIceCubes(app, canvas, 445)
         
-        if app.neededAccuracy <= 80:
-            #recommended fill lines
-            #toppings
-            canvas.create_rectangle(630, 489, 650, 491, fill='black')
-            canvas.create_text(690, 490, text='Topping', font='Courier 10 bold')
-            
-            #milk
-            canvas.create_rectangle(635, 443, 655, 445, fill='black')
-            canvas.create_text(680, 444, text='Milk', font='Courier 10 bold')
+    #sugar cubes
+    if app.sugarCubeCount > 0:
+        drawSugarCubes(app, canvas)
+
+    #cup
+    canvas.create_image(526, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
+    
+    if app.neededAccuracy <= 80:
+        #recommended fill lines
+        #toppings
+        canvas.create_rectangle(630, 489, 650, 491, fill='black')
+        canvas.create_text(690, 490, text='Topping', font='Courier 10 bold')
+        
+        #milk
+        canvas.create_rectangle(635, 443, 655, 445, fill='black')
+        canvas.create_text(680, 444, text='Milk', font='Courier 10 bold')
+
+def drawDrink(app, canvas):
+    x0 = 401
+    x1 = 649
+    y0 = 550
+    y1 = 550
+    
+    for ing in app.madeDrinkList:
+        color = getIngColor(app, ing)
+        addLen = app.madeDrinkDict[ing]*15
+        y1 = y0
+        
+        if ing == app.madeDrinkList[-1] and app.hasItem:
+            #draws the drink filling up in real time
+            if app.isAdding:
+                #?learned about time module from 
+                #?https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
+                y0 -= (time.time() - app.startAdd)*15
+                
+                #draw pouring rectangle
+                if ing in app.teaOPTIONS:
+                    canvas.create_rectangle(app.x-35, app.y+30, app.x-25, y0, fill=color, width=0)
+                elif ing in app.milkOPTIONS:
+                    canvas.create_rectangle(app.x-35, app.y+10, app.x-25, y0, fill=color, width=0)
+                elif ing in app.toppingsOPTIONS:
+                    canvas.create_rectangle(app.x-40, app.y+30, app.x-25, y0, fill=color, width=0)
+                    
+                    #random breaks in topping
+                    if app.y < app.randomSpot < y0-10:
+                        canvas.create_rectangle(app.x-40, app.randomSpot, app.x-25, 20+app.randomSpot, fill='#D3D3D3', width=0)
+                    
+                canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
+
+        y0 -= addLen
+        canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
 
 def drawIceCubes(app, canvas, x):
     topOfDrink = 0
@@ -139,52 +210,7 @@ def drawSugarCubes(app, canvas):
         canvas.create_rectangle(445+(25*i), 549-(app.sugarY*15)-25, 
                             445+(25*(i+1)), 549-(app.sugarY*15), width=0.5, 
                             fill='#FAF9F6') 
-            
-def drawSideBar(app, canvas):
-    canvas.create_rectangle(775, 25, 975, 250, fill='#eecf90', width=3)
-    canvas.create_text(875, 40, text=f"Customer #{(app.currentDay.custIndex)}", 
-                       font='Courier 20 bold')    
-    if len(app.curCustDrink) != 0:
-        space = 70
-        for ing in app.curCustDrink:
-            canvas.create_text(875, space, text=ing, font='Courier 15 bold')
-            space += 30
-
-def drawDrink(app, canvas):
-    x0 = 401
-    x1 = 649
-    y0 = 550
-    y1 = 550
-    
-    for ing in app.madeDrinkList:
-        color = getIngColor(app, ing)
-        addLen = app.madeDrinkDict[ing]*15
-        y1 = y0
-        
-        if ing == app.madeDrinkList[-1] and app.hasItem:
-            #draws the drink filling up in real time
-            if app.isAdding:
-                #?learned about time module from 
-                #?https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
-                y0 -= (time.time() - app.startAdd)*15
-                
-                #draw pouring rectangle
-                if ing in app.teaOPTIONS:
-                    canvas.create_rectangle(app.x-35, app.y+30, app.x-25, y0, fill=color, width=0)
-                elif ing in app.milkOPTIONS:
-                    canvas.create_rectangle(app.x-35, app.y+10, app.x-25, y0, fill=color, width=0)
-                elif ing in app.toppingsOPTIONS:
-                    canvas.create_rectangle(app.x-40, app.y+30, app.x-25, y0, fill=color, width=0)
-                    
-                    #random breaks in topping
-                    if app.y < app.randomSpot < y0-10:
-                        canvas.create_rectangle(app.x-40, app.randomSpot, app.x-25, 20+app.randomSpot, fill='#D3D3D3', width=0)
-                    
-                canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-
-        y0 -= addLen
-        canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
-        
+  
 ###################################
 #controller
 ###################################
@@ -273,11 +299,6 @@ def kitchenScreen_mouseReleased(app, event):
     #mix button check
     if isValidClick(x, y, app.kitchen_mixBtnDms):
         app.isMixed = True
-    #store button
-    # elif isValidClick(x, y, app.kitchen_storeBtnDms):
-    #     app.mode = 'storeScreen'
-    # eval button
-    #evaluation button check
     elif isValidClick(x, y, app.kitchen_evalBtnDms):
         evaluateDrink(app)
         app.mode = 'evaluationScreen'
@@ -370,8 +391,8 @@ def kitchenScreen_mouseDragged(app, event):
                 
 def kitchenScreen_timerFired(app):
     
-    print(app.madeDrinkList)
-    print(app.madeDrinkDict)
+    # print(app.madeDrinkList)
+    # print(app.madeDrinkDict)
     app.randomSpot = random.randint(250, 550)
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)

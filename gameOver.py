@@ -4,6 +4,18 @@ from classes import *
 #view
 ###################################
 def gameOverScreen_redrawAll(app, canvas):
+    
+    drawBckg(app, canvas)
+    drawGameResults(app, canvas)
+    
+    if app.gameOverRevealTimer > 90:
+        #restart button display
+        drawButton(canvas, app.gameOver_restartBtnDms, 'Restart')
+        
+        #exit button display
+        drawButton(canvas, app.gameOver_exitBtnDms, 'Exit')
+
+def drawBckg(app, canvas):
     #background color
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
     
@@ -13,15 +25,6 @@ def gameOverScreen_redrawAll(app, canvas):
     #cover bobas' mouths
     canvas.create_rectangle(125, 335, 150, 350, fill='#ceb195', width=0)
     canvas.create_rectangle(825, 335, 850, 350, fill='#ceb195', width=0)
-    
-    drawGameResults(app, canvas)
-    
-    if app.gameOverRevealTimer > 90:
-        #restart button display
-        drawButton(canvas, app.gameOver_restartBtnDms, 'Restart')
-        
-        #exit button display
-        drawButton(canvas, app.gameOver_exitBtnDms, 'Exit')
 
 def drawGameResults(app, canvas):
     if app.gameOverRevealTimer > 10:
