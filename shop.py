@@ -21,7 +21,6 @@ def shopScreen_redrawAll(app, canvas):
     #draws order   
     if app.hasTakenOrder and app.isThereCust:
         drawOrder(app, canvas)   
-        
 
 def drawBckg(app, canvas):
     #background color
@@ -51,7 +50,6 @@ def drawBckg(app, canvas):
     #help button display
     canvas.create_image(100, 510, image=ImageTk.PhotoImage(scaleImage(app, app.helpBoba, (85, 85))))
     drawButton(canvas, app.shop_helpBtnDms, 'Help')
-    
     
 def drawInfo(app, canvas):
     #day progress bar

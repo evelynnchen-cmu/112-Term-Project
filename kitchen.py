@@ -127,7 +127,7 @@ def drawDrinkAssembly(app, canvas):
 
     #cup
     canvas.create_image(526, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
-    
+
     if app.neededAccuracy <= 80:
         #recommended fill lines
         #toppings
@@ -362,7 +362,7 @@ def kitchenScreen_mouseDragged(app, event):
             
             #simulates pouring motion
             if not app.isRotated:
-                #?.rotate idea from Pat Virtue via Piazza and gave reference of 
+                #?'.rotate' idea from Pat Virtue via Piazza and gave reference of 
                 #?https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.rotate
                 if app.curIngImg != '':
                     app.curIngImg = app.curIngImg.rotate(angle=90)
@@ -402,15 +402,10 @@ def kitchenScreen_mouseDragged(app, event):
                     app.curIng = ''
                     app.hasItem = False
                     
-                
 def kitchenScreen_timerFired(app):
-    
-    # print(app.madeDrinkList)
-    # print(app.madeDrinkDict)
     app.randomSpot = random.randint(250, 550)
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
-    
     checkIfGameOver(app) 

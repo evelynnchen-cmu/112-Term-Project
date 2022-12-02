@@ -66,13 +66,13 @@ def appStarted(app):
     app.entered = False
     app.isRotated = False
     
-    #reveal timer variables
+    #----reveal timer variables----
     app.evalRevealTimer = 0
     app.orderRevealTimer = 0 #!should be 0
     app.dayOverRevealTimer = 0
     app.gameOverRevealTimer = 0
     
-    #helpScenes
+    #----help scenes----
     app.curHelpScene = 1
     app.cameFromGame = False
     app.visitedHelp = False
@@ -109,7 +109,7 @@ def appStarted(app):
     app.iceCubeCount = 0
     app.ingR = 37.5
     
-    #----startScreen button----
+    #----startScreen buttons----
     app.start_startBtnDms = (425, 250, 575, 300)
     app.start_howToPlayBtnDms = (425, 325, 575, 375)
     app.start_exitBtnDms = (425, 400, 575, 450)
@@ -126,7 +126,7 @@ def appStarted(app):
     #----evaluationScreen button----
     app.eval_doneBtnDms = (800, 525, 950, 575)
     
-    #----helpScreen button----
+    #----helpScreen buttons----
     app.help_doneBtnDms = (425, 525, 575, 575)
     app.help_nextBtnDms = (825, 525, 975, 575)
     app.help_backBtnDms = (25, 525, 175, 575)
@@ -134,12 +134,12 @@ def appStarted(app):
     #----dayOverScreen button----
     app.dayOver_nextDayBtnDms = (825, 525, 975, 575)
     
-    #----gameOverScreen button----
+    #----gameOverScreen buttons----
     app.gameOver_restartBtnDms = (525, 525, 675, 575) 
     app.gameOver_exitBtnDms = (325, 525, 475, 575)
     
     #----images----
-    #?drawn by myself on Procreate
+    #?drawn by myself on Procreate unless otherwise specified
     #----ingredients----
     app.tapioca = app.loadImage('./assets/ingredients/tapioca.png')
     app.aloeJelly = app.loadImage('./assets/ingredients/aloe_jelly.png')
@@ -193,13 +193,15 @@ def appStarted(app):
     app.cupOutlineGreen = app.loadImage('./assets/decorations/cup_outline_green.png')
     app.logo = app.loadImage('./assets/decorations/logo.png')
     app.boba = app.loadImage('./assets/decorations/boba.png')
+    app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
+    app.counter = app.loadImage('./assets/decorations/counter.png')
+    
+    #----boba babies----
     app.happyBoba = app.loadImage('./assets/decorations/boba_babies/happy_boba.png')
     app.moneyBoba = app.loadImage('./assets/decorations/boba_babies/money_boba.png')
     app.chefBoba = app.loadImage('./assets/decorations/boba_babies/chef_boba.png')
     app.helpBoba = app.loadImage('./assets/decorations/boba_babies/help_boba.png')
     app.searchingBoba = app.loadImage('./assets/decorations/boba_babies/searching_boba.png')
-    app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
-    app.counter = app.loadImage('./assets/decorations/counter.png')
     
     #?taken from https://www.istockphoto.com/es/vector/t%C3%A9-de-burbujas-popular-
     #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-
@@ -212,12 +214,6 @@ def appStarted(app):
     app.addIngScene = app.loadImage('./assets/scenes/add_ing.png')
     app.mixedDrinkScene = app.loadImage('./assets/scenes/mixed_drink.png')
     app.custCritiqueScene = app.loadImage('./assets/scenes/cust_critique.png')
-    app.custEvalScene = app.loadImage('./assets/scenes/cust_eval.png')
-    
-    
-    # #?copied from https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#animatedGifs
-    # app.addIngGif = loadAnimatedGif('./assets/scenes/add_ing_gif.gif')
-    # app.spriteCounter = 0
-    
+    app.custEvalScene = app.loadImage('./assets/scenes/cust_eval.png')   
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")

@@ -17,7 +17,6 @@ def drawBckg(app, canvas):
     canvas.create_image(850, 350, image=ImageTk.PhotoImage(app.boba))
 
 def drawDayResults(app, canvas):
-    
     if app.dayOverRevealTimer > 10:
         canvas.create_rectangle(300, 100, 700, 500, fill='#eecf90', width=3)
     

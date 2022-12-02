@@ -21,9 +21,6 @@ def startScreen_redrawAll(app, canvas):
     canvas.create_image(750, 350, image=ImageTk.PhotoImage(app.boba))
     canvas.create_image(815, 375, image=ImageTk.PhotoImage(app.helpBoba.rotate(angle=-10)))
     
-    
-    
-    
     if app.visitedHelp:
         #start button display
         drawButton(canvas, app.start_startBtnDms, 'Start')

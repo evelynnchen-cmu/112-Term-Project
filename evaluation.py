@@ -142,7 +142,6 @@ def drawStats(app, canvas):
         canvas.create_text(875, 25, text='Order Stats', font='Courier 20 bold underline')
     
     if app.evalRevealTimer > 20:
-        
         canvas.create_text(875, 75, text=f'Drink Score: {app.drinkScore*100}%', 
                            font='Courier 15 bold')
     
@@ -171,7 +170,6 @@ def drawStats(app, canvas):
 def evaluationScreen_mouseReleased(app, event):
     # done button check
     if isValidClick(event.x, event.y, app.eval_doneBtnDms) and app.evalRevealTimer > 50:
-        #!still goes to shop be4 day
         if app.currentDay.dayTime <= 0:
             app.mode = 'dayOverScreen'
         app.currentDay.custIndex += 1
@@ -182,7 +180,6 @@ def evaluationScreen_mouseReleased(app, event):
         app.curHelpScene = 4
         app.cameFromGame = True
         app.mode = 'helpScreen'
-        
         
 def evaluationScreen_timerFired(app):
     app.evalRevealTimer += 1

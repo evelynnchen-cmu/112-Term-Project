@@ -18,7 +18,6 @@ class Day():
     #check if it's time for a new customer
     def checkIfAddCust(self, app):
         if self.dayTime % self.custPerTime == 0:
-            # print('new customer')
             self.custList.append(Customer(app))
             app.isThereCust = True
     
@@ -90,7 +89,6 @@ def resetDayVars(app):
 
 #checks if the game is over
 def checkIfGameOver(app):
-    #check lose condition too
     if app.dayIndex > 7:
         app.mode = 'gameOverScreen'
 
@@ -108,15 +106,15 @@ def startNewDay(app):
     if app.avgScore > app.lastDaysScore+.1:
         app.neededAccuracy += 10
         app.numOfCusts += 1
-        
+    #if score is above 80%, add 2 new topping options    
     if (app.avgScore > .8 and 'lychee_jelly' not in app.ings 
         and 'mango_jelly' not in app.ings):
-        #add new ingredient options: lychee jelly and mango jelly
+        #lychee jelly
         app.ings.append('lychee_jelly')
         app.toppingsOPTIONS.append('lychee_jelly')
         app.ingCs.append(app.lycheeJellyC)
         app.ingImgs.append(app.lycheeJelly)
-        
+        #mango jelly
         app.ings.append('mango_jelly')
         app.toppingsOPTIONS.append('mango_jelly')
         app.ingCs.append(app.mangoJellyC)
@@ -124,11 +122,10 @@ def startNewDay(app):
         
     resetDayVars(app)
     resetCustVars(app)
-    # print(app.avgScore, app.neededAccuracy, app.numOfCusts)
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.dayIndex += 1
 
-#returns the ingredients' color
+#returns the given ingredient's color
 def getIngColor(app, ing):
     if ing == 'tapioca':
         #?hex color from https://www.color-hex.com/color-palette/59441
@@ -184,7 +181,7 @@ def evaluateDrink(app):
     if app.iceCubeCount == correctIceCubes:
         correctIngTypes += 1
         
-    #calculate drink score
+    #calculates the drink score
     if len(app.madeDrinkDict) != 0:
         
         app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.4 + 
@@ -192,11 +189,11 @@ def evaluateDrink(app):
     else:
         app.drinkScore = 0
         
-    #calculate tips based on customer's wait time
+    #calculate tip
     #drink score must be above 50% to even get any tips
     if app.drinkScore > .5:
-        #every second waited = 1 cent less; after 50 seconds = no tips
-        #to keep tips consistent with standard U.S. money format
+        #every second waited = 1 cent less
+        #after 50 seconds of waiting, no tip is given
         app.tips = roundUp((500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2) 
         
     if app.tips > 0:
@@ -214,7 +211,7 @@ def evaluateDrink(app):
     else:
         app.avgScore = roundUp(app.drinkScore, 2)
 
-#mixes the milk and tea colors based on ratio 
+#mixes the milk and tea colors based on their proportions 
 def mixDrink(app):
     milkR, milkG, milkB = hexToRGB(getIngColor(app, 'whole_milk'))
     teaR, teaG, teaB = hexToRGB(getIngColor(app, 'green_tea'))
