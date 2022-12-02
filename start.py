@@ -11,8 +11,16 @@ def startScreen_redrawAll(app, canvas):
     canvas.create_text(app.width//2, app.height//3, text="Evelynn's Bobaria", font='Courier 50 bold')
     
     #bobas
+    #left side
+    canvas.create_image(315, 262, image=ImageTk.PhotoImage(app.moneyBoba.rotate(angle=-5)))
     canvas.create_image(250, 350, image=ImageTk.PhotoImage(app.boba))
+    canvas.create_image(175, 375, image=ImageTk.PhotoImage(app.happyBoba.rotate(angle=10)))
+    
+    #right side
     canvas.create_image(750, 350, image=ImageTk.PhotoImage(app.boba))
+    
+    
+    
     
     if app.visitedHelp:
         #start button display

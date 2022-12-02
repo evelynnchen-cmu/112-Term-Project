@@ -9,7 +9,7 @@ def helpScreen_redrawAll(app, canvas):
     
     #changes the current help scene screen
     if app.curHelpScene == 1:
-        drawGameHelp(canvas)
+        drawGameHelp(app, canvas)
     elif app.curHelpScene == 2:
         drawShopHelp(app, canvas)
     elif app.curHelpScene == 3:
@@ -29,8 +29,9 @@ def helpScreen_redrawAll(app, canvas):
     else:
         drawButton(canvas, app.help_doneBtnDms, 'Go to Game')
     
-def drawGameHelp(canvas):
+def drawGameHelp(app, canvas):
     canvas.create_text(500, 100, text="Welcome to Evelynn's Bobaria!", font='Courier 35 bold')
+    canvas.create_image(550, 275, image=ImageTk.PhotoImage(app.happyBoba))
     canvas.create_text(450, 300, text=
         """
         Your journey to becoming a master bobarista begins today.\n

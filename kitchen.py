@@ -101,6 +101,7 @@ def drawMixedDrinkMiniScreen(app, canvas):
 
 def drawDrinkAssembly(app, canvas):
     #mix button display
+    canvas.create_image(950, 395, image=ImageTk.PhotoImage(app.chefBoba.rotate(angle=-10)))
     drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
 
     #draw all ingredient options

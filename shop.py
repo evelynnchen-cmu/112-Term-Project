@@ -11,6 +11,7 @@ def shopScreen_redrawAll(app, canvas):
     
     if app.hasOrder and app.isThereCust:
         #kitchen button display
+        canvas.create_image(800, 395, image=ImageTk.PhotoImage(app.chefBoba.rotate(angle=10)))
         drawButton(canvas, app.shop_kitchenBtnDms, 'Kitchen')
     
     if app.isThereCust:
@@ -75,6 +76,7 @@ def drawCust(app, canvas):
     
     #take order button display
     if not app.hasTakenOrder:
+        canvas.create_image(100, 400, image=ImageTk.PhotoImage(app.moneyBoba.rotate(angle=10)))
         drawButton(canvas, app.shop_takeOrderBtnDms, 'Take Order')
     
 def drawOrder(app, canvas):
