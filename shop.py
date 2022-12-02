@@ -46,7 +46,10 @@ def drawBckg(app, canvas):
     canvas.create_rectangle(32, 300, 122, 357, fill='white', width=0)
     canvas.create_image(125, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
     canvas.create_image(75, 327, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegisterScreen, (63, 63))))
-        
+    
+    #help image
+    canvas.create_image(45, 545, image=ImageTk.PhotoImage(app.helpBoba))
+    
 def drawInfo(app, canvas):
     #day progress bar
     canvas.create_rectangle(225, 10, 722, 50, width=3, fill='gray28')
@@ -115,6 +118,9 @@ def shopScreen_mouseReleased(app, event):
         app.mode = 'kitchenScreen'
     elif isValidClick(event.x, event.y, app.shop_takeOrderBtnDms) and app.isThereCust:
         app.hasTakenOrder = True
+    # help button check
+    elif isValidClick(event.x, event.y, app.helpBtnDms):
+        app.mode = 'helpScreen'
         
 def shopScreen_timerFired(app):
     #reveal timer increment

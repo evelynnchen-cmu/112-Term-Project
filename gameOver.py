@@ -4,7 +4,6 @@ from classes import *
 #view
 ###################################
 def gameOverScreen_redrawAll(app, canvas):
-    
     drawBckg(app, canvas)
     drawGameResults(app, canvas)
     

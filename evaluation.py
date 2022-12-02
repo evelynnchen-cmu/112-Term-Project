@@ -3,7 +3,6 @@ from classes import *
 #view
 ###################################
 def evaluationScreen_redrawAll(app, canvas):        
-    
     drawBckg(app, canvas)
     drawCust(app, canvas)
     drawMiniTicket(app, canvas)
@@ -22,23 +21,28 @@ def drawBckg(app, canvas):
     canvas.create_rectangle(0, 0, 750, 500, fill='#b2beb5', width=0)
     
     #blue sidebar
-    canvas.create_rectangle(750, 0, app.width, app.height, fill='lightblue1', width=0)
+    canvas.create_rectangle(750, 0, app.width, app.height, fill='lightblue1', 
+                            width=0)
     
     #vertical divider
-    canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
+    canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, 
+                       fill='black', width=3)
     
     #counter
-    canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), fill='black', width=3)
+    canvas.create_line(0, app.height*(5/6), app.width*(3/4), app.height*(5/6), 
+                       fill='black', width=3)
     canvas.create_image(375, 600, image=ImageTk.PhotoImage(app.counter))
         
     #tips jar
-    canvas.create_image(650, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (200, 200))))
+    canvas.create_image(650, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, 
+                                                                      (200, 200))))
 
 def drawCust(app, canvas):
     #customer's body
     canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.body))
     #customer's hairstyle
-    canvas.create_image(200, 325, image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex-1].custImg))
+    canvas.create_image(200, 325, 
+                        image=ImageTk.PhotoImage(app.currentDay.custList[app.currentDay.custIndex-1].custImg))
     
     #customer's crtique stance
     if app.evalRevealTimer < 20:
@@ -59,7 +63,8 @@ def drawCust(app, canvas):
 
 def drawMiniTicket(app, canvas):
     canvas.create_rectangle(275, 415, 347, 496, fill='#eecf90', width=3)
-    canvas.create_text(311, 425, text=f"Customer #{(app.currentDay.custIndex)}", font='Courier 6 bold')    
+    canvas.create_text(311, 425, text=f"Customer #{(app.currentDay.custIndex)}", 
+                       font='Courier 6 bold')    
     if len(app.curCustDrink) != 0:
         space = 435
         for ing in app.curCustDrink:
@@ -104,21 +109,27 @@ def drawMiniDrink(app, canvas):
         if len(app.madeDrinkList) != 0:
             if app.madeDrinkList[-1] in app.teaOPTIONS or app.madeDrinkList[-1] in app.milkOPTIONS:
                 for i in range(app.iceCubeCount):
-                    canvas.create_rectangle(425+(11.66*i), 499-(topOfDrink*5), 425+(11.66*(i+1)), 
-                                                    499-((topOfDrink*5)-11.66), width=0.1, fill='#C6DCF5')
+                    canvas.create_rectangle(425+(11.66*i), 499-(topOfDrink*5), 
+                                            425+(11.66*(i+1)), 499-((topOfDrink*5)-11.66), 
+                                            width=0.1, fill='#C6DCF5')
             elif app.madeDrinkList[-1] in app.toppingsOPTIONS:
                 for i in range(app.iceCubeCount):
                     canvas.create_rectangle(425+(11.66*i), 499-(topOfDrink*5)-11.66, 
-                                    425+(11.66*(i+1)), 499-(topOfDrink*5), width=0.1, fill='#C6DCF5')
+                                            425+(11.66*(i+1)), 499-(topOfDrink*5), 
+                                            width=0.1, fill='#C6DCF5')
             else:
                 for i in range(app.iceCubeCount):
-                    canvas.create_rectangle(425+(11.66*i), 487.34, 425+(11.66*(i+1)), 499, width=0.1, fill='#C6DCF5')   
+                    canvas.create_rectangle(425+(11.66*i), 487.34, 425+(11.66*(i+1)), 
+                                            499, width=0.1, fill='#C6DCF5')   
         else:
             for i in range(app.iceCubeCount):
-                canvas.create_rectangle(425+(11.66*i), 487.34, 425+(11.66*(i+1)), 499, width=0.1, fill='#C6DCF5')
+                canvas.create_rectangle(425+(11.66*i), 487.34, 425+(11.66*(i+1)), 
+                                        499, width=0.1, fill='#C6DCF5')
             
     #cup
-    canvas.create_image(450, 449, image=ImageTk.PhotoImage(scaleImage(app, app.cupOutlineGreen, (100, 100))))
+    canvas.create_image(450, 449, 
+                        image=ImageTk.PhotoImage(scaleImage(app, app.cupOutlineGreen, 
+                                                            (100, 100))))
 
 #draws sidebar stats
 def drawStats(app, canvas):
@@ -127,23 +138,27 @@ def drawStats(app, canvas):
     
     if app.evalRevealTimer > 20:
         
-        canvas.create_text(875, 75, text=f'Drink Score: {app.drinkScore*100}%', font='Courier 15 bold')
+        canvas.create_text(875, 75, text=f'Drink Score: {app.drinkScore*100}%', 
+                           font='Courier 15 bold')
     
     if app.evalRevealTimer > 30:
         #tips earned
         if len(str(app.tips)) == 3:
-            canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', font='Courier 14 bold')
+            canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', 
+                               font='Courier 14 bold')
             #tips above tip jar
             canvas.create_text(650, 275, text=f'+${app.tips}0', font='Courier 25 bold')
         else:
-            canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', font='Courier 14 bold')
+            canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', 
+                               font='Courier 14 bold')
             #tips above tip jar
             canvas.create_text(650, 275, text=f'+${app.tips}', font='Courier 25 bold')
         
     
     if app.evalRevealTimer > 40:
         #total average score
-        canvas.create_text(875, 175, text=f'Average Score: {app.avgScore*100}%', font='Courier 14 bold')
+        canvas.create_text(875, 175, text=f'Average Score: {app.avgScore*100}%', 
+                           font='Courier 14 bold')
 
 ###################################    
 #controller

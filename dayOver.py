@@ -4,7 +4,6 @@ from classes import *
 #view
 ###################################
 def dayOverScreen_redrawAll(app, canvas):
-
     drawBckg(app, canvas)
     drawDayResults(app, canvas)
     
@@ -23,20 +22,24 @@ def drawDayResults(app, canvas):
         canvas.create_rectangle(300, 100, 700, 500, fill='#eecf90', width=3)
     
     if app.dayOverRevealTimer > 20:
-        canvas.create_text(500, 130, text=f"Day {app.dayIndex} Results", font='Courier 25 bold underline')
+        canvas.create_text(500, 130, text=f"Day {app.dayIndex} Results", 
+                           font='Courier 25 bold underline')
     
     if app.dayOverRevealTimer > 30:
-        canvas.create_text(500, 170, text="Number of Customers Served:", font='Courier 18 bold') 
+        canvas.create_text(500, 170, text="Number of Customers Served:", 
+                           font='Courier 18 bold') 
         
     if app.dayOverRevealTimer > 40:
         canvas.create_text(500, 220, text=f"{app.currentDay.custIndex-1}/{app.currentDay.numOfCusts}", 
-                        font='Courier 25 bold')
+                            font='Courier 25 bold')
     
     if app.dayOverRevealTimer > 50:
-        canvas.create_text(500, 270, text=f'Average Score:', font='Courier 18 bold')
+        canvas.create_text(500, 270, text=f'Average Score:', 
+                           font='Courier 18 bold')
         
     if app.dayOverRevealTimer > 60:
-        canvas.create_text(500, 320, text=f'{app.avgScore*100}%', font='Courier 25 bold')
+        canvas.create_text(500, 320, text=f'{app.avgScore*100}%', 
+                           font='Courier 25 bold')
 
 ###################################    
 #controller

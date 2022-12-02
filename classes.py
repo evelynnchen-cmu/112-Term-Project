@@ -108,7 +108,20 @@ def startNewDay(app):
     if app.avgScore > app.lastDaysScore+.1:
         app.neededAccuracy += 10
         app.numOfCusts += 1
-    
+        
+    if (app.avgScore > .8 and 'lychee_jelly' not in app.ings 
+        and 'mango_jelly' not in app.ings):
+        #add new ingredient options: lychee jelly and mango jelly
+        app.ings.append('lychee_jelly')
+        app.toppingsOPTIONS.append('lychee_jelly')
+        app.ingCs.append(app.lycheeJellyC)
+        app.ingImgs.append(app.lycheeJelly)
+        
+        app.ings.append('mango_jelly')
+        app.toppingsOPTIONS.append('mango_jelly')
+        app.ingCs.append(app.mangoJellyC)
+        app.ingImgs.append(app.mangoJelly)
+        
     resetDayVars(app)
     resetCustVars(app)
     # print(app.avgScore, app.neededAccuracy, app.numOfCusts)
@@ -128,6 +141,10 @@ def getIngColor(app, ing):
     elif ing == 'pudding':
         #?hex color from https://encycolorpedia.com/ffd47f
         return '#ffd700'
+    elif ing == 'lychee_jelly':
+        return '#f7e6b5'
+    elif ing == 'mango_jelly':
+        return '#f5a702'
     elif ing in app.teaOPTIONS:
         return '#b0906f'
     elif ing in app.milkOPTIONS:
@@ -135,7 +152,6 @@ def getIngColor(app, ing):
 
 #evaluates the drink
 def evaluateDrink(app):
-    
     errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100), 2)
     correctIngTypes = 0
     goodEnoughIngTime = 0
@@ -172,7 +188,7 @@ def evaluateDrink(app):
     if len(app.madeDrinkDict) != 0:
         
         app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.4 + 
-                ((550-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/550)*.1, 2) # <1
+            ((550-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/550)*.1, 2) # <1
     else:
         app.drinkScore = 0
         
@@ -180,11 +196,11 @@ def evaluateDrink(app):
     #drink score must be above 50% to even get any tips
     if app.drinkScore > .5:
         #every second waited = 1 cent less; after 50 seconds = no tips
-        app.tips = (500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01 
+        #to keep tips consistent with standard U.S. money format
+        app.tips = roundUp((500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2) 
         
     if app.tips > 0:
-        #to keep tips consistent with standard U.S. money format
-        app.money += roundUp(app.tips, 2)
+        app.money += app.tips
     else:
         app.tips = 0
     

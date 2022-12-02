@@ -4,7 +4,6 @@ from classes import *
 #view
 ###################################
 def kitchenScreen_redrawAll(app, canvas):
-    
     #draws kitchen layout
     drawBckg(app, canvas)
     #draws customer's order ticket
@@ -292,6 +291,20 @@ def kitchenScreen_mousePressed(app, event):
         app.hasItem = True
         app.itemAtRest = False
         app.x, app.y = app.oolongTeaC
+    elif (isValidIngClick(app, x, y, app.lycheeJellyC) and 'lychee_jelly' 
+          not in app.madeDrinkDict and 'lychee_jelly' in app.toppingsOPTIONS):
+        app.curIng = 'lychee_jelly'
+        app.curIngImg = app.lycheeJelly
+        app.hasItem = True
+        app.itemAtRest = False
+        app.x, app.y = app.lycheeJellyC
+    elif (isValidIngClick(app, x, y, app.mangoJellyC) and 'mango_jelly' 
+          not in app.madeDrinkDict and 'mango_jelly' in app.toppingsOPTIONS):
+        app.curIng = 'mango_jelly'
+        app.curIngImg = app.mangoJelly
+        app.hasItem = True
+        app.itemAtRest = False
+        app.x, app.y = app.mangoJellyC
         
 def kitchenScreen_mouseReleased(app, event):
     x, y, = event.x, event.y
@@ -311,15 +324,6 @@ def kitchenScreen_mouseReleased(app, event):
             app.cupFullness += app.lenOfAdd
             app.madeDrinkDict[app.curIng] = (app.madeDrinkDict.get(app.curIng, 0) 
                                             + app.lenOfAdd)
-    
-    #check for 0 times
-    # for ing in app.madeDrinkDict:
-    #     if app.madeDrinkDict[ing] == 0:
-    #         for i in range(len(app.madeDrinkList)):
-    #             if ing == app.madeDrinkList[i]:
-    #                 print(f'{ing} is equal to {app.madeDrinkList[i]}')
-    #                 app.madeDrinkList.remove(ing)
-    #                 break
     
     #resets dragging/pouring variables
     app.itemAtRest = True

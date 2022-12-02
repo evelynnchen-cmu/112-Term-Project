@@ -8,7 +8,7 @@ from kitchen import *
 from evaluation import *
 from help import *
 
-#?code/file structure inspired by Vania Halim's 15-112 term project:
+#?file structure inspired by Vania Halim's 15-112 term project:
 #?https://github.com/vaniahalim/15112-TP
 ###################################
 #controller
@@ -76,15 +76,18 @@ def appStarted(app):
     app.ings = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding', 'sugarCube', 
                 'iceCube', 'whole_milk', '2%_milk', 'skim_milk', 'green_tea', 
                 'black_tea', 'oolong_tea']
-    
     app.toppingsOPTIONS = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding']
-    app.sugarOPTIONS = ['4_sugar_cubes', '3_sugar_cubes', '2_sugar_cubes', '1_sugar_cube', '0_sugar_cubes']
-    app.iceOPTIONS = ['4_ice_cubes', '3_ice_cubes', '2_ice_cubes', '1_ice_cube', '0_ice_cubes']
+    app.sugarOPTIONS = ['4_sugar_cubes', '3_sugar_cubes', '2_sugar_cubes', 
+                        '1_sugar_cube', '0_sugar_cubes']
+    app.iceOPTIONS = ['4_ice_cubes', '3_ice_cubes', '2_ice_cubes', '1_ice_cube', 
+                      '0_ice_cubes']
     app.milkOPTIONS = ['whole_milk', '2%_milk', 'skim_milk']
     app.teaOPTIONS = ['black_tea', 'green_tea', 'oolong_tea']
-    app.OPTIONS = [app.toppingsOPTIONS, app.sugarOPTIONS, app.iceOPTIONS, app.milkOPTIONS, app.teaOPTIONS]
+    app.OPTIONS = [app.toppingsOPTIONS, app.sugarOPTIONS, app.iceOPTIONS, 
+                   app.milkOPTIONS, app.teaOPTIONS]
     
-    app.tapiocaC, app.aloeJellyC, app.redBeanC, app.puddingC = (50, 100), (150, 100), (250, 100), (350, 100)
+    app.tapiocaC, app.aloeJellyC, app.redBeanC, app.puddingC = ((50, 100), 
+                                            (150, 100), (250, 100), (350, 100))
     app.sugarCubeC, app.iceCubeC = (200, 200), (200, 300)
     app.wholeMilkC, app.twoPMilkC, app.skimMilkC = (100, 400), (200, 400), (300, 400)
     app.greenTeaC, app.blackTeaC, app.oolongTeaC = (100, 500), (200, 500), (300, 500) 
@@ -92,10 +95,17 @@ def appStarted(app):
                  app.sugarCubeC, app.iceCubeC, app.wholeMilkC, app.twoPMilkC, 
                  app.skimMilkC, app.greenTeaC, app.blackTeaC, app.oolongTeaC]
     
+    #---ingredients unlocked later----
+    app.lycheeJellyC, app.mangoJellyC = (50, 200), (350, 200)
+    
+    #----ingredient variables----
     app.curIngImg = ''
     app.sugarCubeCount = 0
     app.iceCubeCount = 0
     app.ingR = 37.5
+    
+    #----general button---
+    app.helpBtnDms = (10, 500, 80, 595)
     
     #----startScreen button----
     app.start_startBtnDms = (425, 300, 575, 350)
@@ -137,13 +147,16 @@ def appStarted(app):
     app.skimMilk = app.loadImage('./assets/ingredients/skim_milk.png')
     app.sugarCube = app.loadImage ('./assets/ingredients/sugar_cube.png')
     app.iceCube = app.loadImage ('./assets/ingredients/ice_cube.png')
+    
     app.ingImgs = [app.tapioca, app.aloeJelly, app.redBean, app.pudding, 
                  app.sugarCube, app.iceCube, app.wholeMilk, app.twoPMilk, 
                  app.skimMilk, app.greenTea, app.blackTea, app.oolongTea]
-    
+        
+    #----ingredients unlocked later----
+    app.lycheeJelly = app.loadImage('./assets/ingredients/lychee_jelly.png')
+    app.mangoJelly = app.loadImage('./assets/ingredients/mango_jelly.png')
     
     #----customers----
-    #?drawn by myself on Procreate
     app.body = app.loadImage('./assets/customers/stances/body.png')
     app.neutral = app.loadImage('./assets/customers/stances/neutral.png')
     
@@ -168,13 +181,13 @@ def appStarted(app):
                     app.leoDicaprio, app.longCurlyHair, app.longHair, app.longStraightHair,
                     app.shortCurlyHair, app.justin]
     
-    
     #----decorations----
     app.tipsJar = app.loadImage('./assets/decorations/tips_jar.png')
     app.cupOutlineGray = app.loadImage('./assets/decorations/cup_outline_gray.png')
     app.cupOutlineGreen = app.loadImage('./assets/decorations/cup_outline_green.png')
     app.logo = app.loadImage('./assets/decorations/logo.png')
     app.boba = app.loadImage('./assets/decorations/boba.png')
+    app.helpBoba = app.loadImage('./assets/decorations/help_boba.png')
     app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
     app.counter = app.loadImage('./assets/decorations/counter.png')
     
