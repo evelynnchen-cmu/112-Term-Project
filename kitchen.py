@@ -15,6 +15,9 @@ def kitchenScreen_redrawAll(app, canvas):
     #helps user know where to add to drink
     drawPourGuide(app, canvas)
     
+    #help boba display
+    canvas.create_image(30, 550, image=ImageTk.PhotoImage(scaleImage(app, app.helpBoba, (100, 75))))
+    
     #checks if the user wants to be done with the drink and mix it
     if app.isMixed:
         drawMixedDrinkMiniScreen(app, canvas)
@@ -315,6 +318,11 @@ def kitchenScreen_mouseReleased(app, event):
     elif isValidClick(x, y, app.kitchen_evalBtnDms):
         evaluateDrink(app)
         app.mode = 'evaluationScreen'
+    # help boba check
+    elif isValidClick(event.x, event.y, (3, 517, 53, 587)):
+        app.curHelpScene = 3
+        app.cameFromGame = True
+        app.mode = 'helpScreen'
     
     #stops adding ingredient to the drink and records its time
     if app.hasItem and app.isLegal:

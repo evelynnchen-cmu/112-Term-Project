@@ -47,8 +47,10 @@ def drawBckg(app, canvas):
     canvas.create_image(125, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
     canvas.create_image(75, 327, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegisterScreen, (63, 63))))
     
-    #help image
-    canvas.create_image(45, 545, image=ImageTk.PhotoImage(app.helpBoba))
+    #help button display
+    canvas.create_image(100, 510, image=ImageTk.PhotoImage(scaleImage(app, app.helpBoba, (85, 85))))
+    drawButton(canvas, app.shop_helpBtnDms, 'Help')
+    
     
 def drawInfo(app, canvas):
     #day progress bar
@@ -119,7 +121,9 @@ def shopScreen_mouseReleased(app, event):
     elif isValidClick(event.x, event.y, app.shop_takeOrderBtnDms) and app.isThereCust:
         app.hasTakenOrder = True
     # help button check
-    elif isValidClick(event.x, event.y, app.helpBtnDms):
+    elif isValidClick(event.x, event.y, app.shop_helpBtnDms):
+        app.curHelpScene = 2
+        app.cameFromGame = True
         app.mode = 'helpScreen'
         
 def shopScreen_timerFired(app):

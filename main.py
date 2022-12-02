@@ -18,6 +18,7 @@ def appStarted(app):
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
     app.mode = 'startScreen'
+    # app.mode = 'helpScreen'
     
     #----overall game----
     app.timerDelay = 100
@@ -71,6 +72,11 @@ def appStarted(app):
     app.orderRevealTimer = 70 #!should be 0
     app.dayOverRevealTimer = 0
     app.gameOverRevealTimer = 0
+    
+    #helpScenes
+    app.curHelpScene = 1
+    app.cameFromGame = False
+    app.visitedHelp = False
         
     #----ingredients----
     app.ings = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding', 'sugarCube', 
@@ -104,16 +110,15 @@ def appStarted(app):
     app.iceCubeCount = 0
     app.ingR = 37.5
     
-    #----general button---
-    app.helpBtnDms = (10, 500, 80, 595)
-    
     #----startScreen button----
     app.start_startBtnDms = (425, 300, 575, 350)
-    app.start_exitBtnDms = (425, 375, 575, 425)
+    app.start_howToPlayBtnDms = (425, 375, 575, 425)
+    app.start_exitBtnDms = (425, 450, 575, 500)
     
     #----shopScreen buttons----
     app.shop_takeOrderBtnDms = (25, 412.5, 175, 462)
     app.shop_kitchenBtnDms = (800, 425, 950, 475)
+    app.shop_helpBtnDms = (25, 525, 175, 575)
     
     #----kitchenScreen buttons----
     app.kitchen_evalBtnDms = (800, 525, 950, 575)
@@ -123,7 +128,9 @@ def appStarted(app):
     app.eval_doneBtnDms = (800, 525, 950, 575)
     
     #----helpScreen button----
-    app.help_doneBtnDms = (800, 525, 950, 575)
+    app.help_doneBtnDms = (425, 525, 575, 575)
+    app.help_nextBtnDms = (825, 525, 975, 575)
+    app.help_backBtnDms = (25, 525, 175, 575)
     
     #----dayOverScreen button----
     app.dayOver_nextDayBtnDms = (825, 525, 975, 575)
@@ -195,5 +202,19 @@ def appStarted(app):
     #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-
     #?gm1273459736-375324413
     app.cashRegisterScreen = app.loadImage('./assets/decorations/cash_register_screen.jpg')
+    
+    #----help scene images----
+    app.isCustScene = app.loadImage('./assets/scenes/is_cust.png')
+    app.gotOrderScene = app.loadImage('./assets/scenes/got_order.png')
+    app.addIngScene = app.loadImage('./assets/scenes/add_ing.png')
+    app.mixedDrinkScene = app.loadImage('./assets/scenes/mixed_drink.png')
+    app.custCritiqueScene = app.loadImage('./assets/scenes/cust_critique.png')
+    app.custEvalScene = app.loadImage('./assets/scenes/cust_eval.png')
+    
+    
+    # #?copied from https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#animatedGifs
+    # app.addIngGif = loadAnimatedGif('./assets/scenes/add_ing_gif.gif')
+    # app.spriteCounter = 0
+    
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")

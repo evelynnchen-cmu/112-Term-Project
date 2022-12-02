@@ -7,7 +7,10 @@ def evaluationScreen_redrawAll(app, canvas):
     drawCust(app, canvas)
     drawMiniTicket(app, canvas)
     drawMiniDrink(app, canvas)
-        
+    
+    #help boba display
+    canvas.create_image(30, 550, image=ImageTk.PhotoImage(scaleImage(app, app.helpBoba, (100, 75))))
+    
     #done button display
     if app.evalRevealTimer > 50:    
         drawButton(canvas, app.eval_doneBtnDms, 'Done')
@@ -172,6 +175,11 @@ def evaluationScreen_mouseReleased(app, event):
         app.currentDay.custIndex += 1
         resetCustVars(app)
         app.mode = 'shopScreen'
+    # help boba check
+    elif isValidClick(event.x, event.y, (3, 517, 53, 587)):
+        app.curHelpScene = 4
+        app.cameFromGame = True
+        app.mode = 'helpScreen'
         
         
 def evaluationScreen_timerFired(app):
