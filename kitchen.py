@@ -66,6 +66,7 @@ def drawPourGuide(app, canvas):
 
 def drawMixedDrinkMiniScreen(app, canvas):
     #evaluate button display
+    canvas.create_image(875, 495, image=ImageTk.PhotoImage(app.searchingBoba))
     drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
     
     x0 = 251

@@ -18,7 +18,6 @@ def appStarted(app):
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
     app.mode = 'startScreen'
-    # app.mode = 'helpScreen'
     
     #----overall game----
     app.timerDelay = 100
@@ -69,7 +68,7 @@ def appStarted(app):
     
     #reveal timer variables
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 70 #!should be 0
+    app.orderRevealTimer = 0 #!should be 0
     app.dayOverRevealTimer = 0
     app.gameOverRevealTimer = 0
     
@@ -111,9 +110,9 @@ def appStarted(app):
     app.ingR = 37.5
     
     #----startScreen button----
-    app.start_startBtnDms = (425, 300, 575, 350)
-    app.start_howToPlayBtnDms = (425, 375, 575, 425)
-    app.start_exitBtnDms = (425, 450, 575, 500)
+    app.start_startBtnDms = (425, 250, 575, 300)
+    app.start_howToPlayBtnDms = (425, 325, 575, 375)
+    app.start_exitBtnDms = (425, 400, 575, 450)
     
     #----shopScreen buttons----
     app.shop_takeOrderBtnDms = (25, 412.5, 175, 462)
@@ -194,10 +193,11 @@ def appStarted(app):
     app.cupOutlineGreen = app.loadImage('./assets/decorations/cup_outline_green.png')
     app.logo = app.loadImage('./assets/decorations/logo.png')
     app.boba = app.loadImage('./assets/decorations/boba.png')
-    app.happyBoba = app.loadImage('./assets/decorations/happy_boba.png')
-    app.moneyBoba = app.loadImage('./assets/decorations/money_boba.png')
-    app.chefBoba = app.loadImage('./assets/decorations/chef_boba.png')
-    app.helpBoba = app.loadImage('./assets/decorations/help_boba.png')
+    app.happyBoba = app.loadImage('./assets/decorations/boba_babies/happy_boba.png')
+    app.moneyBoba = app.loadImage('./assets/decorations/boba_babies/money_boba.png')
+    app.chefBoba = app.loadImage('./assets/decorations/boba_babies/chef_boba.png')
+    app.helpBoba = app.loadImage('./assets/decorations/boba_babies/help_boba.png')
+    app.searchingBoba = app.loadImage('./assets/decorations/boba_babies/searching_boba.png')
     app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
     app.counter = app.loadImage('./assets/decorations/counter.png')
     

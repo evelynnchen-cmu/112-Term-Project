@@ -31,19 +31,20 @@ def helpScreen_redrawAll(app, canvas):
     
 def drawGameHelp(app, canvas):
     canvas.create_text(500, 100, text="Welcome to Evelynn's Bobaria!", font='Courier 35 bold')
-    canvas.create_image(550, 275, image=ImageTk.PhotoImage(app.happyBoba))
+    canvas.create_image(650, 275, image=ImageTk.PhotoImage(app.happyBoba))
     canvas.create_text(450, 300, text=
         """
-        Your journey to becoming a master bobarista begins today.\n
+        Your journey to becoming a master bobarista begins today.\n\n
         As a bobarista at Evelynn's Bobaria, you must do the following:\n
-        1. Take the customer's order\n
-        2. Make the drink order\n
+        1. Take the customer's order.\n
+        2. Make the drink as accurate as possible.\n
         3. Present the drink to the customer for evaluation.\n\n
         Click 'Next' to visit the shop and see how the masters do it!
         """, font='Courier 15 bold')
     
 def drawShopHelp(app, canvas):
     canvas.create_text(500, 25, text='Shop Screen', font='Courier 25 bold')
+    canvas.create_image(275, 290, image=ImageTk.PhotoImage(app.moneyBoba.rotate(angle=5)))
     canvas.create_text(250, 175, text="""
         Sit behind the counter and wait\n
         until a customer appears. When they\n
@@ -60,29 +61,27 @@ def drawShopHelp(app, canvas):
     
 def drawKitchenHelp(app, canvas):
     canvas.create_text(500, 25, text='Kitchen Screen', font='Courier 25 bold')
+    canvas.create_image(445, 280, image=ImageTk.PhotoImage(app.chefBoba))
     canvas.create_text(250, 175, text="""
         Click and drag each ingredient over to\n
         the cup to add it to the drink.\n
         Be accurate with how much you add.\n
         Customers are more lenient at first,\n
-        but won't be for long...
+        but won't be for very long...
         """, font='Courier 13 bold')
     canvas.create_image(700, 175, image=ImageTk.PhotoImage(scaleImage(app, app.addIngScene, (400, 225))))
     
     canvas.create_text(225, 400, text="""
-        Once you added all ingredients,\n
+        Once you add all the ingredients,\n
         click 'Mix' to mix the drink.\n
         Then click 'Evaluate' to present\n
-        the drink to the customer.
+        the ready-drink to the customer.
         """, font='Courier 13 bold')
     canvas.create_image(695, 425, image=ImageTk.PhotoImage(scaleImage(app, app.mixedDrinkScene, (400, 225))))
     
-    
-    # photoImage = app.addIngGif[app.spriteCounter]
-    # canvas.create_image(700, 175, image=photoImage)
-    
 def drawEvalHelp(app, canvas):
     canvas.create_text(500, 25, text='Evaluation Screen', font='Courier 25 bold')
+    canvas.create_image(440, 250, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=-5)))
     canvas.create_text(250, 175, text="""
         Let the customer evaluate the drink\n
         and calculate its score and the amount\n
@@ -95,8 +94,9 @@ def drawEvalHelp(app, canvas):
     canvas.create_text(230, 400, text="""
         Once the customer made up their mind,\n
         you'll be able to see the results on\n
-        your right-hand side. Click 'Done' to\n
-        return to the shop counter.
+        the right-hand side. Click 'Done' to\n
+        return to the shop counter to prepare for\n
+        the next customer.
         """, font='Courier 13 bold')
     canvas.create_image(700, 425, image=ImageTk.PhotoImage(scaleImage(app, app.custEvalScene, (400, 225))))
         
@@ -122,8 +122,3 @@ def helpScreen_mouseReleased(app, event):
                 app.mode = 'kitchenScreen'
             elif app.curHelpScene == 4:
                 app.mode = 'evaluationScreen'
-        
-def helpScreen_timerFired(app):
-    pass
-    # if app.curHelpScene == 2:
-    #     app.spriteCounter = (1 + app.spriteCounter) % len(app.addIngGif)

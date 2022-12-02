@@ -8,7 +8,7 @@ def startScreen_redrawAll(app, canvas):
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
     
     #title
-    canvas.create_text(app.width//2, app.height//3, text="Evelynn's Bobaria", font='Courier 50 bold')
+    canvas.create_text(500, 175, text="Evelynn's Bobaria", font='Courier 50 bold')
     
     #bobas
     #left side
@@ -17,7 +17,9 @@ def startScreen_redrawAll(app, canvas):
     canvas.create_image(175, 375, image=ImageTk.PhotoImage(app.happyBoba.rotate(angle=10)))
     
     #right side
+    canvas.create_image(685, 252, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=5)))
     canvas.create_image(750, 350, image=ImageTk.PhotoImage(app.boba))
+    canvas.create_image(815, 375, image=ImageTk.PhotoImage(app.helpBoba.rotate(angle=-10)))
     
     
     
