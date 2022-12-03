@@ -41,11 +41,10 @@ def drawDayResults(app, canvas):
                            font='Courier 25 bold')
         
     if app.dayOverRevealTimer > 70:
-        if app.avgScore > 80:
+        if app.avgScore > .8:
             canvas.create_text(500, 400, text=f'Keep it up,\n{app.username}!', font='Courier 25 bold')
         else:
             canvas.create_text(500, 400, text=f'Good effort,\n{app.username}!', font='Courier 25 bold')
-            
 
 ###################################    
 #controller
@@ -53,8 +52,33 @@ def drawDayResults(app, canvas):
 def dayOverScreen_mouseReleased(app, event):
     # next day button check
     if isValidClick(event.x, event.y, app.dayOver_nextDayBtnDms) and app.dayOverRevealTimer > 80:
+        saveProgress(app)
         startNewDay(app)
         app.mode = 'shopScreen'
         
 def dayOverScreen_timerFired(app):
-    app.dayOverRevealTimer += 1       
+    app.dayOverRevealTimer += 1    
+    
+###################################    
+#functions
+###################################
+def saveProgress(app):
+    #?adapted from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
+    userInfoDict = ast.literal_eval(readFile('userInfo.txt'))
+    
+    #if new user, need to add first-time entry
+    if app.username not in userInfoDict:
+        userInfoDict[app.username] = dict()
+    #save user progress
+    curUser = userInfoDict[app.username]
+    curUser['dayIndex'] = app.dayIndex
+    curUser['neededAccuracy'] = app.neededAccuracy 
+    curUser['avgScore'] = app.avgScore 
+    curUser['lastDaysScore'] = app.lastDaysScore
+    curUser['numOfCusts'] = app.numOfCusts
+    curUser['money'] = app.money
+    
+    #?adapted from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
+    writeFile('userInfo.txt', repr(userInfoDict))
+    
+    

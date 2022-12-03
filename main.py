@@ -69,7 +69,7 @@ def appStarted(app):
     
     #----reveal timer variables----
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 0 #!should be 0
+    app.orderRevealTimer = 70 #!should be 0
     app.dayOverRevealTimer = 0
     app.gameOverRevealTimer = 0
     

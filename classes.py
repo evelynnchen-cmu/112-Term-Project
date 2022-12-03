@@ -2,6 +2,7 @@ from cmu_112_graphics import *
 import random
 import time
 import decimal
+import ast #!do i need this
 
 ###################################
 #classes
@@ -301,3 +302,12 @@ def hexToRGB(hex):
 #?adapted from https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/  
 def RGBToHex(RGB):
     return '#%02x%02x%02x' % RGB
+
+#?copied from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
+def readFile(path):
+    with open(path, "rt") as f:
+        return f.read()
+
+def writeFile(path, contents):
+    with open(path, "wt") as f:
+        f.write(contents)

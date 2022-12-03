@@ -8,10 +8,10 @@ def startScreen_redrawAll(app, canvas):
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
     
     #title
-    canvas.create_text(500, 175, text="Evelynn's Bobaria", font='Courier 50 bold')
+    canvas.create_text(500, 150, text="Evelynn's Bobaria", font='Courier 50 bold')
     
     #username
-    canvas.create_text(500, 500, text=f'Welcome {app.username}!', font='Courier 20 bold')
+    canvas.create_text(500, 200, text=f'Welcome, {app.username}!', font='Courier 20 bold')
     
     #bobas
     #left side
