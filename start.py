@@ -10,6 +10,9 @@ def startScreen_redrawAll(app, canvas):
     #title
     canvas.create_text(500, 175, text="Evelynn's Bobaria", font='Courier 50 bold')
     
+    #username
+    canvas.create_text(500, 500, text=f'Welcome {app.username}!', font='Courier 20 bold')
+    
     #bobas
     #left side
     canvas.create_image(315, 262, image=ImageTk.PhotoImage(app.moneyBoba.rotate(angle=-5)))

@@ -39,13 +39,20 @@ def drawDayResults(app, canvas):
     if app.dayOverRevealTimer > 60:
         canvas.create_text(500, 320, text=f'{app.avgScore*100}%', 
                            font='Courier 25 bold')
+        
+    if app.dayOverRevealTimer > 70:
+        if app.avgScore > 80:
+            canvas.create_text(500, 400, text=f'Keep it up,\n{app.username}!', font='Courier 25 bold')
+        else:
+            canvas.create_text(500, 400, text=f'Good effort,\n{app.username}!', font='Courier 25 bold')
+            
 
 ###################################    
 #controller
 ###################################
 def dayOverScreen_mouseReleased(app, event):
     # next day button check
-    if isValidClick(event.x, event.y, app.dayOver_nextDayBtnDms) and app.dayOverRevealTimer > 70:
+    if isValidClick(event.x, event.y, app.dayOver_nextDayBtnDms) and app.dayOverRevealTimer > 80:
         startNewDay(app)
         app.mode = 'shopScreen'
         

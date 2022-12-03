@@ -36,28 +36,32 @@ def drawGameResults(app, canvas):
         canvas.create_text(501, 170, text="Total Number of Customers Served:", font='Courier 15 bold') 
         
     if app.gameOverRevealTimer > 40:
-        canvas.create_text(500, 220, text=f"{app.totalOrders}", font='Courier 25 bold')
+        canvas.create_text(500, 210, text=f"{app.totalOrders}", font='Courier 25 bold')
     
     if app.gameOverRevealTimer > 50:
-        canvas.create_text(500, 270, text=f'Average Score:', font='Courier 18 bold')
+        canvas.create_text(500, 250, text=f'Average Score:', font='Courier 18 bold')
         
     if app.gameOverRevealTimer > 60:
-        canvas.create_text(500, 320, text=f'{app.avgScore*100}%', font='Courier 25 bold')
+        canvas.create_text(500, 290, text=f'{app.avgScore*100}%', font='Courier 25 bold')
         
     if app.gameOverRevealTimer > 70:
-        canvas.create_text(500, 370, text='Total Tips:', font='Courier 18 bold')
+        canvas.create_text(500, 330, text='Total Tips:', font='Courier 18 bold')
     
     if app.gameOverRevealTimer > 80:
-        canvas.create_text(500, 420, text=f'${app.money}', font='Courier 25 bold')
+        canvas.create_text(500, 370, text=f'${app.money}', font='Courier 25 bold')
     
     #show if they won or not
     if app.gameOverRevealTimer > 90:
         #the average score must be above 30% to win
         if app.avgScore < .3:
+            canvas.create_text(500, 420, text=f'Better luck next time,\n{app.username}!',
+                               font='Courier 18 bold')
             canvas.create_text(150, 200, text='You Lost', font='Courier 25 bold')
             canvas.create_text(850, 200, text='You Lost', font='Courier 25 bold')
             e = 180
         else:
+            canvas.create_text(500, 420, text=f'Good job,\n{app.username}!',
+                               font='Courier 18 bold')
             canvas.create_text(150, 200, text='You Won!', font='Courier 25 bold')
             canvas.create_text(850, 200, text='You Won!', font='Courier 25 bold')
             e = -180

@@ -7,6 +7,7 @@ from shop import *
 from kitchen import *
 from evaluation import *
 from help import *
+from name import *
 
 #?file structure inspired by Vania Halim's 15-112 term project:
 #?https://github.com/vaniahalim/15112-TP
@@ -14,10 +15,10 @@ from help import *
 #controller
 ###################################
 def appStarted(app): 
-    
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
-    app.mode = 'startScreen'
+    app.username = ''
+    app.mode = 'nameScreen'
     
     #----overall game----
     app.timerDelay = 100
