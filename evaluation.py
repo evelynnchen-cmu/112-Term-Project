@@ -142,7 +142,7 @@ def drawStats(app, canvas):
         canvas.create_text(875, 25, text='Order Stats', font='Courier 20 bold underline')
     
     if app.evalRevealTimer > 20:
-        canvas.create_text(875, 75, text=f'Drink Score: {app.drinkScore*100}%', 
+        canvas.create_text(875, 75, text=f'Drink Score: {roundUp(app.drinkScore*100, 2)}%', 
                            font='Courier 15 bold')
     
     if app.evalRevealTimer > 30:
@@ -161,7 +161,7 @@ def drawStats(app, canvas):
     
     if app.evalRevealTimer > 40:
         #total average score
-        canvas.create_text(875, 175, text=f'Average Score: {app.avgScore*100}%', 
+        canvas.create_text(875, 175, text=f'Average Score: {roundUp(app.avgScore*100)}%', 
                            font='Courier 14 bold')
 
 ###################################    

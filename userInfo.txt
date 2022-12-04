@@ -1,1 +1,1 @@
-{}
+{'rose': {'dayIndex': 3, 'neededAccuracy': 90, 'avgScore': 0.5, 'lastDaysScore': 0.57, 'numOfCusts': 5, 'money': 3.3499999999999996}}

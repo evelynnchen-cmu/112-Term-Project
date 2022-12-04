@@ -9,6 +9,7 @@ def dayOverScreen_redrawAll(app, canvas):
     
     if app.dayOverRevealTimer > 70:
         #next day button display
+        canvas.create_image(912.5, 505, image=ImageTk.PhotoImage(app.moneyBoba))
         drawButton(canvas, app.dayOver_nextDayBtnDms, 'Next Day')
 
 def drawBckg(app, canvas):

@@ -22,22 +22,22 @@ def nameScreen_redrawAll(app, canvas):
     canvas.create_text(500, 325, text=app.username, font='Courier 20 bold')
     
 def nameScreen_keyPressed(app, event):
-    if event.key == 'Enter':
-        if checkForProgress(app):
-            app.mode = 'shopScreen'
-        else:
-            app.mode = 'startScreen'
-            
-    if event.key == 'Backspace':
-            app.username = app.username[:-1]
             
     if len(app.username) < 15:
-        if event.key == 'Space':
+        if event.key == 'Enter':
+            if checkForProgress(app):
+                app.mode = 'shopScreen'
+            else:
+                app.mode = 'startScreen'
+        elif event.key == 'Space':
             app.username += ' '
         elif event.key == 'Backspace':
             app.username = app.username[:-1]
         else:
             app.username += event.key
+            
+    if event.key == 'Backspace':
+            app.username = app.username[:-1]
     
 ###################################    
 #functions

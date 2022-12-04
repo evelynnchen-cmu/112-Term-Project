@@ -151,6 +151,7 @@ def getIngColor(app, ing):
 #evaluates the drink
 def evaluateDrink(app):
     errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100), 2)
+    print(f'errorMargin: {errorMargin}')
     correctIngTypes = 0
     goodEnoughIngTime = 0
     
@@ -189,6 +190,7 @@ def evaluateDrink(app):
             ((550-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/550)*.1, 2) # <1
     else:
         app.drinkScore = 0
+    print(f'drinkScore: {app.drinkScore}')
         
     #calculate tip
     #drink score must be above 50% to even get any tips
@@ -196,7 +198,7 @@ def evaluateDrink(app):
         #every second waited = 1 cent less
         #after 50 seconds of waiting, no tip is given
         app.tips = roundUp((500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2) 
-        
+    print(f'tips: {app.tips}')    
     if app.tips > 0:
         app.money += app.tips
     else:
@@ -211,6 +213,7 @@ def evaluateDrink(app):
         app.avgScore = roundUp(app.totalScore/app.totalOrders, 2) # <1
     else:
         app.avgScore = roundUp(app.drinkScore, 2)
+    print(f'avgScore: {app.avgScore}')
 
 #mixes the milk and tea colors based on their proportions 
 def mixDrink(app):
@@ -308,6 +311,7 @@ def readFile(path):
     with open(path, "rt") as f:
         return f.read()
 
+#?copied from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
 def writeFile(path, contents):
     with open(path, "wt") as f:
         f.write(contents)
