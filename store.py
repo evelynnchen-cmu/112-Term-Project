@@ -5,13 +5,13 @@ from classes import *
 ###################################
 def storeScreen_redrawAll(app, canvas):
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
-    canvas.create_text(500, 25, text='Boba Baby Booster Shop', font='Courier 25 bold')
-    canvas.create_text(100, 25, text=f'Tips: ${roundUp(app.money, 2)}', font='Courier 20 bold')
+    canvas.create_text(500, 25, text='Boba Baby Booster Store', font='Courier 25 bold')
+    canvas.create_text(105, 25, text=f'Tips: ${roundUp(app.money, 2)}', font='Courier 20 bold')
     
     if app.hasBrainyBooster and app.hasAccuracyBooster and app.hasChefBooster:
         canvas.create_text(500, 300, text='You bought all the Boba Baby Boosters!', font='Courier 20 bold')
     else:
-        canvas.create_text(225, 100, text='Boosters Available', font='Courier 20 bold')
+        canvas.create_text(240, 100, text='Boosters Available', font='Courier 20 bold')
     
     #exit button display
     drawButton(canvas, app.store_exitBtnDms, 'Exit')
@@ -33,14 +33,17 @@ def drawBoosters(app, canvas):
     
     if not app.hasBrainyBooster:
         #money boba baby booster
+        canvas.create_text(250, 315, text="Brainy", font='Courier 17 bold')
         canvas.create_image(250, 200, image=ImageTk.PhotoImage(scaleImage(app, app.moneyBoba, (225, 225))))
     
     if not app.hasAccuracyBooster:
         #accuracy boba baby booster
+        canvas.create_text(150, 550, text='Inspector', font='Courier 17 bold')
         canvas.create_image(150, 425, image=ImageTk.PhotoImage(scaleImage(app, app.searchingBoba, (250, 250))))
     
     if not app.hasChefBooster:
         #chef boba baby booster
+        canvas.create_text(350, 550, text='Mini-Chef', font='Courier 17 bold')
         canvas.create_image(350, 425, image=ImageTk.PhotoImage(scaleImage(app, app.chefBoba, (250, 250))))
     
 def drawDescs(app, canvas):
@@ -49,7 +52,7 @@ def drawDescs(app, canvas):
         canvas.create_text(700, 100, text='Booster Description', font='Courier 20 bold')
         canvas.create_rectangle(500, 125, 900, 400, width=3, fill='#bab2d9')
         canvas.create_text(635, 225, text="""
-            The brainy baby boba booster
+            The 'Brainy' Boba Baby Booster
             keeps customers entertained 
             while you make their drink. This 
             makes them more lenient on the 
@@ -62,13 +65,13 @@ def drawDescs(app, canvas):
     elif app.curSelection == 'accuracyBooster' and not app.hasAccuracyBooster:
         canvas.create_text(700, 100, text='Booster Description', font='Courier 20 bold')
         canvas.create_rectangle(500, 125, 900, 400, width=3, fill='#bab2d9')
-        canvas.create_text(625, 235, text="""
-            The inspector baby boba booster
-            lets the customer know during
-            evaluation how highly accurate 
-            you made the drink, making the 
-            customer not inspect it as 
-            thoroughly before giving a 
+        canvas.create_text(633, 235, text="""
+            The 'Inspector' Boba Baby 
+            Booster lets the customer know 
+            during evaluation how highly 
+            accurate you made the drink, 
+            making the customer not inspect 
+            it as thoroughly before giving a 
             score.\n
             Cost: $15
             """, font='Courier 15 bold')
@@ -77,12 +80,13 @@ def drawDescs(app, canvas):
     elif app.curSelection == 'chefBooster' and not app.hasChefBooster:
         canvas.create_text(700, 100, text='Booster Description', font='Courier 20 bold')
         canvas.create_rectangle(500, 125, 900, 400, width=3, fill='#bab2d9')
-        canvas.create_text(635, 215, text="""
-            The chef baby boba booster makes 
-            sure you have the recommended 
-            ingredient fill lines for the 
-            rest of the game, that way you 
-            can be as accurate as possible!\n
+        canvas.create_text(632, 225, text="""
+            The 'Mini-Chef' Boba Baby 
+            Booster makes sure you have the 
+            recommended ingredient fill 
+            lines for the rest of the game, 
+            that way you can be as accurate 
+            as possible!\n
             Cost: $20 
             """, font='Courier 15 bold')
         if app.money > 20:
@@ -104,8 +108,14 @@ def storeScreen_mouseReleased(app, event):
     # exit button check
     if isValidClick(x, y, app.store_exitBtnDms):
         app.mode = 'dayOverScreen'
+    # help boba check
+    elif isValidClick(x, y, (3, 517, 53, 587)):
+        app.curHelpScene = 5
+        app.cameFromGame = True
+        app.mode = 'helpScreen'
     elif isValidClick(x, y, app.store_buyBtnDms) and app.curSelection != '':
         canBuy(app)
+    
     
 ###################################    
 #functions

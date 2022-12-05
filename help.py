@@ -16,10 +16,12 @@ def helpScreen_redrawAll(app, canvas):
         drawKitchenHelp(app, canvas)
     elif app.curHelpScene == 4:
         drawEvalHelp(app, canvas)
+    elif app.curHelpScene == 5:
+        drawStoreHelp(app, canvas)
     
     #if the user came from the game, they should only see their current screen's help screen
     if not app.cameFromGame:    
-        if app.curHelpScene == 4:
+        if app.curHelpScene == 5:
             drawButton(canvas, app.help_doneBtnDms, 'Done')
         else:
             drawButton(canvas, app.help_nextBtnDms, 'Next')
@@ -31,7 +33,7 @@ def helpScreen_redrawAll(app, canvas):
     
 def drawGameHelp(app, canvas):
     canvas.create_text(500, 100, text="Welcome to Evelynn's Bobaria!", font='Courier 35 bold')
-    canvas.create_image(650, 275, image=ImageTk.PhotoImage(app.happyBoba))
+    canvas.create_image(700, 300, image=ImageTk.PhotoImage(app.happyBoba))
     canvas.create_text(450, 300, text=
         """
         Your journey to becoming a master bobarista begins today.\n\n
@@ -77,42 +79,53 @@ def drawKitchenHelp(app, canvas):
         Then click 'Evaluate' to present\n
         the ready-drink to the customer.
         """, font='Courier 13 bold')
-    canvas.create_image(695, 425, image=ImageTk.PhotoImage(scaleImage(app, app.mixedDrinkScene, (400, 225))))
+    canvas.create_image(700, 425, image=ImageTk.PhotoImage(scaleImage(app, app.mixedDrinkScene, (400, 225))))
     
 def drawEvalHelp(app, canvas):
     canvas.create_text(500, 25, text='Evaluation Screen', font='Courier 25 bold')
     canvas.create_image(440, 250, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=-5)))
     canvas.create_text(250, 175, text="""
         Let the customer evaluate the drink\n
-        and calculate its score and the amount\n
-        of tips. Remember, customers are \n
-        impatient. The quicker you are, the\n
-        more tips you receive!
+        and calculate its score and their tip.\n
+        Remember, customers are impatient. The\n
+        quicker you are, the more tips you\n 
+        receive!
         """, font='Courier 13 bold')
     canvas.create_image(700, 175, image=ImageTk.PhotoImage(scaleImage(app, app.custCritiqueScene, (400, 225))))
     
-    canvas.create_text(230, 400, text="""
-        Once the customer made up their mind,\n
-        you'll be able to see the results on\n
+    canvas.create_text(240, 400, text="""
+        You'll be able to see the results on\n
         the right-hand side. Click 'Done' to\n
-        return to the shop counter to prepare for\n
-        the next customer.
+        return to the shop counter.
         """, font='Courier 13 bold')
     canvas.create_image(700, 425, image=ImageTk.PhotoImage(scaleImage(app, app.custEvalScene, (400, 225))))
-        
+
+def drawStoreHelp(app, canvas):
+    canvas.create_text(500, 25, text='Boba Baby Booster Store', font='Courier 25 bold')
+    canvas.create_text(225, 300, text="""
+        At the end of every day, you'll be\n
+        able to browse the Boba Baby Booster\n
+        Store! Here you can purchase Boba Babies\n
+        that give you certain boosts and make your\n 
+        job a tad easier. They'll also keep you\n
+        company throughout the day.
+        """, font='Courier 13 bold')
+    
+    canvas.create_image(700, 300, image=ImageTk.PhotoImage(scaleImage(app, app.selectedStoreScene, (400, 225))))
+    canvas.create_rectangle(500, 185, 900, 413, width=2)
 ###################################
 #controller
 ###################################
         
 def helpScreen_mouseReleased(app, event):
     # next button check
-    if isValidClick(event.x, event.y, app.help_nextBtnDms) and app.curHelpScene < 4 and not app.cameFromGame:
+    if isValidClick(event.x, event.y, app.help_nextBtnDms) and app.curHelpScene < 5 and not app.cameFromGame:
         app.curHelpScene += 1
     # back button check
     if isValidClick(event.x, event.y, app.help_backBtnDms) and app.curHelpScene > 1 and not app.cameFromGame:
         app.curHelpScene -= 1
     #done button
-    if isValidClick(event.x, event.y, app.help_doneBtnDms) and (app.curHelpScene == 4 or app.cameFromGame):
+    if isValidClick(event.x, event.y, app.help_doneBtnDms) and (app.curHelpScene == 5 or app.cameFromGame):
         if not app.cameFromGame:
             app.mode = 'startScreen'
         else:
@@ -122,3 +135,5 @@ def helpScreen_mouseReleased(app, event):
                 app.mode = 'kitchenScreen'
             elif app.curHelpScene == 4:
                 app.mode = 'evaluationScreen'
+            elif app.curHelpScene == 5:
+                app.mode = 'storeScreen'

@@ -23,7 +23,7 @@ def appStarted(app):
     
     #----overall game----
     app.timerDelay = 100
-    app.money = 0 
+    app.money = 0
     app.tips = 0
     app.avgScore = 0 
     app.totalScore = 0
@@ -227,6 +227,8 @@ def appStarted(app):
     app.addIngScene = app.loadImage('./assets/scenes/add_ing.png')
     app.mixedDrinkScene = app.loadImage('./assets/scenes/mixed_drink.png')
     app.custCritiqueScene = app.loadImage('./assets/scenes/cust_critique.png')
-    app.custEvalScene = app.loadImage('./assets/scenes/cust_eval.png')   
+    app.custEvalScene = app.loadImage('./assets/scenes/cust_eval.png')      
+    app.selectedStoreScene = app.loadImage('./assets/scenes/selected_store.png')   
+    
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")
