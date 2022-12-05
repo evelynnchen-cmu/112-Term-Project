@@ -33,6 +33,19 @@ def drawBckg(app, canvas):
     
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
+    
+    #day info box
+    canvas.create_rectangle(550, 10, 740, 100, width=2, fill='lightblue1')
+    canvas.create_text(645, 30, text=f'Day {app.dayIndex}', font = 'Courier 15 bold')
+    
+    #current user display
+    canvas.create_text(645, 80, text=f'Current User:', font='Courier 8 bold')
+    canvas.create_text(645, 90, text=f'{app.username}', font='Courier 8 bold')
+    
+    #day progress bar
+    canvas.create_rectangle(555, 50, 735, 70, width=3, fill='gray28')
+    daySlice = (180/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
+    canvas.create_rectangle(556, 52, 556+daySlice, 69, width=0, fill='chartreuse4')
 
 def drawSideBar(app, canvas):
     #yellow ticket

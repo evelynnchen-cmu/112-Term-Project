@@ -152,7 +152,7 @@ def appStarted(app):
     app.store_buyBtnDms = (625, 335, 775, 385)
     
     #----images----
-    #?drawn by myself on Procreate unless otherwise specified
+    #?drawn by myself on Procreate
     #----ingredients----
     app.tapioca = app.loadImage('./assets/ingredients/tapioca.png')
     app.aloeJelly = app.loadImage('./assets/ingredients/aloe_jelly.png')
@@ -216,11 +216,6 @@ def appStarted(app):
     app.helpBoba = app.loadImage('./assets/decorations/boba_babies/help_boba.png')
     app.searchingBoba = app.loadImage('./assets/decorations/boba_babies/searching_boba.png')
     app.heartBoba = app.loadImage('./assets/decorations/boba_babies/heart_boba.png')
-    
-    #?taken from https://www.istockphoto.com/es/vector/t%C3%A9-de-burbujas-popular-
-    #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-
-    #?gm1273459736-375324413
-    app.cashRegisterScreen = app.loadImage('./assets/decorations/cash_register_screen.jpg')
     
     #----help scene images----
     app.isCustScene = app.loadImage('./assets/scenes/is_cust.png')

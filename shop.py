@@ -25,7 +25,7 @@ def shopScreen_redrawAll(app, canvas):
 
 def drawBckg(app, canvas):
     #background color
-    canvas.create_rectangle(0, 0, app.width, app.height, fill='#b2beb5', width=0)
+    canvas.create_rectangle(0, 0, app.width, app.height, fill='#babfbb', width=0)
     
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
@@ -44,22 +44,25 @@ def drawBckg(app, canvas):
     canvas.create_image(650, 350, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, (100, 100))))
     
     #cash register
-    canvas.create_rectangle(32, 300, 122, 357, fill='white', width=0)
-    canvas.create_image(125, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
-    canvas.create_image(75, 327, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegisterScreen, (63, 63))))
+    canvas.create_image(100, 335, image=ImageTk.PhotoImage(scaleImage(app, app.cashRegister, (200, 200))))
     
     #help button display
     canvas.create_image(100, 510, image=ImageTk.PhotoImage(scaleImage(app, app.helpBoba, (85, 85))))
     drawButton(canvas, app.shop_helpBtnDms, 'Help')
     
 def drawInfo(app, canvas):
-    #day progress bar
-    canvas.create_rectangle(225, 10, 722, 50, width=3, fill='gray28')
-    daySlice = (485/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
-    canvas.create_rectangle(227, 12, 227+daySlice, 49, width=0, fill='chartreuse4')
+    #day info box
+    canvas.create_rectangle(550, 10, 740, 100, width=2, fill='lightblue1')
+    canvas.create_text(645, 30, text=f'Day {app.dayIndex}', font = 'Courier 15 bold')
     
-    #day index 
-    canvas.create_text(115, 30, text=f'Day {app.dayIndex}', font='Courier 20 bold')
+    #current user display
+    canvas.create_text(645, 80, text=f'Current User:', font='Courier 8 bold')
+    canvas.create_text(645, 90, text=f'{app.username}', font='Courier 8 bold')
+    
+    #day progress bar
+    canvas.create_rectangle(555, 50, 735, 70, width=3, fill='gray28')
+    daySlice = (180/app.dayLength)*(app.dayLength-app.currentDay.dayTime)
+    canvas.create_rectangle(556, 52, 556+daySlice, 69, width=0, fill='chartreuse4')
     
     #money
     canvas.create_text(650, 275, text= f'${app.money}', font='Courier 25 bold')

@@ -22,7 +22,7 @@ def evaluationScreen_redrawAll(app, canvas):
 
 def drawBckg(app, canvas):
     #background
-    canvas.create_rectangle(0, 0, 750, 500, fill='#b2beb5', width=0)
+    canvas.create_rectangle(0, 0, 750, 500, fill='#babfbb', width=0)
     if app.hasAccuracyBooster:
         canvas.create_image(365, 440, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=-20)))
     
