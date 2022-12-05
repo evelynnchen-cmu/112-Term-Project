@@ -139,7 +139,7 @@ def appStarted(app):
     app.help_nextBtnDms = (825, 525, 975, 575)
     app.help_backBtnDms = (25, 525, 175, 575)
     
-    #----dayOverScreen button----
+    #----dayOverScreen buttons----
     app.dayOver_nextDayBtnDms = (825, 525, 975, 575)
     app.dayOver_storeBtnDms = (25, 525, 175, 575)
     
@@ -215,6 +215,7 @@ def appStarted(app):
     app.chefBoba = app.loadImage('./assets/decorations/boba_babies/chef_boba.png')
     app.helpBoba = app.loadImage('./assets/decorations/boba_babies/help_boba.png')
     app.searchingBoba = app.loadImage('./assets/decorations/boba_babies/searching_boba.png')
+    app.heartBoba = app.loadImage('./assets/decorations/boba_babies/heart_boba.png')
     
     #?taken from https://www.istockphoto.com/es/vector/t%C3%A9-de-burbujas-popular-
     #?t%C3%A9-de-leche-de-perla-taiwan%C3%A9s-con-bolas-t%C3%A9-asi%C3%A1tico-burbuja-

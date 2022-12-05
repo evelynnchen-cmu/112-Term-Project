@@ -44,6 +44,7 @@ def drawDayResults(app, canvas):
                            font='Courier 25 bold')
         
     if app.dayOverRevealTimer > 70:
+        canvas.create_image(705, 475, image=ImageTk.PhotoImage(app.heartBoba.rotate(angle=-15)))
         if app.avgScore > .8:
             canvas.create_text(500, 400, text=f'Keep it up,\n{app.username}!', font='Courier 25 bold')
         else:

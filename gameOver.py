@@ -52,6 +52,7 @@ def drawGameResults(app, canvas):
     
     #show if they won or not
     if app.gameOverRevealTimer > 90:
+        canvas.create_image(705, 470, image=ImageTk.PhotoImage(app.heartBoba.rotate(angle=-15)))
         #the average score must be above 30% to win
         if app.avgScore < .3:
             canvas.create_text(500, 420, text=f'Better luck next time,\n{app.username}!',

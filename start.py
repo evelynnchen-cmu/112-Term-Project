@@ -17,7 +17,7 @@ def startScreen_redrawAll(app, canvas):
     #left side
     canvas.create_image(315, 262, image=ImageTk.PhotoImage(app.moneyBoba.rotate(angle=-5)))
     canvas.create_image(250, 350, image=ImageTk.PhotoImage(app.boba))
-    canvas.create_image(175, 375, image=ImageTk.PhotoImage(app.happyBoba.rotate(angle=10)))
+    canvas.create_image(175, 375, image=ImageTk.PhotoImage(app.heartBoba.rotate(angle=10)))
     
     #right side
     canvas.create_image(685, 252, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=5)))

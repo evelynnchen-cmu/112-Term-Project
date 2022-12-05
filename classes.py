@@ -2,7 +2,7 @@ from cmu_112_graphics import *
 import random
 import time
 import decimal
-import ast #!do i need this
+import ast
 
 ###################################
 #classes
