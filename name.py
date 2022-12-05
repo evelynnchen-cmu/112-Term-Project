@@ -55,6 +55,9 @@ def checkForProgress(app):
         app.lastDaysScore = curUser['lastDaysScore']
         app.numOfCusts = curUser['numOfCusts']
         app.money = curUser['money']
+        app.hasBrainyBooster = curUser['brainyBooster'] 
+        app.hasAccuracyBooster = curUser['accuracyBooster'] 
+        app.hasChefBooster= curUser['chefBooster']
         startNewDay(app)
         return True
     else:

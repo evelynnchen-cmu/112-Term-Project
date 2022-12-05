@@ -66,7 +66,8 @@ def drawPourGuide(app, canvas):
 
 def drawMixedDrinkMiniScreen(app, canvas):
     #evaluate button display
-    canvas.create_image(875, 495, image=ImageTk.PhotoImage(app.searchingBoba))
+    if app.hasAccuracyBooster:
+        canvas.create_image(875, 495, image=ImageTk.PhotoImage(app.searchingBoba))
     drawButton(canvas, app.kitchen_evalBtnDms, 'Evaluate')
     
     x0 = 251
@@ -102,7 +103,8 @@ def drawMixedDrinkMiniScreen(app, canvas):
 
 def drawDrinkAssembly(app, canvas):
     #mix button display
-    canvas.create_image(950, 395, image=ImageTk.PhotoImage(app.chefBoba.rotate(angle=-10)))
+    if app.hasChefBooster:
+        canvas.create_image(950, 395, image=ImageTk.PhotoImage(app.chefBoba.rotate(angle=-10)))
     drawButton(canvas, app.kitchen_mixBtnDms, 'Mix')
 
     #draw all ingredient options
@@ -128,7 +130,7 @@ def drawDrinkAssembly(app, canvas):
     #cup
     canvas.create_image(526, 404, image=ImageTk.PhotoImage(app.cupOutlineGray))
 
-    if app.neededAccuracy <= 80:
+    if app.neededAccuracy <= 80 or app.hasChefBooster:
         #recommended fill lines
         #toppings
         canvas.create_rectangle(630, 489, 650, 491, fill='black')

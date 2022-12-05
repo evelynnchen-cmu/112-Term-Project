@@ -9,8 +9,10 @@ def dayOverScreen_redrawAll(app, canvas):
     
     if app.dayOverRevealTimer > 70:
         #next day button display
-        canvas.create_image(912.5, 505, image=ImageTk.PhotoImage(app.moneyBoba))
+        if app.hasBrainyBooster:
+            canvas.create_image(912.5, 505, image=ImageTk.PhotoImage(app.moneyBoba))
         drawButton(canvas, app.dayOver_nextDayBtnDms, 'Next Day')
+        drawButton(canvas, app.dayOver_storeBtnDms, 'Store')
 
 def drawBckg(app, canvas):
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
@@ -56,6 +58,8 @@ def dayOverScreen_mouseReleased(app, event):
         saveProgress(app)
         startNewDay(app)
         app.mode = 'shopScreen'
+    elif isValidClick(event.x, event.y, app.dayOver_storeBtnDms):
+        app.mode = 'storeScreen'
         
 def dayOverScreen_timerFired(app):
     app.dayOverRevealTimer += 1    
@@ -78,6 +82,9 @@ def saveProgress(app):
     curUser['lastDaysScore'] = app.lastDaysScore
     curUser['numOfCusts'] = app.numOfCusts
     curUser['money'] = app.money
+    curUser['brainyBooster'] = app.hasBrainyBooster
+    curUser['accuracyBooster'] = app.hasAccuracyBooster
+    curUser['chefBooster'] = app.hasChefBooster
     
     #?adapted from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
     writeFile('userInfo.txt', repr(userInfoDict))

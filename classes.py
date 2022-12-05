@@ -107,6 +107,12 @@ def startNewDay(app):
     if app.avgScore > app.lastDaysScore+.1:
         app.neededAccuracy += 10
         app.numOfCusts += 1
+        
+    #apply booster
+    if app.hasBrainyBooster:
+        #increase customers' wait threshold from 55 to 75 seconds
+        app.patience = 750
+    
     #if score is above 80%, add 2 new topping options    
     if (app.avgScore > .8 and 'lychee_jelly' not in app.ings 
         and 'mango_jelly' not in app.ings):
@@ -150,8 +156,11 @@ def getIngColor(app, ing):
 
 #evaluates the drink
 def evaluateDrink(app):
-    errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100), 2)
-    print(f'errorMargin: {errorMargin}')
+    if app.hasAccuracyBooster:
+        # gets 5% bigger error margin
+        errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100)+.05, 2)
+    else:
+        errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100), 2)
     correctIngTypes = 0
     goodEnoughIngTime = 0
     
@@ -187,18 +196,16 @@ def evaluateDrink(app):
     if len(app.madeDrinkDict) != 0:
         
         app.drinkScore = roundUp((correctIngTypes/5)*.5 + (goodEnoughIngTime/3)*.4 + 
-            ((550-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/550)*.1, 2) # <1
+            ((app.patience-app.currentDay.custList[app.currentDay.custIndex-1].waitTime)/app.patience)*.1, 2) # <1
     else:
         app.drinkScore = 0
-    print(f'drinkScore: {app.drinkScore}')
         
     #calculate tip
     #drink score must be above 50% to even get any tips
     if app.drinkScore > .5:
         #every second waited = 1 cent less
         #after 50 seconds of waiting, no tip is given
-        app.tips = roundUp((500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2) 
-    print(f'tips: {app.tips}')    
+        app.tips = roundUp((500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2)    
     if app.tips > 0:
         app.money += app.tips
     else:
@@ -213,7 +220,6 @@ def evaluateDrink(app):
         app.avgScore = roundUp(app.totalScore/app.totalOrders, 2) # <1
     else:
         app.avgScore = roundUp(app.drinkScore, 2)
-    print(f'avgScore: {app.avgScore}')
 
 #mixes the milk and tea colors based on their proportions 
 def mixDrink(app):

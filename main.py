@@ -8,6 +8,7 @@ from kitchen import *
 from evaluation import *
 from help import *
 from name import *
+from store import *
 
 #?file structure inspired by Vania Halim's 15-112 term project:
 #?https://github.com/vaniahalim/15112-TP
@@ -22,17 +23,17 @@ def appStarted(app):
     
     #----overall game----
     app.timerDelay = 100
-    app.money = 0
+    app.money = 0 
     app.tips = 0
     app.avgScore = 0 
     app.totalScore = 0
     app.totalOrders = 0
     app.neededAccuracy = 70 
+    app.patience = 550
     
     #----day variables----
-    #day 1
     app.dayIndex = 1
-    app.dayLength = 1200 #!120 seconds
+    app.dayLength = 1200
     app.numOfCusts = 3
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.lastDaysScore = 0
@@ -58,6 +59,12 @@ def appStarted(app):
     app.isAdding = False
     app.isMixed = False
     
+    #----store variables----
+    app.curSelection = ''
+    app.hasBrainyBooster = False
+    app.hasAccuracyBooster = False
+    app.hasChefBooster = False
+    
     #----moving ingredients variables----
     app.x = app.width//2
     app.y = app.height//2
@@ -69,7 +76,7 @@ def appStarted(app):
     
     #----reveal timer variables----
     app.evalRevealTimer = 0
-    app.orderRevealTimer = 0 #!should be 0
+    app.orderRevealTimer = 0
     app.dayOverRevealTimer = 0
     app.gameOverRevealTimer = 0
     
@@ -134,10 +141,15 @@ def appStarted(app):
     
     #----dayOverScreen button----
     app.dayOver_nextDayBtnDms = (825, 525, 975, 575)
+    app.dayOver_storeBtnDms = (25, 525, 175, 575)
     
     #----gameOverScreen buttons----
     app.gameOver_restartBtnDms = (525, 525, 675, 575) 
     app.gameOver_exitBtnDms = (325, 525, 475, 575)
+    
+    #----storeScreen buttons----
+    app.store_exitBtnDms = (825, 525, 975, 575)
+    app.store_buyBtnDms = (625, 335, 775, 385)
     
     #----images----
     #?drawn by myself on Procreate unless otherwise specified
