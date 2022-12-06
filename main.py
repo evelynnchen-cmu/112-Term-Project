@@ -19,7 +19,7 @@ def appStarted(app):
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
     app.username = ''
-    app.mode = 'shopScreen'
+    app.mode = 'nameScreen'
     
     #----overall game----
     app.timerDelay = 100
@@ -33,7 +33,7 @@ def appStarted(app):
     
     #----day variables----
     app.dayIndex = 1
-    app.dayLength = 1200
+    app.dayLength = 120
     app.numOfCusts = 3
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.lastDaysScore = 0

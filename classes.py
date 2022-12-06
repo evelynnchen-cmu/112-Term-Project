@@ -126,7 +126,7 @@ def startNewDay(app):
         app.toppingsOPTIONS.append('mango_jelly')
         app.ingCs.append(app.mangoJellyC)
         app.ingImgs.append(app.mangoJelly)
-        
+            
     resetDayVars(app)
     resetCustVars(app)
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)

@@ -36,8 +36,8 @@ def nameScreen_keyPressed(app, event):
             app.username = app.username[:-1]
         else:
             app.username += event.key
-            
-    if event.key == 'Backspace':
+    else:        
+        if event.key == 'Backspace':
             app.username = app.username[:-1]
     
 ###################################    
@@ -56,6 +56,8 @@ def checkForProgress(app):
         app.lastDaysScore = curUser['lastDaysScore']
         app.numOfCusts = curUser['numOfCusts']
         app.money = curUser['money']
+        app.totalOrders = curUser['totalOrders']
+        app.totalScore = curUser['totalScore']
         app.hasBrainyBooster = curUser['brainyBooster'] 
         app.hasAccuracyBooster = curUser['accuracyBooster'] 
         app.hasChefBooster= curUser['chefBooster']

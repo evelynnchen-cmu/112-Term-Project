@@ -11,7 +11,10 @@ def dayOverScreen_redrawAll(app, canvas):
         #next day button display
         if app.hasBrainyBooster:
             canvas.create_image(912.5, 505, image=ImageTk.PhotoImage(app.moneyBoba))
-        drawButton(canvas, app.dayOver_nextDayBtnDms, 'Next Day')
+        if app.dayIndex < 7:
+            drawButton(canvas, app.dayOver_nextDayBtnDms, 'Next Day')
+        else:
+            drawButton(canvas, app.dayOver_nextDayBtnDms, 'Game Results')
         drawButton(canvas, app.dayOver_storeBtnDms, 'Store')
 
 def drawBckg(app, canvas):
@@ -40,7 +43,7 @@ def drawDayResults(app, canvas):
                            font='Courier 18 bold')
         
     if app.dayOverRevealTimer > 60:
-        canvas.create_text(500, 320, text=f'{app.avgScore*100}%', 
+        canvas.create_text(500, 320, text=f'{roundUp(app.avgScore*100)}%', 
                            font='Courier 25 bold')
         
     if app.dayOverRevealTimer > 70:
@@ -83,6 +86,8 @@ def saveProgress(app):
     curUser['lastDaysScore'] = app.lastDaysScore
     curUser['numOfCusts'] = app.numOfCusts
     curUser['money'] = app.money
+    curUser['totalOrders'] = app.totalOrders
+    curUser['totalScore'] = app.totalScore
     curUser['brainyBooster'] = app.hasBrainyBooster
     curUser['accuracyBooster'] = app.hasAccuracyBooster
     curUser['chefBooster'] = app.hasChefBooster

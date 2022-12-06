@@ -152,6 +152,10 @@ def drawDrinkAssembly(app, canvas):
         #milk
         canvas.create_rectangle(635, 443, 655, 445, fill='black')
         canvas.create_text(680, 444, text='Milk', font='Courier 10 bold')
+        
+        #tea
+        canvas.create_rectangle(645, 258, 665, 260, fill='black')
+        canvas.create_text(688, 259, text='Tea', font='Courier 10 bold')
 
 def drawDrink(app, canvas):
     x0 = 401

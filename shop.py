@@ -62,7 +62,7 @@ def drawInfo(app, canvas):
     canvas.create_rectangle(556, 52, 556+daySlice, 69, width=0, fill='chartreuse4')
     
     #money
-    canvas.create_text(650, 275, text= f'${app.money}', font='Courier 25 bold')
+    canvas.create_text(650, 275, text= f'${roundUp(app.money, 2)}', font='Courier 25 bold')
     
     if not app.hasTakenOrder:
         canvas.create_text(875, 40, text='No Current Order', font='Courier 15 bold')

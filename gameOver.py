@@ -56,13 +56,13 @@ def drawGameResults(app, canvas):
         #the average score must be above 30% to win
         if app.avgScore < .3:
             canvas.create_text(500, 420, text=f'Better luck next time,\n{app.username}!',
-                               font='Courier 18 bold')
+                               font='Courier 25 bold')
             canvas.create_text(150, 200, text='You Lost', font='Courier 25 bold')
             canvas.create_text(850, 200, text='You Lost', font='Courier 25 bold')
             e = 180
         else:
             canvas.create_text(500, 420, text=f'Good job,\n{app.username}!',
-                               font='Courier 18 bold')
+                               font='Courier 25 bold')
             canvas.create_text(150, 200, text='You Won!', font='Courier 25 bold')
             canvas.create_text(850, 200, text='You Won!', font='Courier 25 bold')
             e = -180
@@ -79,16 +79,36 @@ def drawGameResults(app, canvas):
 def gameOverScreen_mouseReleased(app, event):
     # restart button check
     if isValidClick(event.x, event.y, app.gameOver_restartBtnDms) and app.gameOverRevealTimer > 90:
+        #reset user's stored data
+        resetData(app)
+        
         #reset overall game variables
-        app.avgScore = 0
-        app.totalScore = 0
-        app.totalOrders = 0
-        app.money = 0
-        app.numOfCusts = 3
-        app.neededAccuracy = 70 
         app.dayIndex = 1
+        app.neededAccuracy = 70
+        app.avgScore = 0
+        app.lastDaysScore = 0
+        app.numOfCusts = 3
+        app.money = 0
+        app.totalOrders = 0
+        app.totalScore = 0
+        app.patience = 550
+        app.hasBrainyBooster = False
+        app.hasAccuracyBooster = False
+        app.hasChefBooster = False
         app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
         app.gameOverRevealTimer = 0
+        
+        app.ings = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding', 'sugarCube', 
+                'iceCube', 'whole_milk', '2%_milk', 'skim_milk', 'green_tea', 
+                'black_tea', 'oolong_tea']
+        app.toppingsOPTIONS = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding']
+        app.ingCs = [app.tapiocaC, app.aloeJellyC, app.redBeanC, app.puddingC, 
+                 app.sugarCubeC, app.iceCubeC, app.wholeMilkC, app.twoPMilkC, 
+                 app.skimMilkC, app.greenTeaC, app.blackTeaC, app.oolongTeaC]
+        app.ingImgs = [app.tapioca, app.aloeJelly, app.redBean, app.pudding, 
+                 app.sugarCube, app.iceCube, app.wholeMilk, app.twoPMilk, 
+                 app.skimMilk, app.greenTea, app.blackTea, app.oolongTea]
+        
         resetCustVars(app)
         resetDayVars(app)
         app.mode = 'shopScreen'
@@ -99,3 +119,14 @@ def gameOverScreen_mouseReleased(app, event):
         
 def gameOverScreen_timerFired(app):
     app.gameOverRevealTimer += 1 
+
+###################################    
+#functions
+###################################    
+def resetData(app):
+    #?adapted from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
+    userInfoDict = ast.literal_eval(readFile('userInfo.txt'))
+    userInfoDict[app.username] = dict()
+    #?adapted from https://www.cs.cmu.edu/~112/notes/notes-strings.html#basicFileIO
+    writeFile('userInfo.txt', repr(userInfoDict))
+    
