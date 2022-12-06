@@ -53,14 +53,14 @@ def drawShopHelp(app, canvas):
         their order.
         """, font='Courier 13 bold')
     canvas.create_image(700, 175, image=ImageTk.PhotoImage(scaleImage(app, app.isCustScene, (400, 225))))
-    canvas.create_rectangle(511, 62, 891, 289, width=2)
+    canvas.create_rectangle(511, 62, 890, 289, width=2)
     
     canvas.create_text(225, 400, text="""
         Once you have their order,\n
         click on 'Kitchen' to go make it.
         """, font='Courier 13 bold')
     canvas.create_image(700, 425, image=ImageTk.PhotoImage(scaleImage(app, app.gotOrderScene, (400, 225))))
-    canvas.create_rectangle(511, 312, 891, 538, width=2)
+    canvas.create_rectangle(511, 312, 890, 538, width=2)
     
 def drawKitchenHelp(app, canvas):
     canvas.create_text(500, 25, text='Kitchen Screen', font='Courier 25 bold')
@@ -73,7 +73,7 @@ def drawKitchenHelp(app, canvas):
         but won't be for very long...
         """, font='Courier 13 bold')
     canvas.create_image(700, 175, image=ImageTk.PhotoImage(scaleImage(app, app.addIngScene, (400, 225))))
-    canvas.create_rectangle(511, 62, 891, 289, width=2)
+    canvas.create_rectangle(511, 62, 890, 289, width=2)
     
     canvas.create_text(225, 400, text="""
         Once you add all the ingredients,\n
@@ -82,7 +82,7 @@ def drawKitchenHelp(app, canvas):
         the ready-drink to the customer.
         """, font='Courier 13 bold')
     canvas.create_image(700, 425, image=ImageTk.PhotoImage(scaleImage(app, app.mixedDrinkScene, (400, 225))))
-    canvas.create_rectangle(511, 312, 891, 538, width=2)
+    canvas.create_rectangle(511, 312, 890, 538, width=2)
     
 def drawEvalHelp(app, canvas):
     canvas.create_text(500, 25, text='Evaluation Screen', font='Courier 25 bold')

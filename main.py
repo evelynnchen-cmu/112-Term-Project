@@ -33,7 +33,7 @@ def appStarted(app):
     
     #----day variables----
     app.dayIndex = 1
-    app.dayLength = 120
+    app.dayLength = 1200
     app.numOfCusts = 3
     app.currentDay = Day(app.dayLength, app.numOfCusts, app.neededAccuracy)
     app.lastDaysScore = 0
