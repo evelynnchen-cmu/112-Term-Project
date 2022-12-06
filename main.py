@@ -19,7 +19,7 @@ def appStarted(app):
     #?learned about modes from 
     #?https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes
     app.username = ''
-    app.mode = 'nameScreen'
+    app.mode = 'shopScreen'
     
     #----overall game----
     app.timerDelay = 100
@@ -208,6 +208,8 @@ def appStarted(app):
     app.boba = app.loadImage('./assets/decorations/boba.png')
     app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
     app.counter = app.loadImage('./assets/decorations/counter.png')
+    app.shopBckg = app.loadImage('./assets/decorations/shop_background.png')
+    
     
     #----boba babies----
     app.happyBoba = app.loadImage('./assets/decorations/boba_babies/happy_boba.png')

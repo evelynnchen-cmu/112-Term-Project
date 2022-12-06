@@ -22,7 +22,7 @@ def evaluationScreen_redrawAll(app, canvas):
 
 def drawBckg(app, canvas):
     #background
-    canvas.create_rectangle(0, 0, 750, 500, fill='#babfbb', width=0)
+    canvas.create_image(-225, 200, image=ImageTk.PhotoImage(scaleImage(app, app.shopBckg, (2250, 1200))))
     if app.hasAccuracyBooster:
         canvas.create_image(365, 440, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=-20)))
     
@@ -40,8 +40,8 @@ def drawBckg(app, canvas):
     canvas.create_image(375, 600, image=ImageTk.PhotoImage(app.counter))
         
     #tips jar
-    canvas.create_image(650, 400, image=ImageTk.PhotoImage(scaleImage(app, app.tipsJar, 
-                                                                      (200, 200))))
+    canvas.create_image(650, 400, image=ImageTk.PhotoImage(scaleImage(app, 
+                                                            app.tipsJar, (200, 200))))
 
 def drawCust(app, canvas):
     #customer's body
@@ -152,12 +152,12 @@ def drawStats(app, canvas):
             canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}0', 
                                font='Courier 14 bold')
             #tips above tip jar
-            canvas.create_text(650, 275, text=f'+${app.tips}0', font='Courier 25 bold')
+            canvas.create_text(635, 275, text=f'+${app.tips}0', font='Courier 25 bold')
         else:
             canvas.create_text(875, 125, text=f'Tips Earned: ${app.tips}', 
                                font='Courier 14 bold')
             #tips above tip jar
-            canvas.create_text(650, 275, text=f'+${app.tips}', font='Courier 25 bold')
+            canvas.create_text(635, 275, text=f'+${app.tips}', font='Courier 25 bold')
         
     
     if app.evalRevealTimer > 40:

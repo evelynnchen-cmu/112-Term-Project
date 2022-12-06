@@ -15,7 +15,8 @@ def nameScreen_redrawAll(app, canvas):
     canvas.create_text(500, 150, text="Evelynn's Bobaria", font='Courier 50 bold')
     
     #ask for name
-    canvas.create_text(500, 250, text='Type in your username to\nsave or retrieve your progress', font='Courier 15 bold')
+    canvas.create_text(500, 250, text='Type in your username to', font='Courier 15 bold')
+    canvas.create_text(500, 270, text='start saving or retrieve your progress', font='Courier 15 bold')
     
     #username display
     canvas.create_rectangle(250, 300, 750, 350, width=3, fill='#eecf90')

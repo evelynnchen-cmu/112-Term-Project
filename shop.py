@@ -24,17 +24,14 @@ def shopScreen_redrawAll(app, canvas):
         drawOrder(app, canvas)   
 
 def drawBckg(app, canvas):
-    #background color
-    canvas.create_rectangle(0, 0, app.width, app.height, fill='#babfbb', width=0)
+    #background image
+    canvas.create_image(375, 200, image=ImageTk.PhotoImage(app.shopBckg))
     
     #vertical divider
     canvas.create_line(app.width*(3/4), 0, app.width*(3/4), app.height, fill='black', width=3)
     
     #blue sidebar
     canvas.create_rectangle(750, 0, app.width, app.height, fill='lightblue1', width=0)
-    
-    #logo
-    canvas.create_image(375, 225, image=ImageTk.PhotoImage(app.logo))
     
     #countertop
     canvas.create_line(0, app.height*(2/3), app.width*(3/4), app.height*(2/3), fill='black', width=3)
