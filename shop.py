@@ -4,9 +4,7 @@ from classes import *
 #view
 ###################################
 def shopScreen_redrawAll(app, canvas):
-    #draws shop layout
-    drawBckg(app, canvas)
-    #draws day information 
+    drawBckg(app, canvas) 
     drawInfo(app, canvas)
     
     if app.hasOrder and app.isThereCust:
@@ -115,15 +113,16 @@ def drawOrder(app, canvas):
 #controller
 ###################################
 def shopScreen_mouseReleased(app, event):
+    x, y, = event.x, event.y
     # kitchen button check
-    if isValidClick(event.x, event.y, app.shop_kitchenBtnDms) and app.hasOrder and app.isThereCust:
+    if isValidClick(x, y, app.shop_kitchenBtnDms) and app.hasOrder and app.isThereCust:
         app.isThereCust = False
         app.totalOrders += 1
         app.mode = 'kitchenScreen'
-    elif isValidClick(event.x, event.y, app.shop_takeOrderBtnDms) and app.isThereCust:
+    elif isValidClick(x, y, app.shop_takeOrderBtnDms) and app.isThereCust:
         app.hasTakenOrder = True
     # help button check
-    elif isValidClick(event.x, event.y, app.shop_helpBtnDms):
+    elif isValidClick(x, y, app.shop_helpBtnDms):
         app.curHelpScene = 2
         app.cameFromGame = True
         app.mode = 'helpScreen'
@@ -134,10 +133,8 @@ def shopScreen_timerFired(app):
         app.orderRevealTimer += 1
         
     if app.orderRevealTimer > 60:
-        app.hasOrder = True
-        
+        app.hasOrder = True  
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
-    app.currentDay.checkIfDayOver(app)
-    checkIfGameOver(app)   
+    app.currentDay.checkIfDayOver(app)   

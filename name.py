@@ -34,7 +34,7 @@ def nameScreen_keyPressed(app, event):
             app.username += ' '
         elif event.key == 'Backspace':
             app.username = app.username[:-1]
-        else:
+        elif len(app.username) < 15:
             app.username += event.key
     else:        
         if event.key == 'Backspace':

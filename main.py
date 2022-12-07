@@ -89,6 +89,7 @@ def appStarted(app):
     app.ings = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding', 'sugarCube', 
                 'iceCube', 'whole_milk', '2%_milk', 'skim_milk', 'green_tea', 
                 'black_tea', 'oolong_tea']
+    
     app.toppingsOPTIONS = ['tapioca', 'aloe_jelly', 'red_bean', 'pudding']
     app.sugarOPTIONS = ['4_sugar_cubes', '3_sugar_cubes', '2_sugar_cubes', 
                         '1_sugar_cube', '0_sugar_cubes']
@@ -196,9 +197,15 @@ def appStarted(app):
     app.longStraightHair = app.loadImage('./assets/customers/long_straight_hair.png')
     app.shortCurlyHair = app.loadImage('./assets/customers/short_curly_hair.png')
     app.justin = app.loadImage('./assets/customers/justin.png')
+    app.serena = app.loadImage('./assets/customers/serena.png')
+    app.anthony = app.loadImage('./assets/customers/anthony.png')
+    app.emily = app.loadImage('./assets/customers/emily.png')
+    app.evelynn = app.loadImage('./assets/customers/evelynn.png')
+    
     app.custImgs = [app.bangs, app.boring, app.emo, app.grandma, app.grandpa, 
-                    app.leoDicaprio, app.longCurlyHair, app.longHair, app.longStraightHair,
-                    app.shortCurlyHair, app.justin]
+                    app.leoDicaprio, app.longCurlyHair, app.longHair, 
+                    app.longStraightHair,app.shortCurlyHair, app.justin, app.serena, 
+                    app.anthony, app.emily, app.evelynn]
     
     #----decorations----
     app.tipsJar = app.loadImage('./assets/decorations/tips_jar.png')
@@ -209,7 +216,6 @@ def appStarted(app):
     app.cashRegister = app.loadImage('./assets/decorations/cash_register.png')
     app.counter = app.loadImage('./assets/decorations/counter.png')
     app.shopBckg = app.loadImage('./assets/decorations/shop_background.png')
-    
     
     #----boba babies----
     app.happyBoba = app.loadImage('./assets/decorations/boba_babies/happy_boba.png')
@@ -227,6 +233,5 @@ def appStarted(app):
     app.custCritiqueScene = app.loadImage('./assets/scenes/cust_critique.png')
     app.custEvalScene = app.loadImage('./assets/scenes/cust_eval.png')      
     app.selectedStoreScene = app.loadImage('./assets/scenes/selected_store.png')   
-    
 
 runApp(width=1000, height=600, title="Evelynn's Bobaria")

@@ -57,12 +57,16 @@ def drawDayResults(app, canvas):
 #controller
 ###################################
 def dayOverScreen_mouseReleased(app, event):
+    x, y = event.x, event.y
     # next day button check
-    if isValidClick(event.x, event.y, app.dayOver_nextDayBtnDms) and app.dayOverRevealTimer > 80:
-        saveProgress(app)
-        startNewDay(app)
-        app.mode = 'shopScreen'
-    elif isValidClick(event.x, event.y, app.dayOver_storeBtnDms):
+    if isValidClick(x, y, app.dayOver_nextDayBtnDms) and app.dayOverRevealTimer > 80:
+        if app.dayIndex == 7:
+            app.mode = 'gameOverScreen'
+        else:
+            saveProgress(app)
+            startNewDay(app)
+            app.mode = 'shopScreen'
+    elif isValidClick(x, y, app.dayOver_storeBtnDms):
         app.mode = 'storeScreen'
         
 def dayOverScreen_timerFired(app):

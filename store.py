@@ -30,7 +30,6 @@ def storeScreen_redrawAll(app, canvas):
             pass
     
 def drawBoosters(app, canvas):
-    
     if not app.hasBrainyBooster:
         #money boba baby booster
         canvas.create_text(250, 315, text="Brainy", font='Courier 17 bold')
@@ -47,7 +46,6 @@ def drawBoosters(app, canvas):
         canvas.create_image(350, 425, image=ImageTk.PhotoImage(scaleImage(app, app.chefBoba, (250, 250))))
     
 def drawDescs(app, canvas):
-    
     if app.curSelection == 'brainyBooster' and not app.hasBrainyBooster:
         canvas.create_text(700, 100, text='Booster Description', font='Courier 20 bold')
         canvas.create_rectangle(500, 125, 900, 400, width=3, fill='#bab2d9')

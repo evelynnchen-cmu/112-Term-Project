@@ -4,15 +4,9 @@ from classes import *
 #view
 ###################################
 def kitchenScreen_redrawAll(app, canvas):
-    #draws kitchen layout
     drawBckg(app, canvas)
-    #draws customer's order ticket
     drawSideBar(app, canvas)
-    #draws customer's ongoing wait time
     drawCurCustWaitTime(app, canvas)
-    #notifies user if a new customer arrived
-    drawIfNewCust(app, canvas)
-    #helps user know where to add to drink
     drawPourGuide(app, canvas)
     
     #help boba display
@@ -381,7 +375,7 @@ def kitchenScreen_mouseDragged(app, event):
             
             #simulates pouring motion
             if not app.isRotated:
-                #?'.rotate' idea from Pat Virtue via Piazza and gave reference of 
+                #?'.rotate' idea from Pat Virtue via Piazza who gave reference of 
                 #?https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.rotate
                 if app.curIngImg != '':
                     app.curIngImg = app.curIngImg.rotate(angle=90)
@@ -427,4 +421,3 @@ def kitchenScreen_timerFired(app):
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
     app.currentDay.checkIfDayOver(app)
-    checkIfGameOver(app) 

@@ -88,14 +88,8 @@ def resetDayVars(app):
     app.dayOverRevealTimer = 0
     resetCustVars(app)
 
-#checks if the game is over
-def checkIfGameOver(app):
-    if app.dayIndex > 7:
-        app.mode = 'gameOverScreen'
-
-#starts the next day adjusted to how the user is doing
+#starts the next day adjusted to how the user's performance
 def startNewDay(app):
-    
     #if score drops by 10%, drop neededAcurracy by 10%
     if app.avgScore < app.lastDaysScore-.1:
         app.neededAccuracy -= 10 
@@ -157,7 +151,7 @@ def getIngColor(app, ing):
 #evaluates the drink
 def evaluateDrink(app):
     if app.hasAccuracyBooster:
-        # gets 5% bigger error margin
+        #if inspector booster activated, if gets 5% bigger error margin
         errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100)+.05, 2)
     else:
         errorMargin = roundUp(1-(app.currentDay.neededAccuracy/100), 2)
@@ -204,8 +198,8 @@ def evaluateDrink(app):
     #drink score must be above 50% to even get any tips
     if app.drinkScore > .5:
         #every second waited = 1 cent less
-        #after 50 seconds of waiting, no tip is given
-        app.tips = roundUp((500 - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2)    
+        #after 55 seconds (75 if brainy booster is enabled) of waiting, no tip is given
+        app.tips = roundUp((app.patience - app.currentDay.custList[app.currentDay.custIndex-1].waitTime) *.01, 2)    
     if app.tips > 0:
         app.money += app.tips
     else:
@@ -293,7 +287,6 @@ def scaleImage(app, image, box):
     originalRatio = originalWidth/originalHeight
     width, height = box
     goalRatio = width/height
-    
     if originalRatio > goalRatio:
         scale = width/originalWidth
     else:

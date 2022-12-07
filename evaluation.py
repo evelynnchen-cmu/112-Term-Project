@@ -15,14 +15,14 @@ def evaluationScreen_redrawAll(app, canvas):
     if app.evalRevealTimer > 50:    
         canvas.create_image(905, 505, image=ImageTk.PhotoImage(app.happyBoba.rotate(angle=10)))
         drawButton(canvas, app.eval_doneBtnDms, 'Done')
-    
-    #side bar stats
+
     if app.evalRevealTimer > 10:
         drawStats(app, canvas)
 
 def drawBckg(app, canvas):
     #background
-    canvas.create_image(-225, 200, image=ImageTk.PhotoImage(scaleImage(app, app.shopBckg, (2250, 1200))))
+    canvas.create_image(-225, 200, image=ImageTk.PhotoImage(scaleImage(app, app.shopBckg, 
+                                                                       (2250, 1200))))
     if app.hasAccuracyBooster:
         canvas.create_image(365, 440, image=ImageTk.PhotoImage(app.searchingBoba.rotate(angle=-20)))
     
@@ -64,7 +64,6 @@ def drawCust(app, canvas):
         custReaction = app.angry
     
     if app.evalRevealTimer > 20:
-        #drink score
         canvas.create_image(200, 325, image=ImageTk.PhotoImage(custReaction))
 
 def drawMiniTicket(app, canvas):
@@ -158,7 +157,6 @@ def drawStats(app, canvas):
                                font='Courier 14 bold')
             #tips above tip jar
             canvas.create_text(635, 275, text=f'+${app.tips}', font='Courier 25 bold')
-        
     
     if app.evalRevealTimer > 40:
         #total average score
@@ -169,15 +167,16 @@ def drawStats(app, canvas):
 #controller
 ###################################
 def evaluationScreen_mouseReleased(app, event):
+    x, y, = event.x, event.y
     # done button check
-    if isValidClick(event.x, event.y, app.eval_doneBtnDms) and app.evalRevealTimer > 50:
+    if isValidClick(x, y, app.eval_doneBtnDms) and app.evalRevealTimer > 50:
         if app.currentDay.dayTime <= 0:
             app.mode = 'dayOverScreen'
         app.currentDay.custIndex += 1
         resetCustVars(app)
         app.mode = 'shopScreen'
     # help boba check
-    elif isValidClick(event.x, event.y, (3, 517, 53, 587)):
+    elif isValidClick(x, y, (3, 517, 53, 587)):
         app.curHelpScene = 4
         app.cameFromGame = True
         app.mode = 'helpScreen'
@@ -187,5 +186,4 @@ def evaluationScreen_timerFired(app):
     app.currentDay.canNextCust(app)
     app.currentDay.checkIfAddCust(app)
     app.currentDay.incCustWaitTime()
-    app.currentDay.checkIfDayOver(app)
-    checkIfGameOver(app) 
+    app.currentDay.checkIfDayOver(app) 

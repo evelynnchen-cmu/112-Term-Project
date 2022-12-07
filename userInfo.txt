@@ -1,1 +1,1 @@
-{'Master': {'dayIndex': 6, 'neededAccuracy': 90, 'avgScore': 0.9, 'lastDaysScore': 85, 'numOfCusts': 4, 'money': 15.36, 'totalOrders': 18, 'totalScore': 16.2, 'brainyBooster': True, 'accuracyBooster': True, 'chefBooster': True}}
+{'Master': {'dayIndex': 6, 'neededAccuracy': 90, 'avgScore': 0.9, 'lastDaysScore': .85, 'numOfCusts': 4, 'money': 15.36, 'totalOrders': 18, 'totalScore': 16.2, 'brainyBooster': True, 'accuracyBooster': True, 'chefBooster': True}}

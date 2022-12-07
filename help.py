@@ -6,6 +6,7 @@ from classes import *
 def helpScreen_redrawAll(app, canvas):
     #background color
     canvas.create_rectangle(0, 0, app.width, app.height, fill= '#b0906f', width=0)
+    
     #changes the current help scene screen
     if app.curHelpScene == 1:
         drawGameHelp(app, canvas)
@@ -119,19 +120,21 @@ def drawStoreHelp(app, canvas):
     
     canvas.create_image(700, 300, image=ImageTk.PhotoImage(scaleImage(app, app.selectedStoreScene, (400, 225))))
     canvas.create_rectangle(500, 185, 900, 413, width=2)
+    
 ###################################
 #controller
 ###################################
         
 def helpScreen_mouseReleased(app, event):
-    # next button check
-    if isValidClick(event.x, event.y, app.help_nextBtnDms) and app.curHelpScene < 5 and not app.cameFromGame:
+    x, y = event.x, event.y
+    #next button check
+    if isValidClick(x, y, app.help_nextBtnDms) and app.curHelpScene < 5 and not app.cameFromGame:
         app.curHelpScene += 1
-    # back button check
-    if isValidClick(event.x, event.y, app.help_backBtnDms) and app.curHelpScene > 1 and not app.cameFromGame:
+    #back button check
+    if isValidClick(x, y, app.help_backBtnDms) and app.curHelpScene > 1 and not app.cameFromGame:
         app.curHelpScene -= 1
-    #done button
-    if isValidClick(event.x, event.y, app.help_doneBtnDms) and (app.curHelpScene == 5 or app.cameFromGame):
+    #done button check
+    if isValidClick(x, y, app.help_doneBtnDms) and (app.curHelpScene == 5 or app.cameFromGame):
         if not app.cameFromGame:
             app.mode = 'startScreen'
         else:
